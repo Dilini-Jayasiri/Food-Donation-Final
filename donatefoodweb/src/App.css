@@ -1,0 +1,83 @@
+body{
+    overflow-x: hidden;
+    width: 100vw;
+    /* margin-left: 0;
+    margin-right: 0;*/
+    margin:0px;
+    padding: 0px;
+    
+
+}
+#home{
+    background-color: rgb(0, 219, 4);
+    background: linear-gradient(90deg,rgb(4, 219, 0) 50%,rgb(0, 255, 234) 100%);
+    min-height: 500px;
+    margin:0px;
+    padding: 0px;
+    /* //overflow: hidden; */
+}
+
+.form{
+    background-color: rgb(0, 219, 4);
+    background: linear-gradient(90deg,rgb(4, 219, 0) 30%,rgb(0, 255, 234) 100%);
+    overflow: hidden;
+    /* border-radius: 12%; */
+}
+.donDiv{
+    /* margin: 20px 10px 10px 40px; */
+    width:100%;
+}
+.footer{
+    background-color: rgb(0, 219, 4);
+    background: linear-gradient(90deg,rgb(4, 219, 0) 50%,rgb(0, 255, 234) 100%);
+    margin:0px;
+    padding: 0px;
+    /* overflow: hidden; */
+}
+
+.forms{
+
+        width:'80%'
+    
+}
+
+.imageOK{
+    align-items: flex-end;
+}
+.donationCon{
+    width: 70%;
+}
+.labelA {
+    float: left;
+    width: 5em;
+    margin-left: 25%;
+    margin-top: 0.5em;
+    }
+
+.radioA{
+    float: left;
+    width: 5em;
+    margin-left: 19%;
+    margin-top: 0.5em;
+}
+.timePickerA{
+   
+    width: 60%;
+    
+}
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+  }
+.maindiv{
+    display: inline-block;
+    overflow: hidden;
+}
+@import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
+
+h2{
+        font-family:  'Acme', sans-serif;
+
+    }
