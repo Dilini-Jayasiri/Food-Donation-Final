@@ -39,6 +39,7 @@ const initialValues = {
     donorType: '',
     donorName: '',
     phone: '',
+    donorEmail:'',
     mealType: '',
     quantity: '',
     oldFood: '',
@@ -61,6 +62,8 @@ export default function InstantDonation(props) {
             temp.donorName = fieldValues.donorType ? "" : "This field is required."
         if ('phone' in fieldValues)
             temp.phone = fieldValues.phone.length > 9 ? "" : "Minimum 10 numbers required."
+        if ('donorEmail' in fieldValues)
+            temp.donorEmail = (/$^|.+@.+..+/).test(values.donorEmail) ? "" : "Email is not valid."
         if ('mealType' in fieldValues)
             temp.mealType = fieldValues.mealType ? "" : "This field is required."
         if ('quantity' in fieldValues)
@@ -73,8 +76,8 @@ export default function InstantDonation(props) {
             temp.org = fieldValues.org ? "" : "This field is required."
         if ('prefferedArea' in fieldValues)
             temp.prefferedArea = fieldValues.prefferedArea ? "" : "This field is required."
-        if ('confirmTime' in fieldValues)
-            temp.confirmTime = fieldValues.confirmTime ? "" : "This field is required."
+        // if ('confirmTime' in fieldValues)
+        //     temp.confirmTime = fieldValues.confirmTime ? "" : "This field is required."
         setErrors({
             ...temp
         })
@@ -88,13 +91,17 @@ export default function InstantDonation(props) {
         setValues,
         errors,
         setErrors,
-        handleInputChange,
         resetForm
     } = useForm(initialValues, true, validate);
 
     // const [value, setValue] = React.useState<Date | null>
     //     new Date('2022-01-01T00:00:00.000Z')
+    const handleInputChange = (e) => {
+        let name = e.target.name;
+        let value = e.target.value;
 
+        setValues({ ...values, [name]: value });
+    }
     const handleSubmit = async (e) => {
         e.preventDefault()
         if (validate()) {
@@ -102,19 +109,19 @@ export default function InstantDonation(props) {
         }
         //Object Destructuring
         //Store object data into variables
-        const { donorType, donorName, phone, mealType, quantity, oldFood, location, prefferedArea, org, confirmTime } = values;
+        const { donorType, donorName, phone,donorEmail, mealType, quantity, oldFood, location, prefferedArea, org, confirmTime } = values;
 
         try {
             //It is submitted on port 3000 by default 
             //which is front end but we need to submit it on
             //backend which is on port 3001. so we need proxy
-            const res = await fetch('/request', {
+            const res = await fetch('/instantDon', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    donorType, donorName, phone, mealType, quantity, oldFood, location, prefferedArea, org, confirmTime
+                    donorType, donorName, phone,donorEmail, mealType, quantity, oldFood, location, prefferedArea, org, confirmTime
                 })
             })
             if (res.status === 400 || !res) {
@@ -126,6 +133,7 @@ export default function InstantDonation(props) {
                     donorType: '',
                     donorName: '',
                     phone: '',
+                    donorEmail:'',
                     mealType: '',
                     quantity: '',
                     oldFood: '',
@@ -141,15 +149,15 @@ export default function InstantDonation(props) {
             console.log(error);
         }
     }
-    const MainContainer = styled.div`
+//     const MainContainer = styled.div`
   
-  align-items:center;
-  flex-direction:column;
-  width:60vw;
-  background:rgba(255,255,255,0.15);
-  backdrop-filter:blur(8.5px);
-  margin-bottom:4%;
-  `;
+//   align-items:center;
+//   flex-direction:column;
+//   width:60vw;
+//   background:rgba(255,255,255,0.15);
+//   backdrop-filter:blur(8.5px);
+//   margin-bottom:4%;
+//   `;
 
     return (
 
@@ -187,6 +195,17 @@ export default function InstantDonation(props) {
                                                     value={values.phone}
                                                     onChange={handleInputChange}
                                                     error={errors.phone}
+                                                />
+                                            </Box>
+
+                                            <Box my={4} mx={4}>
+                                                <Controls.Input
+
+                                                    label="Email Address"
+                                                    name="donorEmail"
+                                                    value={values.donorEmail}
+                                                    onChange={handleInputChange}
+                                                    error={errors.donorEmail}
                                                 />
                                             </Box>
 
@@ -252,10 +271,11 @@ export default function InstantDonation(props) {
                                                     error={errors.org}
 
                                                 />
-                                                <NavLink style={navLinkStyles} to="/orgList"><GradientButton className='sm' >Search Organization</GradientButton></NavLink>
+                                                <NavLink style={navLinkStyles} to="/requests"><GradientButton className='sm' >Search Organization</GradientButton></NavLink>
 
                                             </Box>
                                             <Box my={4} mx={4} className='timePickerA'>
+
 
                                                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                                                     <DateTimePicker
@@ -304,3 +324,13 @@ export default function InstantDonation(props) {
     );
 
 }
+
+const MainContainer = styled.div`
+  
+align-items:center;
+flex-direction:column;
+width:60vw;
+background:rgba(255,255,255,0.15);
+backdrop-filter:blur(8.5px);
+margin-bottom:4%;
+`;

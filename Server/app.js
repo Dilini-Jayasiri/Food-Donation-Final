@@ -1,4 +1,4 @@
-// Import all dependencies
+//Import all dependencies
 
 const dotenv =require('dotenv');
 const express=require('express');
@@ -13,16 +13,21 @@ dotenv.config({path: './config.env'});
 require('./db/conn');
 const port = process.env.PORT;
 
+
 //Require Model
 const Users = require('./models/userSchema');
 const Message = require('./models/msgSchema');
 const Request = require('./models/requestSchema');
 const ReservedDonation = require('./models/reservedDonationSchema');
-const authenticate = require('./middleware/authenticate')
+const InstantDonation = require('./models/instantDonationSchema');
+const authenticate = require('./middleware/authenticate');
+
+const requestRoute = require('./routes/requests.js');
 //These method is used to get data and cookies from frontend
 app.use(express.json());
 app.use(express.urlencoded({extended : false}));
 app.use(cookieParser());
+app.use('/requests',requestRoute);
 
 app.get('/',(req,res) =>{
     res.send("Hello world");
@@ -158,8 +163,63 @@ app.post('/reservedDon',async(req,res) =>{
     }
 })
 
+app.post('/instantDon',async(req,res) =>{
+    try{
+      
+                   
+        //Get body or data
+        //const donorType = req.body.donorType;
+        const donorName = req.body.donorName;
+        //const donationType = req.body.donationType;
+        const phone = req.body.phone;
+        const donEmail = req.body.donorEmail;
+        const mealType = req.body.mealType;
+        const quantity = req.body.quantity;
+        const oldFood = req.body.oldFood;
+        const address = req.body.location;
+        const area = req.body.prefferedArea;
+        const orgName = req.body.org;
+        //const donorTypeId = req.body.donorTypeId;
+        //const date = req.body.confirmTime;
+        // const foodName = req.body.foodName;
+        // const foodType = req.body.foodType;
 
-app.post('/request',async(req,res) =>{
+
+        const instantDonation= new InstantDonation({
+        donorName:donorName ,
+        //donationType: donationType,
+        phone: phone,
+        donEmail:donEmail,
+        mealType:mealType,
+        quantity: quantity,
+        oldFood:oldFood,
+        address: address,
+        area:area,
+        orgName: orgName,
+        //donorTypeId:donorTypeId,
+        //date: date,
+        //foodName: foodName,
+        
+        // mealType: mealType,
+        // foodType: foodType
+        
+            
+        });
+
+        //Save method is used to create user
+        //But before saving or inserting, password will hash.
+        //Because of hashing.After hash, it will save to DB
+        const created = await instantDonation.save();
+        console.log(created);
+        res.status(200).send("Donation Details Sent");
+
+    }catch(error){
+        res.status(400).send(error);
+    }
+})
+
+
+app.post('/requests',async(req,res) =>{
     try{
         //Get body or data
         const orgName = req.body.orgName;

@@ -4,10 +4,12 @@ import { Box, Grid } from '@mui/material';
 import Controls from '../../components/controls/Controls'
 
 import { useForm, Form } from '../../components/useForm';
-
+import { Row, Col } from 'react-bootstrap'
+import styled from 'styled-components';
 import DatePicker1 from '../../components/controls/DatePicker1';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import * as orgType from '../../organizations/orgType'
+import "../../assets/partials/requestForm.scss";
 
 
 const mealTypeItems = [
@@ -30,7 +32,7 @@ const mealTypeItems = [
 //   });
 
 const initialValues = {
-    id: 0,
+    id: '',
     orgName: '',
    orgType: '',
    orgTypeId: '',
@@ -81,16 +83,25 @@ export default function RequestForm(props) {
         setValues,
         errors,
         setErrors,
-        handleInputChange,
+        //handleInputChange,
         resetForm
     } = useForm(initialValues, true, validate);
 
+    const handleInputChange = (e) => {
+        let name = e.target.name;
+        let value = e.target.value;
+
+        setValues({ ...values, [name]: value });
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         if (validate()) {
             addOrEdit(values, resetForm)
         }
+
+        
+    
         //Object Destructuring
         //Store object data into variables
         const { orgName, orgType, orgTypeId, orgEmail, orgSize, phone, city, mealType, quantity, confirmedDate } = values;
@@ -98,7 +109,7 @@ export default function RequestForm(props) {
             //It is submitted on port 3000 by default 
             //which is front end but we need to submit it on
             //backend which is on port 3001. so we need proxy
-            const res = await fetch('/request', {
+            const res = await fetch('/requests', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -128,9 +139,30 @@ export default function RequestForm(props) {
             console.log(error);
         }
     }
+    // const MainContainer = styled.div`
+  
+    // align-items:center;
+    // flex-direction:column;
+    // width:60vw;
+    // background:rgba(255,255,255,0.15);
+    // backdrop-filter:blur(8.5px);
+    // margin-bottom:4%;
+    // `;
 
     return (
         // <Grid container  alignItems="center" justify="center">
+        <Row className='request'>
+        <div className='reqDiv'>
+
+                <center> 
+                <Col xs={12} className='md-5 mt-4 mb-4 align-middle'>
+                    <h2>Request Form</h2>
+                </Col>
+                </center>
+               
+                <center>
+
+                    <MainContainer>
         <Form onSubmit={handleSubmit} method={'POST'}>
             <div>
                 <Grid container>
@@ -215,7 +247,7 @@ export default function RequestForm(props) {
                             />
                         </Box>
 
-                        <Box my={4} mx={4}>
+                        <Box my={2} mx={4}>
                             <Controls.TextArea
 
                                 label="Reason for Request"
@@ -224,7 +256,7 @@ export default function RequestForm(props) {
                                 onChange={handleInputChange}
                             />
                         </Box>
-                        <Box my={4} mx={4}>
+                        {/* <Box my={4} mx={4}>
                             <Controls.RadioGroups
                                 name="mealType"
                                 label="Meal Type"
@@ -232,10 +264,25 @@ export default function RequestForm(props) {
                                 onChange={handleInputChange}
                                 items={mealTypeItems}
                             />
-                        </Box>
+                        </Box> */}
+                        {/* <div class="form-check form-check-inline"> */}
+                                <Box my={3} mx={-1}>
+
+                                    <Controls.RadioGroups
+                                        row
+                                        name="mealType"
+                                        label="Meal Type"
+                                        value={values.mealType}
+                                        onChange={handleInputChange}
+                                        items={mealTypeItems}
+                                        //error={errors.mealType}
+                                    />
+                                </Box>
+                            {/* </div> */}
 
 
-                        <Box my={4} mx={4}>
+                        {/* <Box my={4} mx={4}> */}
+                        <Box  my={4} mx={-2}>
                             <Controls.DatePicker1
                                 name="confirmedDate"
                                 label="Confirmed Date"
@@ -277,9 +324,40 @@ export default function RequestForm(props) {
                 </Grid>
             </div>
         </Form>
+        </MainContainer>
+                </center>
+
+
+            </div>
+            </Row>
         // </Grid>
 
     )
 }
+
+const MainContainer = styled.div`
+    //   display:flex;
+    //   align-items:center;
+    //   flex-direction:column;
+    //   height:50%;
+    //   width:60%;
+    //   opacity:2.8;
+    //   font-weight:bold;
+    //    background:rgba(255,255,255,0.4);
+    //    box-shadow:0 8px 32px 0 rgba(31,38,135,0.37);
+    //  backdrop-filter:blur(8.5px)
+    //   border-radius:10px;
+    //   color:#ffffff;
+    //  // text-transform:uppercase;
+    //   letter-spacing:0.4rem;
+      
+      align-items:center;
+    flex-direction:column;
+    width:60vw;
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(8.5px);
+    margin-bottom:4%;
+    background:rgba(255,255,255,0.4);
+    box-shadow:0 8px 32px 0 rgba(31,38,135,0.37);`;
 
 

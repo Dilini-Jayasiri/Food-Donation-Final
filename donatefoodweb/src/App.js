@@ -19,6 +19,7 @@ import ProtectedRoute from './ProtectedRoute';
 
 
 import Requests from './pages/Requests/Requests';
+import RequestForm from './pages/Requests/RequestForm';
 import { useEffect, useState } from 'react';
 import InstantDonation from './pages/InstantDonation';
 import ReservedDonation from './pages/ReservedDonation';
@@ -78,6 +79,7 @@ function App() {
      <Route  path="/reservedDonation" element={<ReservedDonation/>} auth={auth1}/>
      <Route path="/donationType" element={<DonationType/>} auth={auth1}/>
      <Route path="/requests" element={<Requests/>} auth={auth1}/>
+     <Route path="/requestForm" element={<RequestForm/>} auth={auth1}/>
      <Route path="/donorAccount" element={<DonorAccount/>} auth={auth1}/>
      <Route  path="/logout" element={<Logout/>} auth={auth1}/>
      <Route path="/orgList" element={<OrgList/>}/>

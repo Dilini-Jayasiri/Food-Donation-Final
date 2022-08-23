@@ -1,6 +1,7 @@
 import { Paper, TableBody, TableCell, TableRow } from '@material-ui/core'
 import React, { useState } from 'react'
 
+
 import RequestForm from './RequestForm'
 //import { makeStyles } from '@mui/styles';
 import { makeStyles} from '@material-ui/styles';
@@ -12,7 +13,8 @@ import Controls from '../../components/controls/Controls';
 import {Search} from "@mui/icons-material"
 import {Add} from "@mui/icons-material"
 import Popup from "../../components/Popup"
-
+import { useEffect } from 'react';
+import RequestTable from '../RequestTable.js'
 
 
 const theme = createTheme({
@@ -42,42 +44,57 @@ const headCells = [
   {id:'phone',label:'Contact Number'},
   {id:'orgEmail',label:'Email'},
   {id:'quantity',label:'Needed Food Parcels',disableSorting:true},
+  
 ]
-export default function Requests() {
+const Requests = () => {
+  const [requests,setRequests] = useState(null);
+
+  useEffect(() => {
+    const fetchRequests = async () => {
+      const response = await fetch('/requests');
+      const json = await response.json()
+
+      if(response.ok){
+        setRequests(json)
+      }
+    }
+    fetchRequests()
+  },[])
+
 
 
   const classes = useStyles();
-  const [records,setRecords] = useState(OrgType.getAllRequests());
-  const [filterFn,setFilterFn] = useState({fn:items => {return items; } });
-  const [openPopup,setOpenPopup] = useState(false);
+  // const [records,setRecords] = useState(OrgType.getAllRequests());
+  // const [filterFn,setFilterFn] = useState({fn:items => {return items; } });
+  //const [openPopup,setOpenPopup] = useState(false);
 
 
-  const {
-    TblContainer,
-    TblHead,
-    TblPagination,
-    recordsAfterPaginAndSorting
+  // const {
+  //   TblContainer,
+  //   TblHead,
+  //   TblPagination,
+  //   recordsAfterPaginAndSorting
 
-  }=UseTable(records,headCells,filterFn); 
+  // }=UseTable(records,headCells,filterFn); 
 
-  const handleSearch = e => {
-    let target = e.target;
-    setFilterFn({
-      fn: items => {
-        if(target.value == "")
-           return items;
-        else 
-            return items.filter(x => x.orgName.toLowerCase().includes(target.value))
-      }
-    })
-  }
+  // const handleSearch = e => {
+  //   let target = e.target;
+  //   setFilterFn({
+  //     fn: items => {
+  //       if(target.value == "")
+  //          return items;
+  //       else 
+  //           return items.filter(x => x.orgName.toLowerCase().includes(target.value))
+  //     }
+  //   })
+  // }
 
-  const addOrEdit = (request,resetForm) => {
-    OrgType.insertRequests(request)
-    resetForm()
-    setOpenPopup(false);
-    setRecords(OrgType.getAllRequests())
-  }
+  // const addOrEdit = (request,resetForm) => {
+  //   OrgType.insertRequests(request)
+  //   resetForm()
+  //   setOpenPopup(false);
+  //   setRecords(OrgType.getAllRequests())
+  // }
 
   return (
       <>
@@ -107,18 +124,23 @@ export default function Requests() {
                    </InputAdornment>)
                    
                  }} 
-                 onChange={handleSearch}
+                //  onChange={handleSearch}
                  />
 
-                <Controls.Button
+                {/* <Controls.Button
                 text="Add New"
                 variant="outlined"
                 startIcon={<Add/>}
                 className={classes.newButton}
                 onClick={() => setOpenPopup(true)}
-                />
+                /> */}
             </Toolbar>
-            <TblContainer>
+            <div className='requests'>
+              {requests && requests.map((request)=> (
+                <RequestTable key={request._id} request={request}/>
+              ))}
+            </div>
+            {/* <TblContainer>
               <TblHead className="tableHead"/>
                  <TableBody>
                    {
@@ -130,26 +152,31 @@ export default function Requests() {
                         <TableCell>{item.phone}</TableCell>
                         <TableCell>{item.orgEmail}</TableCell>
                         <TableCell>{item.quantity}</TableCell>
+                        
 
                       </TableRow>))
                    }
                  </TableBody>
 
-            </TblContainer>
-            <TblPagination/>
+            </TblContainer> */}
+            {/* <TblPagination/> */}
+
+          
           </ThemeProvider>
 
         </Paper>
-        <Popup
+        {/* {/* <Popup
         title="Request Form"
          openPopup={openPopup}
-         setOpenPopup={setOpenPopup} >
-           <RequestForm 
-           addOrEdit={addOrEdit} />
-        </Popup>
+         setOpenPopup={setOpenPopup} > */}
+           {/* <RequestForm />  */}
+          {/* //  addOrEdit={addOrEdit} /> */}
+        {/* </Popup> */}
         
         
      </Box>
     </>
   )
 }
+
+export default Requests
