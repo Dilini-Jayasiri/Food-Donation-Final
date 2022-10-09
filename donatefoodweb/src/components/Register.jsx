@@ -43,7 +43,7 @@ const handleSubmit = async(event)=>{
             window.alert("Already Used Details")
         }else{
             window.alert("Registered Successfully");
-            history.push('/login')
+            history.pushState('/login')
         }
     } catch (error) {
         console.log(error);

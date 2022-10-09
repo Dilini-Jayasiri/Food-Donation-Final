@@ -271,7 +271,7 @@ export default function InstantDonation(props) {
                                                     error={errors.org}
 
                                                 />
-                                                <NavLink style={navLinkStyles} to="/requests"><GradientButton className='sm' >Search Organization</GradientButton></NavLink>
+                                                <NavLink style={navLinkStyles} to="/tableNew"><GradientButton className='sm' >Search Organization</GradientButton></NavLink>
 
                                             </Box>
                                             <Box my={4} mx={4} className='timePickerA'>

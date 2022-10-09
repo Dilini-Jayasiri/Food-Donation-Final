@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
   return (
     <div>
         <footer className="footer text-white">
-            <div className="container">
+            <div className="container" mt='5'>
                 <footer className="py-5">
                     <div className="row">
                         <div className="col-6">
@@ -41,7 +41,7 @@ import { NavLink } from 'react-router-dom';
                                 </NavLink>
                             </li>
                             <li className="nav-item mb-2">
-                            <NavLink to="./requests" className="nav-link p-0 text-white">
+                            <NavLink to="./tableNew" className="nav-link p-0 text-white">
                                     Show Food Requests
                                     </NavLink>
                             </li>
