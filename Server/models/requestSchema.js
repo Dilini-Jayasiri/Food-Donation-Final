@@ -11,13 +11,13 @@ const requestSchema = new mongoose.Schema({
     },
     orgType : {
         type : String,
-       // required : true,
+        required : true,
         
     },
-    orgTypeId : {
-        type : String,
+    // orgTypeId : {
+    //     type : String,
         
-    },
+    // },
     orgEmail : {
         type : String,
         required : true

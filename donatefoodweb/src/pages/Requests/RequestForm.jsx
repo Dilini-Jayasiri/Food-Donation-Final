@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react'
-
 import { Box, Grid } from '@mui/material';
 import Controls from '../../components/controls/Controls'
-
 import { useForm, Form } from '../../components/useForm';
 import { Row, Col } from 'react-bootstrap'
 import styled from 'styled-components';
-import DatePicker1 from '../../components/controls/DatePicker1';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import * as orgType from '../../organizations/orgType'
 import "../../assets/partials/requestForm.scss";
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 
 
 const mealTypeItems = [
@@ -34,8 +33,8 @@ const mealTypeItems = [
 const initialValues = {
     id: '',
     orgName: '',
-   orgType: '',
-   orgTypeId: '',
+    orgType: '',
+    // orgTypeId: '',
     orgEmail: '',
     orgSize: '',
     phone: '',
@@ -52,8 +51,8 @@ export default function RequestForm(props) {
         let temp = { ...errors }
         if ('orgName' in fieldValues)
             temp.orgName = fieldValues.orgName ? "" : "This field is required."
-        if ('orgTypeId' in fieldValues)
-            temp.orgTypeId = fieldValues.orgTypeId.length != 0 ? "" : "This field is required."
+        // if ('orgTypeId' in fieldValues)
+        //     temp.orgTypeId = fieldValues.orgTypeId.length != 0 ? "" : "This field is required."
         if ('orgType' in fieldValues)
             temp.orgType = fieldValues.orgType ? "" : "This field is required."
         if ('orgEmail' in fieldValues)
@@ -100,11 +99,13 @@ export default function RequestForm(props) {
             addOrEdit(values, resetForm)
         }
 
-        
-    
+
+
+
+
         //Object Destructuring
         //Store object data into variables
-        const { orgName, orgType, orgTypeId, orgEmail, orgSize, phone, city, mealType, quantity, confirmedDate } = values;
+        const { orgName, orgType, orgEmail, orgSize, phone, city, mealType, quantity, confirmedDate } = values;
         try {
             //It is submitted on port 3000 by default 
             //which is front end but we need to submit it on
@@ -115,7 +116,7 @@ export default function RequestForm(props) {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    orgName, orgType, orgTypeId, orgEmail, orgSize, phone, city, mealType, quantity, confirmedDate
+                    orgName, orgType, orgEmail, orgSize, phone, city, mealType, quantity, confirmedDate
                 })
             })
             if (res.status === 400 || !res) {
@@ -125,7 +126,7 @@ export default function RequestForm(props) {
                 setValues({
                     orgName: '',
                     orgType: '',
-                    orgTypeId: '',
+                    // orgTypeId: '',
                     orgEmail: '',
                     orgSize: '',
                     phone: '',
@@ -140,7 +141,7 @@ export default function RequestForm(props) {
         }
     }
     // const MainContainer = styled.div`
-  
+
     // align-items:center;
     // flex-direction:column;
     // width:60vw;
@@ -152,111 +153,131 @@ export default function RequestForm(props) {
     return (
         // <Grid container  alignItems="center" justify="center">
         <Row className='request'>
-        <div className='reqDiv'>
+            <div className='reqDiv'>
 
-                <center> 
-                <Col xs={12} className='md-5 mt-4 mb-4 align-middle'>
-                    <h2>Request Form</h2>
-                </Col>
+                <center>
+                    <Col xs={12} className='md-5 mt-4 mb-4 align-middle'>
+                        <h2>Request Form</h2>
+                    </Col>
                 </center>
-               
+
                 <center>
 
                     <MainContainer>
-        <Form onSubmit={handleSubmit} method={'POST'}>
-            <div>
-                <Grid container>
-                    <Grid item xs={6}>
-                        <Box my={4} mx={4}>
-                            <Controls.Input
-                                name="orgName"
-                                label="Organization Name"
-                                value={values.orgName}
-                                onChange={handleInputChange}
-                                error={errors.orgName}
-                            />
-                        </Box>
+                        <Form onSubmit={handleSubmit} method={'POST'}>
+                            <div>
+                                <Grid container>
+                                    <Grid item xs={6}>
+                                        <Box my={4} mx={4}>
+                                            <Controls.Input
+                                                name="orgName"
+                                                label="Organization Name"
+                                                value={values.orgName}
+                                                onChange={handleInputChange}
+                                                error={errors.orgName}
+                                            />
+                                        </Box>
 
-                        <Box my={4} mx={4}>
-                            <Controls.Input
+                                        <Box my={4} mx={4}>
+                                            <Controls.Input
 
-                                label="Email Address"
-                                name="orgEmail"
-                                value={values.orgEmail}
-                                onChange={handleInputChange}
-                                error={errors.orgEmail}
-                            />
-                        </Box>
+                                                label="Email Address"
+                                                name="orgEmail"
+                                                value={values.orgEmail}
+                                                onChange={handleInputChange}
+                                                error={errors.orgEmail}
+                                            />
+                                        </Box>
 
-                        <Box my={4} mx={4}>
-                            <Controls.Input
+                                        <Box my={4} mx={4}>
+                                            <Controls.Input
 
-                                label="Size of the Organization"
-                                name="orgSize"
-                                value={values.orgSize}
-                                onChange={handleInputChange}
-                                error={errors.orgSize}
-                            />
-                        </Box>
+                                                label="Size of the Organization"
+                                                name="orgSize"
+                                                value={values.orgSize}
+                                                onChange={handleInputChange}
+                                                error={errors.orgSize}
+                                            />
+                                        </Box>
 
-                        <Box my={4} mx={4}>
-                            <Controls.Input
+                                        <Box my={4} mx={4}>
+                                            <Controls.Input
 
-                                label="Contact Number"
-                                name="phone"
-                                value={values.phone}
-                                onChange={handleInputChange}
-                                error={errors.phone}
-                            />
-                        </Box>
+                                                label="Contact Number"
+                                                name="phone"
+                                                value={values.phone}
+                                                onChange={handleInputChange}
+                                                error={errors.phone}
+                                            />
+                                        </Box>
 
-                        <Box my={4} mx={4}>
-                            <Controls.Input
+                                        <Box my={4} mx={4}>
+                                            <Controls.Input
 
-                                label="City"
-                                name="city"
-                                value={values.city}
-                                onChange={handleInputChange}
-                                error={errors.city}
-                            />
-                        </Box>
+                                                label="City"
+                                                name="city"
+                                                value={values.city}
+                                                onChange={handleInputChange}
+                                                error={errors.city}
+                                            />
+                                        </Box>
 
-                    </Grid>
+                                    </Grid>
 
-                    <Grid item xs={6}>
-                        <Box my={4} mx={4}>
-                            <Controls.Input
+                                    <Grid item xs={6}>
+                                        <Box my={4} mx={4}>
+                                            <Controls.Input
 
-                                label="Quantity"
-                                name="quantity"
-                                value={values.quantity}
-                                onChange={handleInputChange}
-                                error={errors.quantity}
-                            />
-                        </Box>
+                                                label="Quantity"
+                                                name="quantity"
+                                                value={values.quantity}
+                                                onChange={handleInputChange}
+                                                error={errors.quantity}
+                                            />
+                                        </Box>
 
-                        <Box my={4} mx={4}>
+                                        {/* <Box my={4} mx={4}>
 
-                            <Controls.Selects
-                                name="orgTypeId"
-                                label="Organization Type"
-                                value={values.orgTypeId}
-                                onChange={handleInputChange}
-                                options={orgType.getOrgCollection()}
-                                error={errors.orgTypeId}
-                            />
-                        </Box>
+                                            <Controls.Selects
+                                                name="orgTypeId"
+                                                label="Organization Type"
+                                                value={values.orgTypeId}
+                                                onChange={handleInputChange}
+                                                options={orgType.getOrgCollection()}
+                                                error={errors.orgTypeId}
+                                            />
+                                        </Box> */}
+                                        <Box my={0} mx={0}>
+                                         <FormControl sx={{ m: 1, minWidth: 80 }}>
+        <InputLabel id="demo-simple-select-autowidth-label">Organization Type</InputLabel>
+      <Select
+      name="orgType"
+        labelId="demo-select-small"
+        id="demo-select-small"
+        value={values.orgType}
+        label="Organization Type"
+        onChange={handleInputChange}
+      >
+        <MenuItem value="">
+          <em>None</em>
+        </MenuItem>
+        <MenuItem value={"Childrens Home"}>Childrens Home</MenuItem>
+        <MenuItem value={"Elders Home"}>Elders Home</MenuItem>
+        <MenuItem value={"Nursing Home"}>Nursing Home</MenuItem>
+      </Select>
+    </FormControl>
+    </Box>
 
-                        <Box my={2} mx={4}>
-                            <Controls.TextArea
+                                        <Box my={2} mx={4}>
+                                            <Controls.TextArea
 
-                                label="Reason for Request"
-                                name="reason"
-                                value={values.reason}
-                                onChange={handleInputChange}
-                            />
-                        </Box>
-                        {/* <Box my={4} mx={4}>
+                                                label="Reason for Request"
+                                                name="reason"
+                                                value={values.reason}
+                                                onChange={handleInputChange}
+                                            />
+                                        </Box>
+                                        {/* <Box my={4} mx={4}>
                             <Controls.RadioGroups
                                 name="mealType"
                                 label="Meal Type"
@@ -265,8 +286,8 @@ export default function RequestForm(props) {
                                 items={mealTypeItems}
                             />
                         </Box> */}
-                        {/* <div class="form-check form-check-inline"> */}
-                                <Box my={3} mx={-1}>
+                                        {/* <div class="form-check form-check-inline"> */}
+                                        <Box my={3} mx={-1}>
 
                                     <Controls.RadioGroups
                                         row
@@ -277,40 +298,41 @@ export default function RequestForm(props) {
                                         items={mealTypeItems}
                                         //error={errors.mealType}
                                     />
-                                </Box>
-                            {/* </div> */}
+                                </Box> 
+                                       
+                                        {/* </div> */}
 
 
-                        {/* <Box my={4} mx={4}> */}
-                        <Box  my={4} mx={-2}>
-                            <Controls.DatePicker1
-                                name="confirmedDate"
-                                label="Confirmed Date"
-                                value={values.confirmedDate}
-                                onChange={handleInputChange}
-                            />
-                        </Box>
-                        {/* <DatePicker1/> */}
-                        <div >
-                            <Box my={4} mx={4}>
+                                        {/* <Box my={4} mx={4}> */}
+                                        <Box my={4} mx={-2}>
+                                            <Controls.DatePicker1
+                                                name="confirmedDate"
+                                                label="Confirmed Date"
+                                                value={values.confirmedDate}
+                                                onChange={handleInputChange}
+                                            />
+                                        </Box>
+                                        {/* <DatePicker1/> */}
+                                        <div >
+                                            <Box my={4} mx={4}>
 
-                                <Controls.Button
-                                    // variant="contained"
-                                    // color="primary"
-                                    // size="large"
-                                    onClick={handleSubmit}
-                                    type="submit"
-                                    text="Submit"
-                                />
+                                                <Controls.Button
+                                                    // variant="contained"
+                                                    // color="primary"
+                                                    // size="large"
+                                                    onClick={handleSubmit}
+                                                    type="submit"
+                                                    text="Submit"
+                                                />
 
 
-                                {/* <ThemeProvider theme={theme}>
+                                                {/* <ThemeProvider theme={theme}>
                                <Controls.Button color="neutral" variant="contained" onClick={resetForm}>
     Reset
     </Controls.Button>
 </ThemeProvider> */}
 
-                                {/* // variant="contained"
+                                                {/* // variant="contained"
                                 // 
                                 // size="large"
                                 //type="Reset"
@@ -318,18 +340,18 @@ export default function RequestForm(props) {
                                 //text="Reset" */}
 
 
-                            </Box>
-                        </div>
-                    </Grid>
-                </Grid>
-            </div>
-        </Form>
-        </MainContainer>
+                                            </Box>
+                                        </div>
+                                    </Grid>
+                                </Grid>
+                            </div>
+                        </Form>
+                    </MainContainer>
                 </center>
 
 
             </div>
-            </Row>
+        </Row>
         // </Grid>
 
     )
