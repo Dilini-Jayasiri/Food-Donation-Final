@@ -24,10 +24,10 @@ const instantDonationSchema = new mongoose.Schema({
         required : true,
         
     },
-    address : {
-        type : String,
-        required : true
-    },
+    // address : {
+    //     type : String,
+    //     required : true
+    // },
     orgName : {
         type : String,
         required : true
