@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React,{useEffect} from 'react';
 import Grid from '@mui/material/Grid';
 import { Box } from '@mui/material';
 // import Typography from '@mui/material/Typography';
@@ -17,6 +17,11 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import '../assets/partials/instantDonation.scss';
 import styled from 'styled-components';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import { useState } from 'react';
 
 const navLinkStyles = () => {
     return {
@@ -36,7 +41,7 @@ const mealType = [
 
 const initialValues = {
     id: '',
-    donorType: '',
+  //  donorType: '',
     donorName: '',
     phone: '',
     donorEmail:'',
@@ -44,7 +49,7 @@ const initialValues = {
     quantity: '',
     oldFood: '',
     location: '',
-    org: '',
+    organizationName: '',
     prefferedArea: '',
     confirmTime: ''
 }
@@ -52,14 +57,26 @@ const initialValues = {
 export default function InstantDonation(props) {
     const { addOrEdit } = props
 
+const [organizationName,setOrganizationName]=useState("");
+const [orgs,setOrgs] = React.useState([{'orgName':'','_id':''}]);
+
+useEffect(() => {
+  const fetchData = async () => {
+    const response = await fetch('/requests');
+    const newData = await response.json();
+    setOrgs(newData);
+    console.log(newData);
+  };
+  fetchData();
+},[]);
 
 
     const validate = (fieldValues = values) => {
         let temp = { ...errors }
-        if ('donorType' in fieldValues)
-            temp.donorType = fieldValues.donorType ? "" : "This field is required."
+        // if ('donorType' in fieldValues)
+        //     temp.donorType = fieldValues.donorType ? "" : "This field is required."
         if ('donorName' in fieldValues)
-            temp.donorName = fieldValues.donorType ? "" : "This field is required."
+            temp.donorName = fieldValues.donorName ? "" : "This field is required."
         if ('phone' in fieldValues)
             temp.phone = fieldValues.phone.length > 9 ? "" : "Minimum 10 numbers required."
         if ('donorEmail' in fieldValues)
@@ -72,8 +89,8 @@ export default function InstantDonation(props) {
             temp.oldFood = fieldValues.oldFood ? "" : "This field is required."
         if ('location' in fieldValues)
             temp.location = fieldValues.location ? "" : "This field is required."
-        if ('org' in fieldValues)
-            temp.org = fieldValues.org ? "" : "This field is required."
+        if ('organizationName' in fieldValues)
+            temp.organizationName = fieldValues.organizationName ? "" : "This field is required."
         if ('prefferedArea' in fieldValues)
             temp.prefferedArea = fieldValues.prefferedArea ? "" : "This field is required."
         // if ('confirmTime' in fieldValues)
@@ -109,7 +126,7 @@ export default function InstantDonation(props) {
         }
         //Object Destructuring
         //Store object data into variables
-        const { donorType, donorName, phone,donorEmail, mealType, quantity, oldFood, location, prefferedArea, org, confirmTime } = values;
+        const {donorName, phone,donorEmail, mealType, quantity, oldFood, location, prefferedArea, organizationName, confirmTime } = values;
 
         try {
             //It is submitted on port 3000 by default 
@@ -121,7 +138,7 @@ export default function InstantDonation(props) {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    donorType, donorName, phone,donorEmail, mealType, quantity, oldFood, location, prefferedArea, org, confirmTime
+                 donorName, phone,donorEmail, mealType, quantity, oldFood, location, prefferedArea, organizationName, confirmTime
                 })
             })
             if (res.status === 400 || !res) {
@@ -130,7 +147,7 @@ export default function InstantDonation(props) {
                 window.alert("Message Sent Successfully");
                 setValues({
 
-                    donorType: '',
+                   // donorType: '',
                     donorName: '',
                     phone: '',
                     donorEmail:'',
@@ -139,7 +156,7 @@ export default function InstantDonation(props) {
                     oldFood: '',
                     location: '',
                     prefferedArea: '',
-                    org: '',
+                    organizationName: '',
                     confirmTime: ''
 
                 })
@@ -263,21 +280,33 @@ export default function InstantDonation(props) {
                                             </Box>
 
                                             <Box my={4} mx={4}>
-                                                <Controls.Input
-                                                    label="Organization"
-                                                    name="org"
-                                                    value={values.org}
-                                                    onChange={handleInputChange}
-                                                    error={errors.org}
-
-                                                />
-                                                <NavLink style={navLinkStyles} to="/tableNew"><GradientButton className='sm' >Search Organization</GradientButton></NavLink>
+                                            <FormControl sx={{ m: 1, minWidth: 80 }}>
+        <InputLabel id="demo-simple-select-autowidth-label">Organization Type</InputLabel>
+      <Select
+      name="organizationName"
+        labelId="demo-select-small"
+        id="demo-select-small"
+        value={values.organizationName}
+        label="Organization Type"
+        onChange={handleInputChange}
+      >
+        <MenuItem value="">
+          <em>None</em>
+        </MenuItem>
+        {orgs.map(org => (
+          <MenuItem value={org.orgName} key={org._id}>{org.orgName}</MenuItem>
+        ))}
+        
+        
+      </Select>
+    </FormControl>
+                                                
 
                                             </Box>
                                             <Box my={4} mx={4} className='timePickerA'>
 
 
-                                                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                                {/* <LocalizationProvider dateAdapter={AdapterDateFns}>
                                                     <DateTimePicker
                                                         style={{ width: '50%' }}
                                                         renderInput={(props) => <TextField {...props} />}
@@ -287,7 +316,7 @@ export default function InstantDonation(props) {
                                                             setValues(handleInputChange);
                                                         }}
                                                     />
-                                                </LocalizationProvider>
+                                                </LocalizationProvider> */}
                                             </Box>
 
 
