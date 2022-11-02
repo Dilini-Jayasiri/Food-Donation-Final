@@ -24,22 +24,22 @@ const instantDonationSchema = new mongoose.Schema({
         required : true,
         
     },
-    // address : {
-    //     type : String,
-    //     required : true
-    // },
+    address : {
+        type : String,
+        required : true
+    },
     orgName : {
         type : String,
         required : true
     },
-    // date : {
-    //     type : String,
-    //     required : true
-    // },
-    prefferedArea : {
+    date : {
         type : String,
         required : true
     },
+    // prefferedArea : {
+    //     type : String,
+    //     required : true
+    // },
     quantity : {
         type : String,
         required : true
@@ -57,20 +57,14 @@ const instantDonationSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-
-    
-    // foodType : {
-    //     type : String,
-    //     required : true
-    // },
-    // mealType : {
-    //     type : String,
-    //     required : true
-    // },
-    
-    
-
-   
+    foodType : {
+        type : String,
+        required : true
+    },
+    foodName : {
+        type : String,
+        required : true
+    },  
 })
 
 //Create Model

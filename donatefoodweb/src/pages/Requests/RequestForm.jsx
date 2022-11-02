@@ -33,15 +33,15 @@ const mealTypeItems = [
 const initialValues = {
     id: '',
     orgName: '',
-    orgType: '',
-    // orgTypeId: '',
     orgEmail: '',
     orgSize: '',
     phone: '',
     city: '',
-    mealType: '',
+
     quantity: '',
+    orgType: '',
     reason: '',
+    mealType: '',
     confirmedDate: new Date(),
 }
 export default function RequestForm(props) {
@@ -93,19 +93,14 @@ export default function RequestForm(props) {
         setValues({ ...values, [name]: value });
     }
 
-    const handleSubmit = async (e) => {
-        e.preventDefault()
+    const handleSubmit = async (event) => {
+        event.preventDefault();
         if (validate()) {
             addOrEdit(values, resetForm)
         }
-
-
-
-
-
         //Object Destructuring
         //Store object data into variables
-        const { orgName, orgType, orgEmail, orgSize, phone, city, mealType, quantity, confirmedDate } = values;
+        const { orgName,orgEmail, orgSize, phone, city,quantity,orgType,reason,mealType,confirmedDate } = values;
         try {
             //It is submitted on port 3000 by default 
             //which is front end but we need to submit it on
@@ -116,7 +111,7 @@ export default function RequestForm(props) {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    orgName, orgType, orgEmail, orgSize, phone, city, mealType, quantity, confirmedDate
+                    orgName,orgEmail, orgSize, phone, city,quantity,orgType,reason,mealType,confirmedDate
                 })
             })
             if (res.status === 400 || !res) {
@@ -125,16 +120,17 @@ export default function RequestForm(props) {
                 window.alert("Message Sent Successfully");
                 setValues({
                     orgName: '',
-                    orgType: '',
-                    // orgTypeId: '',
                     orgEmail: '',
                     orgSize: '',
                     phone: '',
                     city: '',
-                    mealType: '',
                     quantity: '',
+                    orgType: '',
+                    reason:'',
+                    mealType: '',
                     confirmedDate: '',
                 })
+                console.log(values);
             }
         } catch (error) {
             console.log(error);
@@ -248,8 +244,8 @@ export default function RequestForm(props) {
                                             />
                                         </Box> */}
                                         <Box my={0} mx={0}>
-                                         <FormControl sx={{ m: 1, minWidth: 80 }}>
-        <InputLabel id="demo-simple-select-autowidth-label">Organization Type</InputLabel>
+                                         {/* <FormControl sx={{ m: 1, minWidth: 80 }}> */}
+        {/* <InputLabel id="demo-simple-select-autowidth-label">Organization Type</InputLabel>
       <Select
       name="orgType"
         labelId="demo-select-small"
@@ -258,14 +254,22 @@ export default function RequestForm(props) {
         label="Organization Type"
         onChange={handleInputChange}
       >
-        <MenuItem value="">
+        <MenuItem value="orgType">
           <em>None</em>
         </MenuItem>
         <MenuItem value={"Childrens Home"}>Childrens Home</MenuItem>
         <MenuItem value={"Elders Home"}>Elders Home</MenuItem>
         <MenuItem value={"Nursing Home"}>Nursing Home</MenuItem>
       </Select>
-    </FormControl>
+    </FormControl> */}
+    <Controls.Input
+
+label="cfvgb"
+name="orgType"
+value={values.orgType}
+onChange={handleInputChange}
+error={errors.orgType}
+/>
     </Box>
 
                                         <Box my={2} mx={4}>
@@ -323,6 +327,8 @@ export default function RequestForm(props) {
                                                     onClick={handleSubmit}
                                                     type="submit"
                                                     text="Submit"
+
+                                                
                                                 />
 
 

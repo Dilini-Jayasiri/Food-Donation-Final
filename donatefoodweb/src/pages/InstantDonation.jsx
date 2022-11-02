@@ -1,20 +1,9 @@
 import React,{useEffect} from 'react';
 import Grid from '@mui/material/Grid';
 import { Box } from '@mui/material';
-// import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-// import FormControlLabel from '@mui/material/FormControlLabel';
-// import Checkbox from '@mui/material/Checkbox';
 import { Row, Col } from 'react-bootstrap'
 import Controls from '../components/controls/Controls'
 import { useForm, Form } from '../components/useForm';
-import * as orgType from '../organizations/orgType'
-import GradientButton from 'react-linear-gradient-button';
-import { NavLink } from 'react-router-dom';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-// import Stack from '@mui/material/Stack';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import '../assets/partials/instantDonation.scss';
 import styled from 'styled-components';
 import FormControl from '@mui/material/FormControl';
@@ -28,10 +17,7 @@ const navLinkStyles = () => {
         textDecoration: 'none',
     }
 }
-const donorType = [
-    { id: 'inidividual', title: 'Individual' },
-    { id: 'group', title: 'Group or People' },
-]
+
 
 const mealType = [
     { id: 'breakfast', title: 'Breakfast' },
@@ -41,17 +27,19 @@ const mealType = [
 
 const initialValues = {
     id: '',
-  //  donorType: '',
     donorName: '',
     phone: '',
-    donorEmail:'',
+    donEmail:'',
     mealType: '',
     quantity: '',
     oldFood: '',
-    location: '',
-    organizationName: '',
-    prefferedArea: '',
-    confirmTime: ''
+    address: '',
+    area: '',
+    orgName: '',
+    date:'',
+    foodName:'',
+    foodType:''
+    
 }
 
 export default function InstantDonation(props) {
@@ -73,28 +61,26 @@ useEffect(() => {
 
     const validate = (fieldValues = values) => {
         let temp = { ...errors }
-        // if ('donorType' in fieldValues)
-        //     temp.donorType = fieldValues.donorType ? "" : "This field is required."
         if ('donorName' in fieldValues)
             temp.donorName = fieldValues.donorName ? "" : "This field is required."
         if ('phone' in fieldValues)
             temp.phone = fieldValues.phone.length > 9 ? "" : "Minimum 10 numbers required."
-        if ('donorEmail' in fieldValues)
-            temp.donorEmail = (/$^|.+@.+..+/).test(values.donorEmail) ? "" : "Email is not valid."
+        if ('donEmail' in fieldValues)
+            temp.donEmail = (/$^|.+@.+..+/).test(values.donEmail) ? "" : "Email is not valid."
         if ('mealType' in fieldValues)
             temp.mealType = fieldValues.mealType ? "" : "This field is required."
         if ('quantity' in fieldValues)
             temp.quantity = fieldValues.quantity ? "" : "This field is required."
         if ('oldFood' in fieldValues)
             temp.oldFood = fieldValues.oldFood ? "" : "This field is required."
-        if ('location' in fieldValues)
-            temp.location = fieldValues.location ? "" : "This field is required."
+        if ('address' in fieldValues)
+            temp.address = fieldValues.address ? "" : "This field is required."
         if ('organizationName' in fieldValues)
-            temp.organizationName = fieldValues.organizationNamenn ? "" : "This field is required."
-        if ('prefferedArea' in fieldValues)
-            temp.prefferedArea = fieldValues.prefferedArea ? "" : "This field is required."
-        // if ('confirmTime' in fieldValues)
-        //     temp.confirmTime = fieldValues.confirmTime ? "" : "This field is required."
+            temp.organizationName = fieldValues.organizationName ? "" : "This field is required."
+        if ('area' in fieldValues)
+            temp.area = fieldValues.area ? "" : "This field is required."
+        if ('date' in fieldValues)
+            temp.date = fieldValues.date ? "" : "This field is required."
         setErrors({
             ...temp
         })
@@ -126,7 +112,7 @@ useEffect(() => {
         }
         //Object Destructuring
         //Store object data into variables
-        const {donorName, phone,donorEmail, mealType, quantity, oldFood, location, prefferedArea, organizationName, confirmTime } = values;
+        const {donorName, phone,donEmail, mealType, quantity, oldFood, address, area, orgName,date,foodName,foodType} = values;
 
         try {
             //It is submitted on port 3000 by default 
@@ -138,7 +124,7 @@ useEffect(() => {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                 donorName, phone,donorEmail, mealType, quantity, oldFood, location, prefferedArea, organizationName, confirmTime
+                 donorName, phone,donEmail, mealType, quantity, oldFood, address, area,orgName,date,foodName,foodType
                 })
             })
             if (res.status === 400 || !res) {
@@ -150,14 +136,16 @@ useEffect(() => {
                    // donorType: '',
                     donorName: '',
                     phone: '',
-                    donorEmail:'',
+                    donEmail:'',
                     mealType: '',
                     quantity: '',
                     oldFood: '',
-                    location: '',
-                    prefferedArea: '',
-                    organizationName: '',
-                    confirmTime: ''
+                    address: '',
+                    area: '',
+                    orgName: '',
+                    date: '',
+                    foodName:'',
+                    foodType:''
 
                 })
 
@@ -219,10 +207,10 @@ useEffect(() => {
                                                 <Controls.Input
 
                                                     label="Email Address"
-                                                    name="donorEmail"
-                                                    value={values.donorEmail}
+                                                    name="donEmail"
+                                                    value={values.donEmail}
                                                     onChange={handleInputChange}
-                                                    error={errors.donorEmail}
+                                                    error={errors.donEmail}
                                                 />
                                             </Box>
 
@@ -259,11 +247,11 @@ useEffect(() => {
 
                                             <Box my={4} mx={4}>
                                                 <Controls.Input
-                                                    label="Location"
-                                                    name="location"
-                                                    value={values.location}
+                                                    label="address"
+                                                    name="address"
+                                                    value={values.address}
                                                     onChange={handleInputChange}
-                                                    error={errors.location}
+                                                    error={errors.address}
                                                 />
                                             </Box>
 
@@ -272,10 +260,10 @@ useEffect(() => {
                                             <Box my={4} mx={4}>
                                                 <Controls.Input
                                                     label="Preffered Area"
-                                                    name="prefferedArea"
-                                                    value={values.prefferedArea}
+                                                    name="area"
+                                                    value={values.area}
                                                     onChange={handleInputChange}
-                                                    error={errors.prefferedArea}
+                                                    error={errors.area}
                                                 />
                                             </Box>
 
@@ -287,7 +275,7 @@ useEffect(() => {
         labelId="demo-select-small"
         id="demo-select-small"
         value={values.organizationName}
-        label="Organization Type"
+        label="Organization Name"
         onChange={handleInputChange}
       >
         <MenuItem value="">
@@ -304,14 +292,20 @@ useEffect(() => {
 
                                             </Box>
                                             <Box my={4} mx={4} className='timePickerA'>
-
+                                            <Controls.DatePicker1
+                                    name="date"
+                                    label="Date"
+                                    value={values.date}
+                                    onChange={handleInputChange}
+                                    error={errors.date}
+                                />
 
                                                 {/* <LocalizationProvider dateAdapter={AdapterDateFns}>
                                                     <DateTimePicker
                                                         style={{ width: '50%' }}
                                                         renderInput={(props) => <TextField {...props} />}
                                                         label="Confirm Date and Time"
-                                                        value={values.confirmTime}
+                                                        value={values.date}
                                                         onChange={(handleInputChange) => {
                                                             setValues(handleInputChange);
                                                         }}

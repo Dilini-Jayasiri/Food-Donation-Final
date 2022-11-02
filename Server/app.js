@@ -171,24 +171,21 @@ app.post('/instantDon',async(req,res) =>{
         //Get body or data
         //const donorType = req.body.donorType;
         const donorName = req.body.donorName;
-        //const donationType = req.body.donationType;
         const phone = req.body.phone;
-        const donEmail = req.body.donorEmail;
+        const donEmail = req.body.donEmail;
         const mealType = req.body.mealType;
         const quantity = req.body.quantity;
         const oldFood = req.body.oldFood;
-        const address = req.body.location;
-        const area = req.body.prefferedArea;
-        const orgName = req.body.org;
-        //const donorTypeId = req.body.donorTypeId;
-        //const date = req.body.confirmTime;
-        // const foodName = req.body.foodName;
-        // const foodType = req.body.foodType;
+        const address = req.body.address;
+        const area = req.body.area;
+        const orgName = req.body.orgName;
+        const date = req.body.date;
+        const foodName = req.body.foodName;
+        const foodType = req.body.foodType;
 
 
         const instantDonation= new InstantDonation({
         donorName:donorName ,
-        //donationType: donationType,
         phone: phone,
         donEmail:donEmail,
         mealType:mealType,
@@ -197,12 +194,9 @@ app.post('/instantDon',async(req,res) =>{
         address: address,
         area:area,
         orgName: orgName,
-        //donorTypeId:donorTypeId,
-        //date: date,
-        //foodName: foodName,
-        
-        // mealType: mealType,
-        // foodType: foodType
+        date: date,
+        foodName: foodName,
+        foodType: foodType
         
             
         });
@@ -224,27 +218,27 @@ app.post('/requests',async(req,res) =>{
     try{
         //Get body or data
         const orgName = req.body.orgName;
-        const orgType = req.body.orgType;
         const orgEmail = req.body.orgEmail;
         const orgSize = req.body.orgSize;
         const phone = req.body.phone;
         const city = req.body.city;
-        const mealType = req.body.mealType;
         const quantity = req.body.quantity;
+        const orgType = req.body.orgType;
         const reason = req.body.reason;
+        const mealType = req.body.mealType;
         const confirmedDate = req.body.confirmedDate;
 
 
         const request= new Request({
             orgName : orgName,
-            orgType : orgType,
             orgEmail : orgEmail,
             orgSize : orgSize,
             phone : phone,
             city : city,
-            mealType : mealType,
             quantity : quantity,
+            orgType : orgType,
             reason : reason,
+            mealType : mealType,
             confirmedDate : confirmedDate,
         });
 

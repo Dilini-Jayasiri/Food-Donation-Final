@@ -7,17 +7,7 @@ const requestSchema = new mongoose.Schema({
     orgName : {
         type : String,
         required: true,
-        
     },
-    orgType : {
-        type : String,
-        required : true,
-        
-    },
-    // orgTypeId : {
-    //     type : String,
-        
-    // },
     orgEmail : {
         type : String,
         required : true
@@ -34,11 +24,18 @@ const requestSchema = new mongoose.Schema({
         type : String,
         required : true
     },
-    mealType : {
+    quantity : {
         type : String,
         required : true
     },
-    quantity : {
+    orgType : {
+        type : String,
+        required : true,
+    },
+    reason: {
+        type: String
+    },
+    mealType : {
         type : String,
         required : true
     },
@@ -46,11 +43,7 @@ const requestSchema = new mongoose.Schema({
         type : String,
         required : true
     },
-    reason: {
-        type: String
-    }
-
-   
+ 
 })
 
 
