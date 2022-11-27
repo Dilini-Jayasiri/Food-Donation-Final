@@ -2,8 +2,13 @@ import React from 'react'
 import { NavLink } from 'react-router-dom';
 import '../assets/partials/navbar.scss';
 
+
+
+
 const NavBar = (props) => {
   return (
+
+    
     <div>
       <nav className="navbar navbar-expand-lg navbar-light shadow">
         <div className="container">
@@ -36,7 +41,7 @@ const NavBar = (props) => {
 
             {props.auth?
             <>
-            <NavLink className="navbar-brand fw-bolder fs-1 mx-auto" to="#">Food Donation</NavLink>
+            <NavLink className="navbar-brand fw-bolder fs-1 mx-auto titleStyle" to="#">Food Donation</NavLink>
             <NavLink to="/login" className="btn btn-outline-primary ms-auto px-4 rounded-pill">
               <i className='fa fa-sign-in me-2'></i> Login</NavLink>
             <NavLink to="/register" className="btn btn-outline-primary ms-2 px-4 rounded-pill">

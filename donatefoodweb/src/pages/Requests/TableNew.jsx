@@ -20,6 +20,7 @@ import { Row, Col } from 'react-bootstrap'
         }
         fetchRequests()
       }, [])
+
 const [pageSize,setPageSize] = useState(5);
 const columns = useMemo( () => [
         {field:'orgName',headerName:'Organization Name',width:200,headAlign:'center',headerClassName: 'super-app-theme--header'},
@@ -33,9 +34,9 @@ const columns = useMemo( () => [
         filterable:false
     },
         {field:'orgEmail',headerName:'Organization Email',width:200},
-        {field:'quantity',headerName:'Needed Food Parcels',sort:true,width:170}, 
-        {field:'action',headerName:'Action',width:150}
-        // {field:'_id',headerName:'Id',width:220},
+        {field:'quantity',headerName:'Needed Food Parcels',sort:true,width:170}
+        // {field:'action',headerName:'Action',width:150}
+        // // {field:'_id',headerName:'Id',width:220},
         // {field:'actions',headerName:'Actions',type:'actions',renderCell:params => <RequestActions></RequestActions>},
     //     {field:'selection',
     //      headerName:'Selection',
@@ -50,7 +51,7 @@ const columns = useMemo( () => [
    
     sx = {{
         height:600,
-        width:'90%',
+        width:'80%',
         alignContent:'center'
     }}
     >
@@ -66,8 +67,8 @@ const columns = useMemo( () => [
                 </Col>
                 </center>
            <div style={{ display: 'flex', height: '100%', marginBottom:'30%'}}>
-  <div style={{ flexGrow: 1 }}>
-    
+  <div style={{ flexGrow: 2 }}>
+    <center>
         <DataGrid
         
         columns={columns}
@@ -98,6 +99,7 @@ const columns = useMemo( () => [
             
         }}
         />
+        </center>
         
         
         </div>

@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
   return (
     <div>
         <footer className="footer text-white">
-            <div className="container" mt='5'>
+            <div id="footer" className="container" mt='5'>
                 <footer className="py-5">
                     <div className="row">
                         <div className="col-6">

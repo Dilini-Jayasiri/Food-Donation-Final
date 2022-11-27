@@ -4,11 +4,11 @@ const instantDonationSchema = new mongoose.Schema({
     id : {
         type : String,
     },
-    // donationType : {
-    //     type : String,
-    //     required: true,
+    nic : {
+        type : String,
+        required : true,
         
-    // },
+    },
     donorName : {
         type : String,
         required : true,

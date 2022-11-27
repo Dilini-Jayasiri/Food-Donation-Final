@@ -170,6 +170,7 @@ app.post('/instantDon',async(req,res) =>{
                    
         //Get body or data
         //const donorType = req.body.donorType;
+        const nic = req.body.nic;
         const donorName = req.body.donorName;
         const phone = req.body.phone;
         const donEmail = req.body.donEmail;
@@ -185,6 +186,7 @@ app.post('/instantDon',async(req,res) =>{
 
 
         const instantDonation= new InstantDonation({
+        nic:nic,
         donorName:donorName ,
         phone: phone,
         donEmail:donEmail,
@@ -212,6 +214,69 @@ app.post('/instantDon',async(req,res) =>{
         res.status(400).send(error);
     }
 })
+
+app.get('/reservedDon',(req,res) =>{
+    ReservedDonation.find((err,data)=>{
+        if(err){
+            res.status(500).send(err)
+        
+
+        }else{
+            res.status(200).send(data);
+        }
+    })
+})
+
+app.get('/instantDon',(req,res) =>{
+    InstantDonation.find((err,data)=>{
+        if(err){
+            res.status(500).send(err)
+        
+
+        }else{
+            res.status(200).send(data);
+        }
+    })
+})
+
+
+
+app.get('/reservedDon/get',(req,res) =>{
+    try{
+    const dons =  ReservedDonation.find().sort({_id:-1});
+   // console.log(dons);
+}catch(error){
+console.log(error.message);
+}
+});
+
+app.get("/reservedDon/:id",async (req,res) => {
+    let result  = await ReservedDonation.findOne({_id:req.params.id})
+    if(result){
+        res.send(result)
+    }else{
+        res.send({"result":"No record found"})
+    }
+})
+
+app.get("/instantDon/:id",async (req,res) => {
+    let result  = await ReservedDonation.findOne({_id:req.params.id})
+    if(result){
+        res.send(result)
+    }else{
+        res.send({"result":"No record found"})
+    }
+})
+// async function getDon() {
+//     try{
+//         const dons = await ReservedDonation.find().sort({_id:-1}).limit(1);
+//         console.log(dons);
+//     }catch(error){
+//     console.log(error.message);
+//     }
+// }
+// getDon();
+   
 
 
 app.post('/requests',async(req,res) =>{
@@ -264,6 +329,8 @@ app.get('/logout', (req,res) =>{
 app.get('/auth', authenticate, (req,res) => {
 
 })
+
+app.use("/api/calendar",require("./controllers/Calendar"));
 
 //Run Server
 app.listen(port,() =>{

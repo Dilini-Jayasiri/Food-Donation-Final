@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React,{useEffect} from 'react';
+import { useState } from 'react';
 import '../assets/partials/instantDonation.scss'
 import styled from 'styled-components';
 import Controls from '../components/controls/Controls'
@@ -6,7 +7,20 @@ import * as orgType from '../organizations/orgType'
 import { Box, Grid } from '@mui/material';
 import GradientButton from 'react-linear-gradient-button'
 import { useForm, Form } from '../components/useForm';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import { Link,useNavigate } from 'react-router-dom';
+import DonationSummary from '../../src/Profile/DonationSummary';
+import {Routes,Route} from 'react-router';
+import emailjs from 'emailjs-com';
 
+const navLinkStyles = () =>{
+   return{
+     textDecoration:  'none',
+   }
+ }
 const mealTypeItems = [
     { id: 'breakfast', title: 'Breakfast' },
     { id: 'lunch', title: 'Lunch' },
@@ -18,8 +32,8 @@ const foodTypeItems = [
     { id: 'nonveg', title: 'Non-Veg' },
     { id: 'both', title: 'Both' }
 ]
-
 const initialValues = {
+        
         donorName: '',
         donationType: '',
         phone: '',
@@ -32,12 +46,25 @@ const initialValues = {
         quantity: '',
         mealType: '',
         foodType: '',
-        
-
     }
 export default function ReservedDonation(props) {
-        const { addOrEdit } = props
+       // const { addOrEdit } = props
+        const [organizationName,setOrganizationName]=useState("");
+        const [orgs,setOrgs] = React.useState([{'orgName':'','_id':''}]);
+        const [isSubmit,setIsSubmit] = useState(false);
+        const [formErrors,setFormErrors] = useState({});
+        const navigate = useNavigate();
 
+
+        useEffect(() => {
+            const fetchData = async () => {
+              const response = await fetch('/requests');
+              const newData = await response.json();
+              setOrgs(newData);
+              console.log(newData);
+            };
+            fetchData();
+          },[]);
 // const ReservedDonation = () => {
 //     const [values, setResDon] = useState({
 //         );
@@ -93,16 +120,25 @@ export default function ReservedDonation(props) {
 
         setValues({ ...values, [name]: value });
     }
-
+{/* <Routes>
+     <Route exact path="/donationSummary" element={<DonationSummary/>}/>
+     </Routes> */}
     //Handle Submit
     const handleSubmit = async (event) => {
         event.preventDefault();
-        //Object Destructuring
-        //Store object data into variables
-        if(validate()){
-            addOrEdit(values, resetForm)
-        }
-        const { donorName, donationType, donorTypeId, phone, donEmail,address, orgName, date, foodName, quantity, mealType, foodType } = values;
+        setFormErrors(validate(values));
+        if (validate()) {
+            setIsSubmit(true)
+            navigate('/donationSummary')
+            }
+            emailjs.send('service_4myyg6h', 'template_ms3zy5j', values, 'AGKmDLzp5SojZrssC')
+            .then(response => {
+                console.log('Success',response);
+            },error => {
+                console.log('Failed...',error)
+            })
+       
+        const {donorName, donationType, donorTypeId, phone, donEmail,address, orgName, date, foodName, quantity, mealType, foodType } = values;
         try {
             //It is submitted on port 3000 by default 
             //which is front end but we need to submit it on
@@ -139,11 +175,18 @@ export default function ReservedDonation(props) {
         } catch (error) {
             console.log(error);
         }
+        
     }
 
-
+    useEffect(()=>{
+        console.log(formErrors)
+        if(Object.keys(formErrors).length === 0 && isSubmit){
+            console.log(values)
+        }
+    },[formErrors])
 
     return (
+        
         <div className='donation'>
             <MainContainer>
                 <DonationText>
@@ -215,14 +258,29 @@ export default function ReservedDonation(props) {
                                 />
                             </Box>
                             <Box my={4} mx={4}>
-                                <Controls.Input
-                                    name="orgName"
-                                    label="Organization Name"
-                                    value={values.orgName}
-                                    onChange={handleChange}
-                                    error={errors.orgName}
-
-                                />
+                               <FormControl sx={{ m: 1, minWidth: 80 }}>
+        <InputLabel id="demo-simple-select-autowidth-label">Organization Type</InputLabel>
+      <Select
+      name="orgName"
+        labelId="demo-select-small"
+        id="demo-select-small"
+        value={values.orgEmail}
+        label="Organization Name"
+        onChange={handleChange}
+      >
+        <MenuItem value="">
+          <em>None</em>
+        </MenuItem>
+        {orgs.map(org => (
+          <MenuItem value={org.orgEmail} key={org._id}>{org.orgEmail}</MenuItem>
+        ))}
+         
+        
+      </Select>
+    </FormControl>
+    {/* <h1> {orgs.map(org => (
+          <MenuItem value={org.orgEmail} key={org.orgName}>{org.orgEmail}</MenuItem>
+        ))}</h1> */}
 
 
                             </Box>
@@ -294,14 +352,18 @@ export default function ReservedDonation(props) {
 
                             <div>
                                 <Box my={5} mx={12}>
+                                    
+                                <Link to={"/donationSummary"}>
                                     <GradientButton
                                         style={{ width: '50%' }}
                                         onClick={handleSubmit}
                                         type="submit"
-                                        text="Submit">
+                                        text="Submit">    
                                         Submit
                                         <i className="fa fa-paper-plane ms-2"></i>
                                     </GradientButton>
+                                    </Link>
+                                    {/* <link to="/donationSummary/10">Summary</link> */}
 
                                     {/* <Controls.Button
     // variant="contained"
@@ -351,7 +413,6 @@ const InputContainer = styled.div`
       align-items:center;
 
  `
-
 const DonationText = styled.h2`
 margin:3rem 0 2rem 0;
 `

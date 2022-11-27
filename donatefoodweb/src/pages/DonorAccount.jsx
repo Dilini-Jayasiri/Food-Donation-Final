@@ -1,6 +1,18 @@
 import React from 'react'
 import GradientButton from 'react-linear-gradient-button/lib/GradientButton'
 import { Box, Grid } from '@mui/material';
+import { NavLink } from 'react-router-dom';
+
+const navLinkStyles = () =>{
+    return{
+     
+      textDecoration:  'none',
+     
+      
+  
+    }
+  }
+
 export default function DonorAccount() {
   return (
     <div>
@@ -10,14 +22,18 @@ export default function DonorAccount() {
             Edit Profile
         </GradientButton></Box>
         <Box my={5}>
+        <NavLink style={navLinkStyles} to="/donationSummary">
         <GradientButton>
             Last Donation Status
-        </GradientButton></Box>
+        </GradientButton>
+        </NavLink> 
+        </Box>
         <Box my={5}>
         <GradientButton>
             View Donation History
         </GradientButton></Box>
         <Box my={5}>
+        
         <GradientButton>
             Change the Date
         </GradientButton>

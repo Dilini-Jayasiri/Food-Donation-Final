@@ -31,7 +31,7 @@ const mealTypeItems = [
 //   });
 
 const initialValues = {
-    id: '',
+   // id: '',
     orgName: '',
     orgEmail: '',
     orgSize: '',
@@ -45,8 +45,9 @@ const initialValues = {
     confirmedDate: new Date(),
 }
 export default function RequestForm(props) {
-    const { addOrEdit } = props
-
+    //const { addOrEdit } = props
+    const [isSubmit,setIsSubmit] = useState(false);
+    const [formErrors,setFormErrors] = useState({});
     const validate = (fieldValues = values) => {
         let temp = { ...errors }
         if ('orgName' in fieldValues)
@@ -91,13 +92,18 @@ export default function RequestForm(props) {
         let value = e.target.value;
 
         setValues({ ...values, [name]: value });
+        //console.log(values);
     }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setFormErrors(validate(values));
         if (validate()) {
-            addOrEdit(values, resetForm)
+        setIsSubmit(true)
         }
+        // if (validate()) {
+        //     addOrEdit(values, resetForm)
+        // }
         //Object Destructuring
         //Store object data into variables
         const { orgName,orgEmail, orgSize, phone, city,quantity,orgType,reason,mealType,confirmedDate } = values;
@@ -136,6 +142,12 @@ export default function RequestForm(props) {
             console.log(error);
         }
     }
+    useEffect(()=>{
+        console.log(formErrors)
+        if(Object.keys(formErrors).length === 0 && isSubmit){
+            console.log(values)
+        }
+    },[formErrors])
     // const MainContainer = styled.div`
 
     // align-items:center;
@@ -160,7 +172,7 @@ export default function RequestForm(props) {
                 <center>
 
                     <MainContainer>
-                        <Form onSubmit={handleSubmit} method={'POST'}>
+                        <form onSubmit={handleSubmit} method={'POST'}>
                             <div>
                                 <Grid container>
                                     <Grid item xs={6}>
@@ -244,8 +256,8 @@ export default function RequestForm(props) {
                                             />
                                         </Box> */}
                                         <Box my={0} mx={0}>
-                                         {/* <FormControl sx={{ m: 1, minWidth: 80 }}> */}
-        {/* <InputLabel id="demo-simple-select-autowidth-label">Organization Type</InputLabel>
+                                         <FormControl sx={{ m: 1, minWidth: 80 }}> 
+         <InputLabel id="demo-simple-select-autowidth-label">Organization Type</InputLabel>
       <Select
       name="orgType"
         labelId="demo-select-small"
@@ -254,22 +266,22 @@ export default function RequestForm(props) {
         label="Organization Type"
         onChange={handleInputChange}
       >
-        <MenuItem value="orgType">
+        <MenuItem value={values.orgType}>
           <em>None</em>
         </MenuItem>
         <MenuItem value={"Childrens Home"}>Childrens Home</MenuItem>
         <MenuItem value={"Elders Home"}>Elders Home</MenuItem>
         <MenuItem value={"Nursing Home"}>Nursing Home</MenuItem>
       </Select>
-    </FormControl> */}
-    <Controls.Input
+    </FormControl>
+    {/* <Controls.Input
 
 label="cfvgb"
 name="orgType"
 value={values.orgType}
 onChange={handleInputChange}
 error={errors.orgType}
-/>
+/> */}
     </Box>
 
                                         <Box my={2} mx={4}>
@@ -351,7 +363,7 @@ error={errors.orgType}
                                     </Grid>
                                 </Grid>
                             </div>
-                        </Form>
+                        </form>
                     </MainContainer>
                 </center>
 

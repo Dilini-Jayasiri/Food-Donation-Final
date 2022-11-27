@@ -14,10 +14,10 @@ import Services from './components/Services';
 import Contact from './components/Contact';
 import Logout from './components/Logout';
 import OrgList from './pages/OrgList';
-
+import DonationSummary from '../src/Profile/DonationSummary';
+import ReceiverAccount from '../src/pages/ReciverAccount';
+import DonationSummaryInstant from './Profile/DonationSummaryInstant';
 import ProtectedRoutes from './ProtectedRoutes';
-
-
 import Requests from './pages/Requests/TableNew';
 import RequestForm from './pages/Requests/RequestForm';
 import { useEffect, useState } from 'react';
@@ -25,8 +25,12 @@ import InstantDonation from './pages/InstantDonation';
 import ReservedDonation from './pages/ReservedDonation';
 import DonorAccount from './pages/DonorAccount';
 import TableNew from './pages/Requests/TableNew';
+import Inst from './pages/InstantDon';
+import AcceptPage from './AcceptPage';
+import Calendar from './Calendar/calendar';
+import Modal from 'react-modal';
 
-
+Modal.setAppElement('#root');
 
 
 function App() {
@@ -71,12 +75,9 @@ function App() {
      <Route  path="/" element={<Home/>}/>
      <Route  path="/about" element={<About/>}/>
      <Route path="/services" element={<Services/>}/>
-     <Route path="/contact" element={<Contact/>}/>
-     
+     <Route path="/contact" element={<Contact/>}/>    
      <Route  path="/register" element={<Register/>} auth={auth}/>
-     
-     
-         <Route  path="/login" element={<Login/>} auth={auth}/>
+     <Route  path="/login" element={<Login/>} auth={auth}/>
          {/* <Route element={<ProtectedRoutes/>}>
             
             <Route  path="/donateDash" element={<DonateDash/>} auth={auth}/>
@@ -104,7 +105,12 @@ function App() {
      <Route path="/donorAccount" element={<DonorAccount/>} auth={auth1}/>
      <Route  path="/logout" element={<Logout/>} auth={auth1}/>
      <Route path="/orgList" element={<OrgList/>}/>
-     
+     <Route path="/donationSummary" element={<DonationSummary/>}/>
+     <Route path="/inst" element={<Inst/>}/>
+     <Route path="/acceptPage" element={<AcceptPage/>}/>
+     <Route path="/receiverAccount" element={<ReceiverAccount/>}/>
+     <Route path="/instantDonSummary" element={<DonationSummaryInstant/>}/>
+     <Route path="/calendar" element={<Calendar/>}/>
      </Routes>
      
      
@@ -164,7 +170,7 @@ function App() {
    {/* <Home/>
    <About/> */}
 {/* </ProtectedRoute> */}
-  <Footer/> 
+  {/* <Footer/>  */}
   </>   
   );
 }

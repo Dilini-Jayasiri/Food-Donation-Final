@@ -8,9 +8,7 @@ const navLinkStyles = () =>{
    return{
     
      textDecoration:  'none',
-    
-     
- 
+
    }
  }
 const DonationType =() => {
