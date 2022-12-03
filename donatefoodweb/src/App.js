@@ -7,7 +7,7 @@ import Footer from './components/Footer';
 import Login from './components/Login';
 import Register from './components/Register';
 import DonateDash from './components/DonateDash';
-import {Routes,Route,Router} from 'react-router';
+import { Routes, Route, Router } from 'react-router';
 import DonationForm from './pages/DonationForm';
 import DonationType from './components/DonationType';
 import Services from './components/Services';
@@ -29,34 +29,41 @@ import Inst from './pages/InstantDon';
 import AcceptPage from './AcceptPage';
 import Calendar from './Calendar/calendar';
 import Modal from 'react-modal';
+import DonationRequestAccept from './components/donationRequestAccept';
+import Dashboard from './adminSide/pages/Dashboard/dashboard';
+import Dash2 from './adminSide/pages/Dashboard/dash2';
+import AdminOrgs from './adminSide/pages/Dashboard/Organizations/Organizations';
+import AdminResDon from './adminSide/pages/Dashboard/ReservedDonors/ReservedDonors';
+import AdminInsDon from './adminSide/pages/Dashboard/instantdonors/InstantDonors';
+import AdminMain from './adminSide/pages/Dashboard/main/Main';
 
 Modal.setAppElement('#root');
 
 
 function App() {
 
-  const [auth,setauth] = useState(false);
-  const [auth1,setauth1] = useState(true);
+  const [auth, setauth] = useState(false);
+  const [auth1, setauth1] = useState(true);
 
   const isLoggedIn = async () => {
     try {
       const res = await fetch('/auth', {
-        method : "GET",
-        headers : {
-          Accept : "application/json",
-          "Content-Type" : "application/json"
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
         },
-        credentials :"include"
+        credentials: "include"
       });
 
-      if(res.status === 200){
-         setauth(true)
-         setauth1(false)
+      if (res.status === 200) {
+        setauth(true)
+        setauth1(false)
       }
-      if(res.status === 401){
+      if (res.status === 401) {
         setauth(false)
         setauth1(true)
-     }
+      }
 
     } catch (error) {
       console.log(error);
@@ -65,20 +72,20 @@ function App() {
 
   useEffect(() => {
     isLoggedIn();
-  },[]);
+  }, []);
 
   return (
-   <>
-   <NavBar auth={auth1}/>
-   
-   <Routes>
-     <Route  path="/" element={<Home/>}/>
-     <Route  path="/about" element={<About/>}/>
-     <Route path="/services" element={<Services/>}/>
-     <Route path="/contact" element={<Contact/>}/>    
-     <Route  path="/register" element={<Register/>} auth={auth}/>
-     <Route  path="/login" element={<Login/>} auth={auth}/>
-         {/* <Route element={<ProtectedRoutes/>}>
+    <>
+      <NavBar auth={auth1} />
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/register" element={<Register />} auth={auth} />
+        <Route path="/login" element={<Login />} auth={auth} />
+        {/* <Route element={<ProtectedRoutes/>}>
             
             <Route  path="/donateDash" element={<DonateDash/>} auth={auth}/>
             <Route  path="/donationForm" element={<DonationForm/>} auth={auth}/>
@@ -91,40 +98,48 @@ function App() {
             <Route  path="/logout" element={<Logout/>} auth={auth}/>
             <Route path="/orgList" element={<OrgList/>} auth={auth}/>
             </Route> */}
-           
-     
-     
-     
-     <Route  path="/donateDash" element={<DonateDash/>} auth={auth1}/>
-     <Route  path="/donationForm" element={<DonationForm/>} auth={auth1}/>
-     <Route  path="/instantDonation" element={<InstantDonation/>} auth={auth1}/>
-     <Route  path="/reservedDonation" element={<ReservedDonation/>} auth={auth1}/>
-     <Route path="/donationType" element={<DonationType/>} auth={auth1}/>
-     <Route path="/tableNew" element={<TableNew/>} auth={auth1}/>
-     <Route path="/requestForm" element={<RequestForm/>} auth={auth1}/>
-     <Route path="/donorAccount" element={<DonorAccount/>} auth={auth1}/>
-     <Route  path="/logout" element={<Logout/>} auth={auth1}/>
-     <Route path="/orgList" element={<OrgList/>}/>
-     <Route path="/donationSummary" element={<DonationSummary/>}/>
-     <Route path="/inst" element={<Inst/>}/>
-     <Route path="/acceptPage" element={<AcceptPage/>}/>
-     <Route path="/receiverAccount" element={<ReceiverAccount/>}/>
-     <Route path="/instantDonSummary" element={<DonationSummaryInstant/>}/>
-     <Route path="/calendar" element={<Calendar/>}/>
-     </Routes>
-     
-     
 
 
-     {/* <ProtectedRoute> */}
-     {/* <Route exact path='/' element={<ProtectedRoute/>}>
+
+
+        <Route path="/donateDash" element={<DonateDash />} auth={auth1} />
+        <Route path="/donationForm" element={<DonationForm />} auth={auth1} />
+        <Route path="/instantDonation" element={<InstantDonation />} auth={auth1} />
+        <Route path="/reservedDonation" element={<ReservedDonation />} auth={auth1} />
+        <Route path="/donationType" element={<DonationType />} auth={auth1} />
+        <Route path="/tableNew" element={<TableNew />} auth={auth1} />
+        <Route path="/requestForm" element={<RequestForm />} auth={auth1} />
+        <Route path="/donorAccount" element={<DonorAccount />} auth={auth1} />
+        <Route path="/logout" element={<Logout />} auth={auth1} />
+        <Route path="/orgList" element={<OrgList />} />
+        <Route path="/donationSummary" element={<DonationSummary />} />
+        <Route path="/inst" element={<Inst />} />
+        <Route path="/acceptPage" element={<AcceptPage />} />
+        <Route path="/receiverAccount" element={<ReceiverAccount />} />
+        <Route path="/instantDonSummary" element={<DonationSummaryInstant />} />
+        <Route path="/calendar" element={<Calendar />} />
+        <Route path="/donationReqAcc" element={<DonationRequestAccept />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/adminOrgs" element={<AdminOrgs/>}/>
+        <Route path="/adminInsDon" element={<AdminInsDon/>}/>
+        <Route path="/adminResDon" element={<AdminResDon/>}/>
+        <Route path="/adminMain" element={<AdminMain/>}/>
+        <Route path="/dash2" element={<Dash2/>}/>
+        
+      </Routes>
+
+
+
+
+      {/* <ProtectedRoute> */}
+      {/* <Route exact path='/' element={<ProtectedRoute/>}>
       
      <Route  path="/donateDash" element={<DonateDash/>} auth={auth}/>
 
      </Route> */}
 
-     {/* <Route exact path='/' element={<ProtectedRoute/>}> */}
-     {/* <Route  path="/donationForm" element={<DonationForm/>} auth={auth}/>
+      {/* <Route exact path='/' element={<ProtectedRoute/>}> */}
+      {/* <Route  path="/donationForm" element={<DonationForm/>} auth={auth}/>
      </Route>
      <Route exact path='/' element={<ProtectedRoute/>}>
      <Route  path="/instantDonation" element={<InstantDonation/>} auth={auth}/>
@@ -150,11 +165,11 @@ function App() {
      <Route exact path='/' element={<ProtectedRoute/>}>
      <Route path="/orgList" element={<OrgList/>} auth={auth}/> 
      </Route> */}
-     
-     
-     {/* <ProtectedRoute  path="/register" element={<Register/>} auth={auth1}/> */}
-     
-     {/* <ProtectedRoute  path="/donateDash" element={<DonateDash/>} auth={auth}/>
+
+
+      {/* <ProtectedRoute  path="/register" element={<Register/>} auth={auth1}/> */}
+
+      {/* <ProtectedRoute  path="/donateDash" element={<DonateDash/>} auth={auth}/>
      <ProtectedRoute  path="/donationForm" element={<DonationForm/>} auth={auth}/>
      <ProtectedRoute  path="/instantDonation" element={<InstantDonation/>} auth={auth}/>
      <ProtectedRoute  path="/reservedDonation" element={<ReservedDonation/>} auth={auth}/>
@@ -165,13 +180,13 @@ function App() {
      <ProtectedRoute  path="/logout" element={<Logout/>} auth={auth}/>
      <ProtectedRoute path="/orgList" element={<OrgList/>} auth={auth}/>
       */}
-     
-   
-   {/* <Home/>
+
+
+      {/* <Home/>
    <About/> */}
-{/* </ProtectedRoute> */}
-  {/* <Footer/>  */}
-  </>   
+      {/* </ProtectedRoute> */}
+      {/* <Footer/>  */}
+    </>
   );
 }
 

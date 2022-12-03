@@ -10,7 +10,7 @@ router.post("/create-event",async(req,res)=>{
 })
 
 router.get("/get-events",async(req,res)=>{
-    const events = await Event.find({start:{$gte:moment(req.query.start).toDate()}});
+    const events = await Event.find({start:{$gte:moment(req.query.confirmedDate).toDate()}});
 
     res.send(events);
 

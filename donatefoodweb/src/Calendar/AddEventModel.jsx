@@ -27,7 +27,7 @@ export default function ({isOpen,onClose,onEventAdded}) {
 
                <div>
                  <label>Confirmed Date</label>
-                 <Datetime value={confirmDate} onChange={date => setConfirmDate(date)}/>
+                 <Datetime value={confirmDate} onChange={date => setConfirmDate(date._d)}/>
                </div>
 
                <button>Add Event</button>

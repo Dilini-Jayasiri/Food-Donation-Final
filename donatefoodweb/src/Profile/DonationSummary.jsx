@@ -100,9 +100,9 @@ const updateDonation = async () => {
         <p>{post.foodType}</p> */}
         </div>
     })}
-                        {/* {don.map(org => (org._id))} */}
-         
-{/*         
+                        {/* {don.map(org => (org._id))} 
+          */}
+   
                         <p>Donor name :frtgyhujikl</p>
                         <p>Donor Type : rtfyhujk</p>
                         <p> Conatct No : rftgyhuj</p>
@@ -112,7 +112,7 @@ const updateDonation = async () => {
                         <p> Date :gbhnjm </p>
                         <p> Food Name : </p>
                         <p> Quantity : </p>
-                        <p> Meal Type : </p> */}
+                        <p> Meal Type : </p>
                         </div>
                        
 

@@ -1,15 +1,15 @@
-chtml{
+chtml {
     height: 100%;
     /* box-sizing: border-box; */
 }
 
-body{
+body {
     overflow-x: hidden;
     width: 100vw;
     /* margin-left: 0;
     margin-right: 0;*/
     position: relative;
-    margin:0;
+    margin: 0;
     padding: 0px;
     min-height: 100%;
     /* padding-bottom: 6.74rem; */
@@ -17,90 +17,99 @@ body{
     /* display: flex;
     flex-direction: column; */
 }
-#home{
+
+#home {
     background-color: 1abc9c;
-    background: linear-gradient(90deg,#1abc9c 50%,#16a085 100%);
+    background: linear-gradient(90deg, #1abc9c 50%, #16a085 100%);
     min-height: 500px;
-    margin:0px;
+    margin: 0px;
     padding: 0px;
     /* //overflow: hidden; */
 }
 
-.form{
+.form {
     background-color: 1abc9c;
-    background: linear-gradient(90deg,#1abc9c 50%,#16a085 100%);
+    background: linear-gradient(90deg, #1abc9c 50%, #16a085 100%);
     /* border-radius: 12%; */
 }
-.donDiv{
+
+.donDiv {
     /* margin: 20px 10px 10px 40px; */
-    width:100%;
+    width: 100%;
 }
-.footer{
+
+.footer {
     background-color: 1abc9c;
-    background: linear-gradient(90deg,#1abc9c 50%,#16a085 100%);
+    background: linear-gradient(90deg, #1abc9c 50%, #16a085 100%);
     /* margin-top: auto; */
     /* display: flex; */
-    
+
     /* padding: 25px; */
     /* margin-top: 35px; */
     /* position: absolute; */
     right: 0;
-    left:0;
+    left: 0;
     bottom: 0;
     /* margin:0px;
     padding: 0px; */
     /* position:absolute ; */
-/* left:0; */
-/* bottom:0;
+    /* left:0; */
+    /* bottom:0;
 width: 100%; */
-/* right:0; */
+    /* right:0; */
 
     /* overflow: hidden; */
 }
 
-.forms{
+.forms {
 
-        width:'80%'
-    
+    width: '80%'
+
 }
 
-.imageOK{
+.imageOK {
     align-items: flex-end;
 }
-.donationCon{
+
+.donationCon {
     width: 70%;
 }
+
 .labelA {
     float: left;
     width: 5em;
     margin-left: 25%;
     margin-top: 0.5em;
-    }
+}
 
-.radioA{
+.radioA {
     float: left;
     width: 5em;
     margin-left: 19%;
     margin-top: 0.5em;
 }
-.timePickerA{
-   
+
+.timePickerA {
+
     width: 60%;
-    
+
 }
+
 .center {
     display: block;
     margin-left: auto;
     margin-right: auto;
     width: 80%;
-  }
-.maindiv{
+}
+
+.maindiv {
     display: inline-block;
     overflow: hidden;
 }
-@import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
+/* 
 h2{
         font-family:  'Acme', sans-serif;
 
-    }
+    } */
