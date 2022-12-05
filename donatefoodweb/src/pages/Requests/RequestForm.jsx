@@ -165,7 +165,7 @@ export default function RequestForm(props) {
 
                 <center>
                     <Col xs={12} className='md-5 mt-4 mb-4 align-middle'>
-                        <h2>Request Form</h2>
+                        <h2 className='topic2'>Request Form</h2>
                     </Col>
                 </center>
 
@@ -255,8 +255,8 @@ export default function RequestForm(props) {
                                                 error={errors.orgTypeId}
                                             />
                                         </Box> */}
-                                        <Box my={0} mx={0}>
-                                         <FormControl sx={{ m: 1, minWidth: 80 }}> 
+                                        <Box my={4} mx={4}>
+                                         <FormControl sx={{width: 400 }}> 
          <InputLabel id="demo-simple-select-autowidth-label">Organization Type</InputLabel>
       <Select
       name="orgType"
@@ -284,7 +284,7 @@ error={errors.orgType}
 /> */}
     </Box>
 
-                                        <Box my={2} mx={4}>
+                                      <Box my={4} mx={4}>
                                             <Controls.TextArea
 
                                                 label="Reason for Request"
@@ -303,7 +303,7 @@ error={errors.orgType}
                             />
                         </Box> */}
                                         {/* <div class="form-check form-check-inline"> */}
-                                        <Box my={3} mx={-1}>
+                                        <Box my={3} mx={4}>
 
                                     <Controls.RadioGroups
                                         row
@@ -320,17 +320,19 @@ error={errors.orgType}
 
 
                                         {/* <Box my={4} mx={4}> */}
-                                        <Box my={4} mx={-2}>
+                                        <Box my={2} mx={4}>
+                                        <FormControl sx={{width: 400 }}> 
                                             <Controls.DatePicker1
                                                 name="confirmedDate"
                                                 label="Confirmed Date"
                                                 value={values.confirmedDate}
                                                 onChange={handleInputChange}
                                             />
+                                            </FormControl>
                                         </Box>
                                         {/* <DatePicker1/> */}
                                         <div >
-                                            <Box my={4} mx={4}>
+                                        <Box my={4} mx={4}>
 
                                                 <Controls.Button
                                                     // variant="contained"

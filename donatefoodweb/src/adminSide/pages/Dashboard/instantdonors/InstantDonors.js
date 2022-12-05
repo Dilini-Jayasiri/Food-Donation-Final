@@ -57,7 +57,7 @@ const InstantDonors = ({setSelectedLink,link}) => {
               variant="h4"
               component='h3'
               sx={{textAlign:'center',mt:3,mb:3}}>
-                Manage Instant Donors
+                Manage Instant Donations
               </Typography>
               <DataGrid
                 columns={columns}

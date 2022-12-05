@@ -10,6 +10,8 @@ const Login = () =>{
         email : '',
         password : ''
     }); 
+    localStorage.setItem(user.password);
+    const pw = localStorage.getItem(user.password);
 
     //Handle Input
     const handleChange = (event) => {
@@ -51,13 +53,13 @@ const Login = () =>{
            <div className="container shadow my-5">
                <div className="row">
                    <div className="col-md-5 d-flex flex-column align-items-center text-white justify-content-center form">
-                       <h1 className="display-4 fw-bolder">Welcome Back</h1>
+                       <h1 className="topic display-4 fw-bolder">Welcome Back</h1>
                        <p className="lead text-center">Enter Your Credentials</p>
                        <h5 className="mb-4">OR</h5>
                        <NavLink to="/register" className="btn btn-outline-light rounded-pill pb-2 w-50">Register</NavLink>
                    </div>
                    <div className="col-md-6 p-5">
-                       <h1 className="display-6 fw-bolder mb-5">LOGIN</h1>
+                       <h1 className="topic2 display-6 fw-bolder mb-5">LOGIN</h1>
                        <form onSubmit={handleSubmit}>
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Email address</label>

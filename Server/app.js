@@ -41,11 +41,13 @@ app.post('/register',async(req,res) =>{
         const username = req.body.username;
         const email = req.body.email;
         const password = req.body.password;
+        const role = req.body.role;
 
         const createUser = new Users({
             username : username,
             email : email,
-            password : password
+            password : password,
+            role:role
         });
 
         //Save method is used to create user
@@ -64,6 +66,7 @@ app.post('/login',async (req,res) =>{
     try {
         const email = req.body.email;
         const password = req.body.password;
+        const role = req.body.role;
 
         //Find User if Exist
         const user = await Users.findOne( {email : email});

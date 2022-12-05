@@ -41,7 +41,7 @@ const NavBar = (props) => {
 
             {props.auth ?
               <>
-                <NavLink className="navbar-brand fw-bolder fs-1 mx-auto titleStyle" to="#">Food Donation</NavLink>
+                <NavLink className="navbar-brand fw-bolder fs-1 mx-auto titleStyle" to="#">Food Bank</NavLink>
                 <NavLink to="/login" className="btn btn-outline-primary ms-auto px-4 rounded-pill">
                   <i className='fa fa-sign-in me-2'></i> Login</NavLink>
                 <NavLink to="/register" className="btn btn-outline-primary ms-2 px-4 rounded-pill">

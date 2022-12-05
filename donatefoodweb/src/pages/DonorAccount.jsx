@@ -15,7 +15,7 @@ const navLinkStyles = () =>{
 
 export default function DonorAccount() {
   return (
-    <div>
+    <div className='account' >
         <center>
             <Box my={5}>
         <GradientButton>
@@ -33,10 +33,11 @@ export default function DonorAccount() {
             View Donation History
         </GradientButton></Box>
         <Box my={5}>
-        
+        <NavLink style={navLinkStyles} to="/calendar">
         <GradientButton>
             Change the Date
         </GradientButton>
+        </NavLink>
         </Box>
         </center>
         

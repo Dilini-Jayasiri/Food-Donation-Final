@@ -24,7 +24,7 @@ const navLinkStyles = () =>{
            <div className="container shadow my-5 form animate__animated animate__backInRight">
                <div className="row justify-content-center"> 
                    <div className="col-md-5 d-flex flex-column">
-                       <h1 className="display-4 fw-bolder">We Accept</h1>
+                       <h5 className="topic display-4 fw-bolder">We Accept</h5>
                          <ul>
                                 <li> Short coded product</li>
                                   <li> Excess product</li>
@@ -43,7 +43,7 @@ const navLinkStyles = () =>{
            <div className="container shadow my-5 form animate__animated animate__backInLeft animate__delay-2s ">
                <div className="row justify-content-center"> 
                    <div className="col-md-5 d-flex flex-column">
-                       <h1 className="display-4 fw-bolder">We Don't Accept</h1>
+                   <h5 className="topic display-4 fw-bolder">We Don't Accept</h5>
                          <ul>
                               <li>Regulated products such as alcohol, tobacco or drugs of dependence</li>
                               <li>Product past its use by date</li>

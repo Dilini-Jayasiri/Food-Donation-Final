@@ -38,7 +38,7 @@ export default function () {
                 plugins={[ dayGridPlugin ]}
                 initialView="dayGridMonth"
                 eventAdd={event => handleEventAdd(event)}
-                datesSet={(date) => handleDateSet(date)}  
+                datesSet={(date) => handleDateSet(date._d)}  
              />
             </div>
          <AddEventModel isOpen={modelOpen} onClose={() => setModalOpen(false)} onEventAdded={event => onEventAdded(event)}/>

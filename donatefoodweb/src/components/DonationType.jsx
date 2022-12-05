@@ -3,6 +3,8 @@ import {Col,Row,Button} from 'react-bootstrap';
 import '../assets/partials/donationType.scss';
 import GradientButton from 'react-linear-gradient-button'
 import { NavLink } from 'react-router-dom';
+import { width } from '@mui/system';
+import "../assets/partials/image.scss";
 
 const navLinkStyles = () =>{
    return{
@@ -14,9 +16,12 @@ const navLinkStyles = () =>{
 const DonationType =() => {
   return (
    <Row className='donationType'>
-        <Col xs={12} className='md-5 mt-4 mb-4 align-middle'>
-           <h2>Pick Donation Type</h2>
-        </Col>
+        
+       
+         <img src={require("../assets/child.jpg")} alt="image" className="w-100 mt-0 h-50"/>
+        
+           <h2 className='topic2 mt-4'>Pick Donation Type</h2>
+       
         <Col xs={12} className='md-5 my-3'>
            <center>
               {/* <GradientButton colors={['#4c669f', '#3b5998', '#192f6a']}>  */}

@@ -12,6 +12,7 @@ body {
     margin: 0;
     padding: 0px;
     min-height: 100%;
+    color:white;
     /* padding-bottom: 6.74rem; */
     /* box-sizing: inherit; */
     /* display: flex;
@@ -19,16 +20,17 @@ body {
 }
 
 #home {
-    background-color: 1abc9c;
+   /* // background-color: ; */
     background: linear-gradient(90deg, #1abc9c 50%, #16a085 100%);
     min-height: 500px;
     margin: 0px;
     padding: 0px;
+    color:white;
     /* //overflow: hidden; */
 }
 
 .form {
-    background-color: 1abc9c;
+    background-color: #1abc9c;
     background: linear-gradient(90deg, #1abc9c 50%, #16a085 100%);
     /* border-radius: 12%; */
 }
@@ -66,7 +68,12 @@ width: 100%; */
     width: '80%'
 
 }
-
+.topic{
+    color: white;
+}
+.topic2{
+    color:#1abc9c;
+}
 .imageOK {
     align-items: flex-end;
 }

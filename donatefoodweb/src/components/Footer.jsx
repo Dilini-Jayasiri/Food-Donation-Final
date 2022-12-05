@@ -9,7 +9,7 @@ import { NavLink } from 'react-router-dom';
                 <footer className="py-5">
                     <div className="row">
                         <div className="col-6">
-                            <h4>FOOD BANK</h4>
+                            <h4 className='topic'>FOOD BANK</h4>
                             <ul className="nav flex-column">
                             <li className="nav-item mb-2">
                                    All around the country  

@@ -215,7 +215,7 @@ useEffect(() => {
 
                 {/* <center> */}
                 <Col xs={12} className='md-5 mt-4 mb-4 align-middle'>
-                    <h2>Instant Donation</h2>
+                    <h2 className="topic">Instant Donation</h2>
                 </Col>
                 {/* </center> */}
                
@@ -277,27 +277,27 @@ useEffect(() => {
                                                 />
                                             </Box>
 
-                                            <Box my={4} mx={4}>
-                                            <FormControl sx={{ m: 1, minWidth: 80 }}>
-                                                    <InputLabel id="demo-simple-select-autowidth-label">Organization Name</InputLabel>
-                                                <Select
-                                                    name="orgName"
-                                                    labelId="demo-select-small"
-                                                    id="demo-select-small"
-                                                    value={values.orgName}
-                                                    label="Organization Name"
-                                                    onChange={handleChange}
-                                                >
-                                                    <MenuItem value="">
-                                                    <em>None</em>
-                                                    </MenuItem>
-                                                    {orgs.map(org => (
-                                                    <MenuItem value={org.orgName} key={org._id}>{org.orgName}</MenuItem>
-                                                    ))}
-                                                    
-                                                    
-                                                </Select>
-                                                </FormControl>
+                                            <Box my={2} mx={4}>
+                                        <FormControl sx={{width: 850 }}> 
+        <InputLabel id="demo-simple-select-autowidth-label">Organization Type</InputLabel>
+      <Select
+      name="orgName"
+        labelId="demo-select-small"
+        id="demo-select-small"
+        value={values.orgEmail}
+        label="Organization Name"
+        onChange={handleChange}
+      >
+        <MenuItem value="">
+          <em>None</em>
+        </MenuItem>
+        {orgs.map(org => (
+          <MenuItem value={org.orgName} key={org._id}>{org.orgName}</MenuItem>
+        ))}
+         
+        
+      </Select>
+    </FormControl>
                                          </Box>
 
                                          <Box my={4} mx={4}>
@@ -363,14 +363,17 @@ useEffect(() => {
 
 
                                            
-                                            <Box my={4} mx={4} className='timePickerA'>
-                                            <Controls.DatePicker1
+                                            <Box my={4} mx={4}>
+                            <FormControl sx={{width: 852 }}> 
+                                <Controls.DatePicker1 
                                     name="date"
                                     label="Date"
                                     value={values.date}
                                     onChange={handleChange}
-                                    error={errors.date}
+                                    
                                 />
+                                </FormControl>
+                            
 
                                                 {/* <LocalizationProvider dateAdapter={AdapterDateFns}>
                                                     <DateTimePicker

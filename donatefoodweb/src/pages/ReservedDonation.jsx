@@ -257,8 +257,8 @@ export default function ReservedDonation(props) {
                                     error={errors.address}
                                 />
                             </Box>
-                            <Box my={4} mx={4}>
-                               <FormControl sx={{ m: 1, minWidth: 80 }}>
+                            <Box my={2} mx={4}>
+                                        <FormControl sx={{width: 400 }}> 
         <InputLabel id="demo-simple-select-autowidth-label">Organization Type</InputLabel>
       <Select
       name="orgName"
@@ -272,7 +272,7 @@ export default function ReservedDonation(props) {
           <em>None</em>
         </MenuItem>
         {orgs.map(org => (
-          <MenuItem value={org.orgEmail} key={org._id}>{org.orgEmail}</MenuItem>
+          <MenuItem value={org.orgName} key={org._id}>{org.orgName}</MenuItem>
         ))}
          
         
@@ -340,14 +340,16 @@ export default function ReservedDonation(props) {
                                     />
                                 </Box>
                             </div>
-                            <Box my={1.5} mx={6}>
-                                <Controls.DatePicker1
+                            <Box my={1.5} mx={5}>
+                            <FormControl sx={{width: 350 }}> 
+                                <Controls.DatePicker1 
                                     name="date"
                                     label="Date"
                                     value={values.date}
                                     onChange={handleChange}
-                                    error={errors.date}
+                                    
                                 />
+                                </FormControl>
                             </Box>
 
                             <div>

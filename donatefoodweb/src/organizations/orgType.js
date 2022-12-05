@@ -17,6 +17,12 @@ export const getDonorType = () =>([
     {id:'2',title:'Group of People'}
 ])
 
+export const getRoles = () =>([
+    {id:'1',title:'Admin'},
+    {id:'2',title:'Needy Organization'},
+    {id:'3',title:'Donors'}
+])
+
 export function insertRequests(data){
     let requests = getAllRequests();
     data['id'] = generateRequestId();
