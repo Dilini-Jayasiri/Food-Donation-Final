@@ -18,9 +18,12 @@ export default function DonorAccount() {
     <div className='account' >
         <center>
             <Box my={5}>
+            <NavLink style={navLinkStyles} to="/myprofile">
         <GradientButton>
+
             Edit Profile
-        </GradientButton></Box>
+        </GradientButton>
+        </NavLink></Box>
         <Box my={5}>
         <NavLink style={navLinkStyles} to="/donationSummary">
         <GradientButton>

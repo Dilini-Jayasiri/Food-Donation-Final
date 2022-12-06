@@ -24,6 +24,7 @@ const DonationSummary =()=>{
     const params =useParams();
     console.log(donations)
 
+var name=localStorage.getItem(donorName);
 // getDonorData = () =>{
 //   axios.get('/reservedDon')
 //     .then((response) => {
@@ -83,14 +84,14 @@ const updateDonation = async () => {
                         {/* <i className='fa fa-cogs fa-4x mb-4 text-primary'></i> */}
                         {/* <h5 class="card-title mb-3 fs-4 fw-bold">Children's Home</h5> */}
                         <input type="text" value={id} onChange={e => setId(e.target.value)} />
-      <div>{donations.donorName}</div> 
+      {/* <div>{donations.donorName}</div> 
                         <div className='sumP'>
                           
                         {donations.map(post => {
       <div key={post.id}>
-        <h5>{post.setDonorName}</h5>
-        <p>{post.setPhone}</p>
-        <p>{post.setdonEmail}</p>
+        <h5>{post.donname}</h5> */}
+        {/* <p>{post.setPhone}</p>
+        <p>{post.setdonEmail}</p> */}
         {/* <p>{post.address}</p>
         <p>{post.orgName}</p>
         <p>{post.date}</p>
@@ -98,12 +99,12 @@ const updateDonation = async () => {
         <p>{post.quantity}</p>
         <p>{post.mealType}</p>
         <p>{post.foodType}</p> */}
-        </div>
-    })}
+        {/* </div>
+    })} */}
                         {/* {don.map(org => (org._id))} 
           */}
    
-                        <p>Donor name :frtgyhujikl</p>
+                        {/* <p>Donor name :frtgyhujikl</p>
                         <p>Donor Type : rtfyhujk</p>
                         <p> Conatct No : rftgyhuj</p>
                         <p> Email : tgyuhjik</p>
@@ -112,9 +113,14 @@ const updateDonation = async () => {
                         <p> Date :gbhnjm </p>
                         <p> Food Name : </p>
                         <p> Quantity : </p>
-                        <p> Meal Type : </p>
-                        </div>
-                       
+                        <p> Meal Type : </p> */}
+                        
+                        {/* </div> */}
+                        {localStorage.getItem('Name') && (
+            <div>
+               Name: <p>{localStorage.getItem('Name')}</p>
+            </div>
+         )}
 
                         <center>
                                     <GradientButton

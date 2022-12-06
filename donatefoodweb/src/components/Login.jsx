@@ -10,8 +10,6 @@ const Login = () =>{
         email : '',
         password : ''
     }); 
-    // localStorage.setItem(user.password);
-    // const pw = localStorage.getItem(user.password);
 
     //Handle Input
     const handleChange = (event) => {

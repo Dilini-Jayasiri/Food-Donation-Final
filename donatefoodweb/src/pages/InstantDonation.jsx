@@ -31,6 +31,7 @@ const foodType = [
     { id: 'both', title: 'Both' }
 ]
 
+
 const initialValues = {
     id: '',
     Nic:'',
@@ -48,6 +49,8 @@ const initialValues = {
     foodName:''
     
     }
+
+//const inst = localStorage.setItem("donorname",values.donorName);
 
 export default function InstantDonation(props) {
    // const { addOrEdit } = props
@@ -125,6 +128,7 @@ useEffect(() => {
 
         setValues({ ...values, [name]: value });
        // console.log(values);
+      // localStorage.setItem('Name',);
     }
     //Handle Submit
     const handleSubmit = async (event) => {
@@ -183,8 +187,11 @@ useEffect(() => {
                     foodType:'',
                     foodName:''
                     
+                    
 
                 })
+               const donname= localStorage.setItem("donorname",res.values.donorName);
+                navigate("/donationSummary");
 
             }
         } catch (error) {
