@@ -15,10 +15,11 @@ import { Link,useNavigate } from 'react-router-dom';
 import DonationSummary from '../../src/Profile/DonationSummary';
 import {Routes,Route} from 'react-router';
 import emailjs from 'emailjs-com';
-
+import { NavLink } from 'react-router-dom';
 const navLinkStyles = () =>{
    return{
      textDecoration:  'none',
+     width: '50%'
    }
  }
 const mealTypeItems = [
@@ -354,17 +355,14 @@ export default function ReservedDonation(props) {
 
                             <div>
                                 <Box my={5} mx={12}>
-                                    
-                                <Link to={"/donationSummary"}>
-                                    <GradientButton
-                                        style={{ width: '50%' }}
-                                        onClick={handleSubmit}
-                                        type="submit"
-                                        text="Submit">    
-                                        Submit
-                                        <i className="fa fa-paper-plane ms-2"></i>
-                                    </GradientButton>
-                                    </Link>
+                                <NavLink style={navLinkStyles} to="/donationSummary">
+              <GradientButton style={{ backgroundImage: `linear-gradient(to right, #1abc9c 50%, #16a085 100%)`, }}
+              onClick={handleSubmit}
+              type="submit"
+              text="Submit"
+              > Submit <i className="fa fa-paper-plane ms-2"></i></GradientButton>
+            </NavLink>   
+                                
                                     {/* <link to="/donationSummary/10">Summary</link> */}
 
                                     {/* <Controls.Button

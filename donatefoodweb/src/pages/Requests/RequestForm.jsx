@@ -9,7 +9,7 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-
+import {useNavigate} from 'react-router';
 
 const mealTypeItems = [
     { id: 'breakfast', title: 'Breakfast' },
@@ -46,6 +46,7 @@ const initialValues = {
 }
 export default function RequestForm(props) {
     //const { addOrEdit } = props
+    const navigate = useNavigate();
     const [isSubmit,setIsSubmit] = useState(false);
     const [formErrors,setFormErrors] = useState({});
     const validate = (fieldValues = values) => {
@@ -137,6 +138,8 @@ export default function RequestForm(props) {
                     confirmedDate: '',
                 })
                 console.log(values);
+              //  window.location.reload();
+                navigate('/tableNew')
             }
         } catch (error) {
             console.log(error);

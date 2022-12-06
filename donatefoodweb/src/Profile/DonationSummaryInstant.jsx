@@ -30,9 +30,10 @@ function DonationSummaryInstant() {
     //     }
     //     fetchRequests()
     //   }, [])
+   
   return (
     <div>
-
+          
       {/* <input type="text" value={nic} onChange={e => setNic(e.target.value)} />
       <div>{dons.donorName}</div> */}
       {/* <ul>
@@ -70,10 +71,11 @@ function DonationSummaryInstant() {
                      
                      </center>
                      </div>
-            
+            getreserveddon()
          </div> */}
      
         {/* </center> */} 
+       
         {dons.map(post => {
           <div key={post._id}>
             <h5>{post.donorName}</h5>

@@ -41,7 +41,7 @@ import { NavLink } from 'react-router-dom';
                                 </NavLink>
                             </li>
                             <li className="nav-item mb-2">
-                            <NavLink to="./tableNew" className="nav-link p-0 text-white">
+                            <NavLink to="./tableNewDonor" className="nav-link p-0 text-white">
                                     Show Food Requests
                                     </NavLink>
                             </li>

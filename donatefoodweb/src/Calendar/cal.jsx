@@ -10,20 +10,48 @@ setOptions({
 const defaultEvents = [{
     id: 1,
     start: '2022-12-21T00:00',
-    end: '2022-12-24T00:00',
+    // end: '2022-12-24T00:00',
     title: 'Mr.Saman perera',
     allDay: true,
     color: '#67ab0d'
 }, {
     id: 2,
-    start: '18:00',
-    end: '20:00',
-    recurring: {
-        repeat: 'weekly',
-        weekDays: 'MO'
-    },
-    title: 'Mrs.Jayanthi',
-    allDay: false,
+    start: '2022-12-22T00:00',
+    // end: '2022-12-24T00:00',
+    title: 'Miss.Dilini Jayasiri',
+    allDay: true,
+    color: '#fd966a'
+
+},{
+    id: 3,
+    start: '2022-12-25T00:00',
+    
+    title: 'Mr.Sunil Jayasiri',
+    allDay: true,
+    color: '#fd966a'
+
+},{
+    id: 4,
+    start: '2022-12-19T00:00',
+   // end: '2022-12-24T00:00',
+    title:"Miss.Thilini Jayasiri",
+    allDay: true,
+    color: '#fd966a'
+
+},{
+    id: 5,
+    start: '2022-12-8T00:00',
+   // end: '2022-12-24T00:00',
+    title: 'Mrs.Thivanka Jayasiri',
+    allDay: true,
+    color: '#fd966a'
+
+},{
+    id: 6,
+    start: '2022-12-31T00:00',
+   // end: '2022-12-24T00:00',
+    title: 'Mrs.Thamara Anomani',
+    allDay: true,
     color: '#fd966a'
 
 }];

@@ -29,7 +29,7 @@ import Inst from './pages/InstantDon';
 import AcceptPage from './AcceptPage';
 import Calendar from './Calendar/calendar';
 import Modal from 'react-modal';
-import DonationRequestAccept from './components/donationRequestAccept';
+import DonationRequestAccept from './components/DonationRequestAccept/donationRequestAccept';
 import Dashboard from './adminSide/pages/Dashboard/dashboard';
 import Dash2 from './adminSide/pages/Dashboard/dash2';
 import AdminOrgs from './adminSide/pages/Dashboard/Organizations/Organizations';
@@ -37,6 +37,11 @@ import AdminResDon from './adminSide/pages/Dashboard/ReservedDonors/ReservedDono
 import AdminInsDon from './adminSide/pages/Dashboard/instantdonors/InstantDonors';
 import AdminMain from './adminSide/pages/Dashboard/main/Main';
 import Calendar2 from './Calendar/cal';
+import requestActions from '../src/pages/Requests/RequestActions';
+import CalendarForDonor from '../src/pages/Requests/CalendarForDonor';
+import OrgAccount from '../src/OrgProfile/OrgAccount';
+import TableNewDonor from '../src/pages/Requests/TableNewDonor';
+import Alart from '../src/components/DonationRequestAccept/alart';
 Modal.setAppElement('#root');
 
 
@@ -79,7 +84,7 @@ function App() {
       <NavBar auth={auth1} />
 
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />
         <Route path="/contact" element={<Contact />} />
@@ -116,9 +121,10 @@ function App() {
         <Route path="/inst" element={<Inst />} />
         <Route path="/acceptPage" element={<AcceptPage />} />
         <Route path="/receiverAccount" element={<ReceiverAccount />} />
-        <Route path="/instantDonSummary" element={<DonationSummaryInstant />} />
+        <Route path="/instantDonSummary/:id" element={<DonationSummaryInstant />} />
         <Route path="/calendar" element={<Calendar />} />
         <Route path="/cal" element={<Calendar2/>} />
+        <Route path="/calForDon" element={<CalendarForDonor/>}/>
         <Route path="/donationReqAcc" element={<DonationRequestAccept />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/adminOrgs" element={<AdminOrgs/>}/>
@@ -126,6 +132,10 @@ function App() {
         <Route path="/adminResDon" element={<AdminResDon/>}/>
         <Route path="/adminMain" element={<AdminMain/>}/>
         <Route path="/dash2" element={<Dash2/>}/>
+        <Route path="/orgAccount" element={<OrgAccount/>}/>
+        <Route path="" element={<Home/>}/>
+        <Route path="/tableNewDonor" element={<TableNewDonor/>}/>
+        <Route path="/alart" element={<Alart/>}/>
         
       </Routes>
 

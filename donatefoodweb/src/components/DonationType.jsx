@@ -5,7 +5,7 @@ import GradientButton from 'react-linear-gradient-button'
 import { NavLink } from 'react-router-dom';
 import { width } from '@mui/system';
 import "../assets/partials/image.scss";
-
+import { Box, Grid, requirePropFactory } from '@mui/material';
 const navLinkStyles = () =>{
    return{
     
@@ -26,7 +26,11 @@ const DonationType =() => {
            <center>
               {/* <GradientButton colors={['#4c669f', '#3b5998', '#192f6a']}>  */}
 
-              <NavLink style={navLinkStyles} to="/instantDonation"><GradientButton  >Instant Donation</GradientButton></NavLink> 
+              
+            <NavLink style={navLinkStyles} to="/instantDonation">
+              <GradientButton style={{ backgroundImage: `linear-gradient(to right, #1abc9c 50%, #16a085 100%)`, }} >Instant Donation</GradientButton>
+            </NavLink>
+         
         </center>
      </Col>
      <Col xs={12} className='md-5 my-3'>
@@ -35,7 +39,12 @@ const DonationType =() => {
            </center>
         </Col><Col xs={12} className='md-5 mt-4 mb-2'>
            <center>
-           <NavLink style={navLinkStyles} to="/reservedDonation"><GradientButton>Reserved Donation</GradientButton></NavLink> 
+           
+            <NavLink style={navLinkStyles} to="/reservedDonation">
+              <GradientButton style={{ backgroundImage: `linear-gradient(to right, #1abc9c 50%, #16a085 100%)`, }} >Reserved Donation</GradientButton>
+            </NavLink>
+         
+           
            </center>
         </Col><Col xs={12} className='md-5 my-3'>
            <center>

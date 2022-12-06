@@ -32,7 +32,10 @@ const NavBar = (props) => {
                 <NavLink to="/contact" className="nav-link" >Contact Us</NavLink>
               </li>
               <li className="nav-item">
-                <NavLink to="/donorAccount" className="nav-link" >My Account</NavLink>
+                <NavLink to="/donorAccount" className="nav-link" >Donor Account</NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink to="/orgAccount" className="nav-link" >Organization Account</NavLink>
               </li>
               <li className="nav-item">
                 <NavLink to="/donateDash" className="nav-link" >Donate</NavLink>

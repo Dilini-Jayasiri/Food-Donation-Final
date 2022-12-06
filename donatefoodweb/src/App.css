@@ -41,7 +41,7 @@ body {
 }
 
 .footer {
-    background-color: 1abc9c;
+    background-color: #1abc9c;
     background: linear-gradient(90deg, #1abc9c 50%, #16a085 100%);
     /* margin-top: auto; */
     /* display: flex; */
@@ -101,7 +101,13 @@ width: 100%; */
     width: 60%;
 
 }
-
+h3{
+    color:#1abc9c ;
+}
+.calendarMargin{
+    margin-left: 10;
+    margin-right: 10;
+}
 .center {
     display: block;
     margin-left: auto;

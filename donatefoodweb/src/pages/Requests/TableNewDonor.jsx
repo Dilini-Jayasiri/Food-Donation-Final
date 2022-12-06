@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 import { useNavigate } from "react-router";
 
 
-const TableNew = ({setSelectedLink,link}) => {
+const TableNewDonor = ({setSelectedLink,link}) => {
     const [orgs,setOrgs] = useState([]);
     const [rowId,setRowId] = useState();
     useEffect(() => {
@@ -26,7 +26,7 @@ const TableNew = ({setSelectedLink,link}) => {
     }, [])
     const navigate = useNavigate();
           const handleButtonClick = () => {
-             navigate('/cal')
+             navigate('/calForDon')
       }
     const [pageSize,setPageSize] = useState(5);
     const columns = useMemo( () => [
@@ -102,4 +102,4 @@ const TableNew = ({setSelectedLink,link}) => {
     )
 };
 
-export default TableNew;
+export default TableNewDonor;

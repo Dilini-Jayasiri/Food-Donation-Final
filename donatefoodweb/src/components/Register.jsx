@@ -11,7 +11,7 @@ import Select from '@mui/material/Select';
 
 const Register = () => {
 
-    const history = useNavigate();
+    const navigate = useNavigate();
 
     const [user, setUser] = useState({
         username: '',
@@ -51,7 +51,7 @@ const Register = () => {
                 window.alert("Already Used Details")
             } else {
                 window.alert("Registered Successfully");
-                history.pushState('/login')
+                navigate('/home')
             }
         } catch (error) {
             console.log(error);

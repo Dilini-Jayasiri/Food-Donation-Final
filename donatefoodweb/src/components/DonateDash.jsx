@@ -61,7 +61,7 @@ const navLinkStyles = () =>{
            <Col xs={12} className='md-5 my-3'>
            <center>
           <NavLink style={navLinkStyles} to="/donationType">
-            <Button style={{ backgroundImage: `linear-gradient(to right, rgb(4, 219, 0) 50%, rgb(0, 255, 234) 100%)`, }} >Go to Donation Page</Button>
+            <Button style={{ backgroundImage: `linear-gradient(to right, #1abc9c 50%, #16a085 100%)`, }} >Go to Donation Page</Button>
             {/* <GradientButton  >Go to Donation Page</GradientButton> */}
           </NavLink>
              </center>

@@ -14,10 +14,11 @@ import { useState } from 'react';
 import GradientButton from 'react-linear-gradient-button'
 import { Link,useNavigate } from 'react-router-dom';
 import emailjs from 'emailjs-com';
-
+import { NavLink } from 'react-router-dom';
 const navLinkStyles = () => {
     return {
         textDecoration: 'none',
+        width: '100%'
     }
 }
 const mealType = [
@@ -49,7 +50,7 @@ const initialValues = {
     foodName:''
     
     }
-
+   
 //const inst = localStorage.setItem("donorname",values.donorName);
 
 export default function InstantDonation(props) {
@@ -129,6 +130,19 @@ useEffect(() => {
         setValues({ ...values, [name]: value });
        // console.log(values);
       // localStorage.setItem('Name',);
+    //   var insertDocument = function(db, callback) {
+    //     db.collection('instantdonations').insertOne( {
+    //           "donorName" : values.donorName,
+    //           "phone" : values.phone,
+    //           "donEmail" :  values.donEmail,
+    //           "address" :  values.address,
+    //        }, function(err, result) {
+    //            console.log("Record added as "+result.insertedId);
+    //             assert.equal(err, null);
+    //             callback();
+    //       });
+    // };
+    // console.log("record inserted >>"+JSON.stringify(result.ops[0]));
     }
     //Handle Submit
     const handleSubmit = async (event) => {
@@ -190,8 +204,11 @@ useEffect(() => {
                     
 
                 })
-               const donname= localStorage.setItem("donorname",res.values.donorName);
+                localStorage.setItem("donorId",res.values.nic);
+                localStorage.setItem("donorname",res.values.donorName);
+                localStorage.setItem("email",res.values.donEmail);
                 navigate("/donationSummary");
+                console.log(localStorage.getItem("donorname"))
 
             }
         } catch (error) {
@@ -202,7 +219,9 @@ useEffect(() => {
     useEffect(()=>{
         console.log(formErrors)
         if(Object.keys(formErrors).length === 0 && isSubmit){
-            console.log(values)
+           // console.log(values)
+            
+           
         }
     },[formErrors])
 //     const MainContainer = styled.div`
@@ -217,18 +236,15 @@ useEffect(() => {
 
     return (
 
-        <Row className='donation'>
-            <div className='donDiv'>
-
+        <div className='donation'>
+            {/* <div className='donDiv'> */}
+           {/* <Col> <center><img src={require("../assets/donationform.jpg")} alt="image" /></center></Col>  */}
                 {/* <center> */}
-                <Col xs={12} className='md-5 mt-4 mb-4 align-middle'>
-                    <h2 className="topic">Instant Donation</h2>
-                </Col>
-                {/* </center> */}
-               
-                <center>
+                <MainContainer>
+                <DonationText>
+                    Instant Donation
+                </DonationText>
 
-                    <MainContainer>
                         <form onSubmit={handleSubmit} method={'POST'}>
                             <div>
                                 <Grid container className='donationCon'>
@@ -329,7 +345,7 @@ useEffect(() => {
                                             </Box>
 
                                             <Box my={4} mx={4}>
-                                                <label className='labelA'>Meal Type</label>
+                                                <label>Meal Type</label>
                                                 <Controls.RadioGroups
                                                     name="mealType"
                                                     value={values.mealType}
@@ -349,7 +365,7 @@ useEffect(() => {
                                             </Box>
 
                                             <Box my={4} mx={4}>
-                                                <label className='labelA'>Food Type</label>
+                                                <label>Food Type</label>
                                                 <Controls.RadioGroups
                                                     name="foodType"
                                                     value={values.foodType}
@@ -401,16 +417,16 @@ useEffect(() => {
                                             <div >
                                                 <Box my={4} mx={4}>
                                                     <Box my={4} mx={4}>
-                                                        <Link to={"/donationSummary"}>
-                                                        <GradientButton
-                                        style={{ width: '50%' }}
-                                        onClick={handleSubmit}
-                                        type="submit"
-                                        text="Submit">
-                                        Submit
-                                        <i className="fa fa-paper-plane ms-2"></i>
-                                    </GradientButton>
-                                    </Link>
+                                                    <NavLink style={navLinkStyles} to="/donationSummary">
+              <GradientButton style={{ backgroundImage: `linear-gradient(to right, #1abc9c 50%, #16a085 100%)`, }}
+              onClick={handleSubmit}
+              type="submit"
+              text="Submit"
+              > Submit <i className="fa fa-paper-plane ms-2"></i></GradientButton>
+            </NavLink>
+                                                        
+                                       
+                                        
                                                     </Box>
                                                 </Box>
                                             </div>
@@ -420,24 +436,47 @@ useEffect(() => {
                             </div>
                         </form>
                     </MainContainer>
-                </center>
+                {/* </center> */}
+                {/* </center>
+                </Col>
 
+            {/* </div> */}
+            {/* </Row> */} 
 
-            </div>
+        </div>
 
-        </Row>
-
-
-    );
+    )
+    
 
 }
 
 const MainContainer = styled.div`
-  
+display:flex;
 align-items:center;
 flex-direction:column;
-width:60vw;
-background:rgba(255,255,255,0.15);
-backdrop-filter:blur(8.5px);
-margin-bottom:4%;
-`;
+height:50%;
+width:60%;
+opacity:2.8;
+font-weight:bold;
+ background:rgba(255,255,255,0.4);
+ box-shadow:0 8px 32px 0 rgba(31,38,135,0.37);
+backdrop-filter:blur(8.5px)
+border-radius:10px;
+color:#ffffff;
+// text-transform:uppercase;
+letter-spacing:0.4rem;`;
+
+
+const InputContainer = styled.div`
+display:flex;
+flex-direction:column;
+height:80%;
+width:100%;
+justify-content:space-around;
+align-items:center;
+
+`
+const DonationText = styled.h2`
+margin:3rem 0 2rem 0;
+`
+

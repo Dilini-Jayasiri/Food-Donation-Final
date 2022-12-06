@@ -19,7 +19,7 @@ const navLinkStyles = () => {
   }
 }
 
-export default function DonorAccount() {
+export default function OrgAccount() {
   return (
     <div className='account' >
       <Col xs={4}><center><h1>No one has ever</h1>
@@ -39,20 +39,20 @@ export default function DonorAccount() {
 
           </Box>
           <Box my={5}>
-            <NavLink style={navLinkStyles} to="/donationSummary">
-              <GradientButton style={{ backgroundImage: `linear-gradient(to right, #1abc9c 50%, #16a085 100%)`, }} >Last Donation Status</GradientButton>
+            <NavLink style={navLinkStyles} to="/donationReqAcc">
+              <GradientButton style={{ backgroundImage: `linear-gradient(to right, #1abc9c 50%, #16a085 100%)`, }} > Donation Status</GradientButton>
             </NavLink>
           </Box>
 
           <Box my={5}>
-            <NavLink style={navLinkStyles} to="/">
+            <NavLink style={navLinkStyles} to="/donationSummary">
               <GradientButton style={{ backgroundImage: `linear-gradient(to right, #1abc9c 50%, #16a085 100%)`, }} >View Donation History</GradientButton>
             </NavLink>
           </Box>
 
           <Box my={5}>
-            <NavLink style={navLinkStyles} to="/calForDon">
-              <GradientButton style={{ backgroundImage: `linear-gradient(to right, #1abc9c 50%, #16a085 100%)`, }} >View the Calendar</GradientButton>
+            <NavLink style={navLinkStyles} to="/cal">
+              <GradientButton style={{ backgroundImage: `linear-gradient(to right, #1abc9c 50%, #16a085 100%)`, }} >Update the Calendar</GradientButton>
             </NavLink>
 
 

@@ -104,23 +104,25 @@ const updateDonation = async () => {
                         {/* {don.map(org => (org._id))} 
           */}
    
-                        {/* <p>Donor name :frtgyhujikl</p>
-                        <p>Donor Type : rtfyhujk</p>
-                        <p> Conatct No : rftgyhuj</p>
-                        <p> Email : tgyuhjik</p>
+                        <p>Donor name :</p>
+                        <p>Donor Type : </p>
+                        <p> Conatct No : </p>
+                        <p> Email : </p>
                         <p> Address : </p>
-                        <p> Selected Organization Name : cfvgbhnjmk</p>
+                        <p> Selected Organization Name : </p>
                         <p> Date :gbhnjm </p>
                         <p> Food Name : </p>
                         <p> Quantity : </p>
-                        <p> Meal Type : </p> */}
+                        <p> Meal Type : </p>
                         
                         {/* </div> */}
-                        {localStorage.getItem('Name') && (
+                        {/* {localStorage.getItem('donname') && (
             <div>
-               Name: <p>{localStorage.getItem('Name')}</p>
+               Name: <p>{localStorage.getItem('donname')}</p>
             </div>
-         )}
+         )} */}
+
+        
 
                         <center>
                                     <GradientButton

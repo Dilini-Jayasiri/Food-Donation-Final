@@ -4,7 +4,7 @@ import {useNavigate} from 'react-router';
 
 const Login = () =>{
 
-    const history = useNavigate();
+    const navigate = useNavigate();
 
     const [user,setUser] = useState({
         email : '',
@@ -38,8 +38,8 @@ const Login = () =>{
                 window.alert("Invalid Credentials");
             }else{
                 window.alert("Login Successfull");
-                window.location.reload();
-                history.push('/')
+                //window.location.reload();
+                navigate('/home');
             }
 
         } catch (error) {
