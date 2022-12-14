@@ -24,7 +24,7 @@ const DonationSummary =()=>{
     const params =useParams();
     console.log(donations)
 
-var name=localStorage.getItem(donorName);
+//var name=localStorage.getItem(donorName);
 // getDonorData = () =>{
 //   axios.get('/reservedDon')
 //     .then((response) => {
@@ -80,10 +80,10 @@ const updateDonation = async () => {
                 <div class="card p-2">
                 <h1>Donation Confirmation</h1>
                      <div class="card-body text-center">
-                      <h4>RESERVED  DONATION</h4>
+                      {/* <h4>RESERVED  DONATION</h4> */}
                         {/* <i className='fa fa-cogs fa-4x mb-4 text-primary'></i> */}
                         {/* <h5 class="card-title mb-3 fs-4 fw-bold">Children's Home</h5> */}
-                        <input type="text" value={id} onChange={e => setId(e.target.value)} />
+                        {/* <input type="text" value={id} onChange={e => setId(e.target.value)} /> */}
       {/* <div>{donations.donorName}</div> 
                         <div className='sumP'>
                           
@@ -103,17 +103,18 @@ const updateDonation = async () => {
     })} */}
                         {/* {don.map(org => (org._id))} 
           */}
-   
-                        <p>Donor name :</p>
-                        <p>Donor Type : </p>
-                        <p> Conatct No : </p>
-                        <p> Email : </p>
-                        <p> Address : </p>
-                        <p> Selected Organization Name : </p>
-                        <p> Date :gbhnjm </p>
-                        <p> Food Name : </p>
-                        <p> Quantity : </p>
-                        <p> Meal Type : </p>
+   <h3>Your Donation Is Not Accepted Yet
+   </h3>
+                        <p>Donor name : Dilini Jayasiri</p>
+                        <p>Donor Type : Individual </p>
+                        <p> Conatct No : 0716613876 </p>
+                        <p> Organization Email : dilininadeesha2018@gmail.com </p>
+                        <p> Address :Panadura </p>
+                        <p> Selected Organization Name : Sumihiri childrens home</p>
+                        <p> Date :21.12.2022 </p>
+                        <p> Food Name : Rice</p>
+                        <p> Quantity :60 </p>
+                        <p> Meal Type :Lunch </p>
                         
                         {/* </div> */}
                         {/* {localStorage.getItem('donname') && (
@@ -124,7 +125,7 @@ const updateDonation = async () => {
 
         
 
-                        <center>
+                        {/* <center>
                                     <GradientButton
                                         style={{ width: '40%' }}
                                         onClick={''}
@@ -133,7 +134,7 @@ const updateDonation = async () => {
                                         Confirm Donation
                                         <i className="fa fa-paper-plane ms-2"></i>
                                     </GradientButton>
-                                    </center>
+                                    </center> */}
                      </div>
                      
                 </div>

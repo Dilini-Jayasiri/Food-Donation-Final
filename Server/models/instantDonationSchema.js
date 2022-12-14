@@ -65,7 +65,11 @@ const instantDonationSchema = new mongoose.Schema({
         type : String,
         required : true
     },  
-})
+    user_id:{
+        type:String,
+        required:true
+    }
+},{timestamps:true})
 
 //Create Model
 const InstantDonation = new mongoose.model("INSTANTDONATION", instantDonationSchema);

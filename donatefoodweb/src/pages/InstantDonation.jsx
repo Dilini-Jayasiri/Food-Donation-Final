@@ -1,9 +1,8 @@
 import React,{useEffect} from 'react';
 import Grid from '@mui/material/Grid';
 import { Box } from '@mui/material';
-import { Row, Col } from 'react-bootstrap'
 import Controls from '../components/controls/Controls'
-import { useForm, Form } from '../components/useForm';
+import { useForm } from '../components/useForm';
 import '../assets/partials/instantDonation.scss';
 import styled from 'styled-components';
 import FormControl from '@mui/material/FormControl';
@@ -12,15 +11,17 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import { useState } from 'react';
 import GradientButton from 'react-linear-gradient-button'
-import { Link,useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import emailjs from 'emailjs-com';
 import { NavLink } from 'react-router-dom';
+
 const navLinkStyles = () => {
     return {
         textDecoration: 'none',
         width: '100%'
     }
 }
+
 const mealType = [
     { id: 'breakfast', title: 'Breakfast' },
     { id: 'lunch', title: 'Lunch' },
@@ -64,7 +65,7 @@ const navigate = useNavigate();
 
 useEffect(() => {
   const fetchData = async () => {
-    const response = await fetch('/requests');
+    const response = await fetch('/api/requests/');
     const newData = await response.json();
     setOrgs(newData);
     //console.log(newData);
@@ -204,12 +205,20 @@ useEffect(() => {
                     
 
                 })
-                localStorage.setItem("donorId",res.values.nic);
-                localStorage.setItem("donorname",res.values.donorName);
-                localStorage.setItem("email",res.values.donEmail);
+                // localStorage.setItem("donorId",res.values.nic);
+                // localStorage.setItem("donorname",res.values.donorName);
+                // localStorage.setItem("email",res.values.donEmail);
                 navigate("/donationSummary");
-                console.log(localStorage.getItem("donorname"))
+               // console.log(localStorage.getItem("donorname"))
+               if (typeof window !== 'undefined') {
+                localStorage.setItem("newAddress",values.donEmail);
+                var email = localStorage.getItem("newAddress");
+               console.log(email);
+               }else{
+                console.log('we are running on the server');
+               }
 
+               
             }
         } catch (error) {
             console.log(error);
@@ -307,7 +316,7 @@ useEffect(() => {
       name="orgName"
         labelId="demo-select-small"
         id="demo-select-small"
-        value={values.orgEmail}
+        value={values.orgName}
         label="Organization Name"
         onChange={handleChange}
       >
@@ -444,9 +453,10 @@ useEffect(() => {
             {/* </Row> */} 
 
         </div>
+      
+        
 
     )
-    
 
 }
 

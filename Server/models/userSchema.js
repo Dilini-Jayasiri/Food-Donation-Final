@@ -66,7 +66,7 @@ userSchema.pre('save',async function(next){
         this.password = bcryptjs.hashSync(this.password,10);
     }
     next();
-})
+},{timestamps:true})
 
 //Generate Tokens to verify user
 userSchema.methods.generateToken = async function(){

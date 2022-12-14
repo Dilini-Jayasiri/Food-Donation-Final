@@ -24,7 +24,7 @@ const convertToDefEventPara = (name,value) => ({
       varient="inline"
       inputVariant="outlined" 
        label={label}
-       format="MMM/dd/yyyy"
+       format="MM/dd/yyyy"
        name={name}
        value={value}
        onChange={date => onChange(convertToDefEventPara(name,date))}

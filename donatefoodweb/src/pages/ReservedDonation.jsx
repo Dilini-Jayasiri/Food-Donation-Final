@@ -11,11 +11,13 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import { Link,useNavigate } from 'react-router-dom';
 import DonationSummary from '../../src/Profile/DonationSummary';
 import {Routes,Route} from 'react-router';
 import emailjs from 'emailjs-com';
 import { NavLink } from 'react-router-dom';
+import { useDonationContext } from '../components/hoooks/useDonationContext';
+import {useNavigate} from 'react-router';
+
 const navLinkStyles = () =>{
    return{
      textDecoration:  'none',
@@ -49,17 +51,19 @@ const initialValues = {
         foodType: '',
     }
 export default function ReservedDonation(props) {
+    const navigate = useNavigate();
+    const {dispatch} = useDonationContext()
        // const { addOrEdit } = props
         const [organizationName,setOrganizationName]=useState("");
         const [orgs,setOrgs] = React.useState([{'orgName':'','_id':''}]);
         const [isSubmit,setIsSubmit] = useState(false);
         const [formErrors,setFormErrors] = useState({});
-        const navigate = useNavigate();
+
 
 
         useEffect(() => {
             const fetchData = async () => {
-              const response = await fetch('/requests');
+              const response = await fetch('/api/requests/');
               const newData = await response.json();
               setOrgs(newData);
               console.log(newData);
@@ -152,6 +156,7 @@ export default function ReservedDonation(props) {
                 body: JSON.stringify({
                     donorName, donationType, donorTypeId, phone,donEmail, address, orgName, date, foodName, quantity, mealType, foodType
                 })
+                
             })
             if (res.status === 400 || !res) {
                 window.alert("Message Not Sent. Try Again Later")
@@ -169,9 +174,15 @@ export default function ReservedDonation(props) {
                     foodName: '',
                     quantity: '',
                     mealType: '',
-                    foodType: '',
+                    foodType: ''
+
                     
-                })
+                },
+
+                dispatch({type:'CREATE_DONATIONS', payload : JSON})
+
+                )
+                navigate('/donationHistory')
             }
         } catch (error) {
             console.log(error);
@@ -265,7 +276,7 @@ export default function ReservedDonation(props) {
       name="orgName"
         labelId="demo-select-small"
         id="demo-select-small"
-        value={values.orgEmail}
+        value={values.orgName}
         label="Organization Name"
         onChange={handleChange}
       >

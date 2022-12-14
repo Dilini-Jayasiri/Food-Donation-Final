@@ -37,7 +37,7 @@ const donationSchema = new mongoose.Schema({
         required : true
     }
    
-})
+},{timestamps:true})
 
 //Create Model
 const Donation = new mongoose.model("DONATION", donationSchema);

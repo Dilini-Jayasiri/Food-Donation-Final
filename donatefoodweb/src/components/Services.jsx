@@ -23,7 +23,7 @@ import '../assets/partials/services.scss'
                         {/* <i className='fa fa-cogs fa-4x mb-4 text-primary'></i> */}
                         <h5 class="card-title mb-3 fs-4 fw-bold">Children's Home</h5>
                         
-                        <p class="card-text lead">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <p class="card-text lead">We feel the children living in homes without parents or guardians need more love and protection.</p>
                      </div>
                 </div>
                 </div>
@@ -33,7 +33,7 @@ import '../assets/partials/services.scss'
                      <div class="card-body text-center">
                         {/* <i className='fa fa-cogs fa-4x mb-4 text-primary'></i> */}
                         <h5 class="card-title mb-3 fs-4 fw-bold">Old Age Home</h5>
-                        <p class="card-text lead">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <p class="card-text lead">These retirement homes allow individuals to maintain their independence.</p>
                      </div>
                 </div>
                 </div>
@@ -43,7 +43,7 @@ import '../assets/partials/services.scss'
                      <div class="card-body text-center">
                         {/* <i className='fa fa-cogs fa-4x mb-4 text-primary'></i> */}
                         <h5 class="card-title mb-3 fs-4 fw-bold">Poor People</h5>
-                        <p class="card-text lead">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <p class="card-text lead">Poverty is the state of having few material possessions or little income.</p>
                      </div>
                 </div>
                 </div>
@@ -67,7 +67,7 @@ import '../assets/partials/services.scss'
                         {/* <i className='fa fa-cogs fa-4x mb-4 text-primary'></i> */}
                         <h5 class="card-title mb-3 fs-4 fw-bold">Breakfast</h5>
                         
-                        <p class="card-text lead">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <p class="card-text lead">Eating breakfast is give that chance to someone who needs a nice way of saying thank you to your body.</p>
                      </div>
                 </div>
                 </div>
@@ -77,7 +77,7 @@ import '../assets/partials/services.scss'
                      <div class="card-body text-center">
                         {/* <i className='fa fa-cogs fa-4x mb-4 text-primary'></i> */}
                         <h5 class="card-title mb-3 fs-4 fw-bold">Lunch</h5>
-                        <p class="card-text lead">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <p class="card-text lead">A successful dinner is one that lasts a while and one where everyone leaves happy.</p>
                      </div>
                 </div>
                 </div>

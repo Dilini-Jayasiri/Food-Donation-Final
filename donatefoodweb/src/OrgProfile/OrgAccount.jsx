@@ -45,7 +45,7 @@ export default function OrgAccount() {
           </Box>
 
           <Box my={5}>
-            <NavLink style={navLinkStyles} to="/donationSummary">
+            <NavLink style={navLinkStyles} to="/donationSummaryDonor">
               <GradientButton style={{ backgroundImage: `linear-gradient(to right, #1abc9c 50%, #16a085 100%)`, }} >View Donation History</GradientButton>
             </NavLink>
           </Box>

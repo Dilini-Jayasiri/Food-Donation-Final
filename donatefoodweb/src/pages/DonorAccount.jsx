@@ -44,11 +44,11 @@ export default function DonorAccount() {
             </NavLink>
           </Box>
 
-          <Box my={5}>
+          {/* <Box my={5}>
             <NavLink style={navLinkStyles} to="/">
               <GradientButton style={{ backgroundImage: `linear-gradient(to right, #1abc9c 50%, #16a085 100%)`, }} >View Donation History</GradientButton>
             </NavLink>
-          </Box>
+          </Box> */}
 
           <Box my={5}>
             <NavLink style={navLinkStyles} to="/calForDon">

@@ -15,7 +15,11 @@ import '../assets/about.gif';
                         <h3 className="fs-5 mb-0">About Us</h3>
                         <h1 className="display-6 mb-2">Who <b> We</b> Are</h1>
                        <hr className="w-50"/>
-                    <p className="lead mb-4">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Architecto reprehenderit vel atque recusandae eius blanditiis quasi sit saepe rem nesciunt. Eligendi consequuntur neque in iure mollitia nulla, nisi saepe illum modi aliquid quos reiciendis quia explicabo eos? Est harum quos, nostrum magnam doloribus id dolores molestias veritatis perferendis explicabo qui.</p>
+                    <p className="lead mb-4">We believe everyone should have access to good quality food. We’re here for the everyday Sri Lankans who are going without.Our food and grocery rescue operations last year save million kilograms of CO2 emissions.
+
+This means the impact of Foodbank’s work in the community is worth annually.
+
+Despite our very best efforts, we rely on the food and grocery sector as well as individuals, corporations, community groups and all levels of government to join us in the fight against hunger. Find out how you can support us.</p>
 
                     </div>
                 </div>

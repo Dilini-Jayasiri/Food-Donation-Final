@@ -1,8 +1,16 @@
 import React from 'react';
 import { Eventcalendar } from '@mobiscroll/react';
 import { Box } from '@mui/system';
+import '@mobiscroll/react/dist/css/mobiscroll.min.css';
+import {alert} from '@mobiscroll/react';
 
-
+const showAlert = () => {
+    alert({
+        title: 'Miss.Dilini Jayasiri',
+        message: 'Email: dilininadeesha2018@gmail.com'
+    });
+    
+}
 const now = new Date();
 const myEvents = [{
     start: '2022-12-06T09:00',
@@ -251,8 +259,11 @@ function CalendarForDonor() {
 
     return (
         <Box>
-        <div className="calendarMargin">
+        {/* <div className="calendarMargin"> */}
+        <center>
+        <button onClick={showAlert}>
         <Eventcalendar
+        
             theme="ios" 
             themeVariant="light"
             clickToCreate={false}
@@ -262,7 +273,8 @@ function CalendarForDonor() {
             eventDelete={false}
             data={myEvents}
             view={view}
-       /></div></Box>
+       /></button>
+       </center></Box>
     ); 
 }
 export default CalendarForDonor;

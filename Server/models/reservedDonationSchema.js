@@ -60,11 +60,15 @@ const reservedDonationSchema = new mongoose.Schema({
         type : String,
         required : true
     },
+    user_id:{
+        type:String,
+        required:true
+    }
     
     
 
    
-})
+},{timestamps:true})
 
 //Create Model
 const ReservedDonation = new mongoose.model("RESERVEDDONATION", reservedDonationSchema);
@@ -74,7 +78,8 @@ module.exports = ReservedDonation;
 async function getDon() {
     try{
         const dons = await ReservedDonation.find().sort({_id:-1}).limit(1);
-        console.log(dons);
+       console.log(dons);
+       
     }catch(error){
     console.log(error.message);
     }

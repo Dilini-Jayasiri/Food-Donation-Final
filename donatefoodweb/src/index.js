@@ -6,11 +6,14 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/font-awesome/css/font-awesome.min.css';
 import { BrowserRouter} from 'react-router-dom'
 import "react-datetime/css/react-datetime.css";
+import { DonationContextProvider } from './context/DonationContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
+  <DonationContextProvider>
     <App />
+    </DonationContextProvider>
   </BrowserRouter>
 );
 

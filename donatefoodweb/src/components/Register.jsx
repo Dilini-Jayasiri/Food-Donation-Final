@@ -51,7 +51,7 @@ const Register = () => {
                 window.alert("Already Used Details")
             } else {
                 window.alert("Registered Successfully");
-                navigate('/home')
+                navigate('/login')
             }
         } catch (error) {
             console.log(error);

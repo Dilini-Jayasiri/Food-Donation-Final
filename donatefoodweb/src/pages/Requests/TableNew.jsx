@@ -15,7 +15,7 @@ const TableNew = ({setSelectedLink,link}) => {
     const [rowId,setRowId] = useState();
     useEffect(() => {
       const fetchOrgs = async () => {
-        const response = await fetch('/requests');
+        const response = await fetch('/api/requests/');
         const json = await response.json()
   
         if (response.ok) {

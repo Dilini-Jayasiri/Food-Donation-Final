@@ -23,12 +23,24 @@ const ReservedDonation = require('./models/reservedDonationSchema');
 const InstantDonation = require('./models/instantDonationSchema');
 const authenticate = require('./middleware/authenticate');
 
-const requestRoute = require('./routes/requests.js');
+const requestRoute = require('./routes/requests');
+const instantRoute = require('./routes/instantDonation');
+const reservedRoute = require('./routes/reservedDonation');
+//const router = require('./routes/requests');
 //These method is used to get data and cookies from frontend
-app.use(express.json());
+
 app.use(express.urlencoded({extended : false}));
 app.use(cookieParser());
-app.use('/requests',requestRoute);
+app.use('/api/requests',requestRoute);
+app.use('/api/reservedDonations',reservedRoute);
+app.use('/api/instantDonations',instantRoute);
+
+//middleware
+app.use(express.json());
+app.use((req,res,next)=>{
+    console.log(req.path,req.method)
+    next()
+})
 
 app.get('/',(req,res) =>{
     res.send("Hello world");
@@ -123,6 +135,7 @@ app.post('/message',async(req,res) =>{
 
 app.post('/reservedDon',async(req,res) =>{
     try{
+        const user_id = req.user._id
         //Get body or data
         const donorName = req.body.donorName;
         //const donationType = req.body.donationType;
@@ -150,7 +163,8 @@ app.post('/reservedDon',async(req,res) =>{
         foodName: foodName,
         quantity: quantity,
         mealType: mealType,
-        foodType: foodType
+        foodType: foodType,
+        user_id:user_id
         
             
         });
@@ -247,7 +261,7 @@ app.get('/instantDon',(req,res) =>{
 app.get('/reservedDon/get',(req,res) =>{
     try{
     const dons =  ReservedDonation.find().sort({_id:-1});
-    var donsget=localStorage.getItem("don",dons);
+    //var donsget=localStorage.getItem("don",dons);
    // console.log(dons);
 }catch(error){
 console.log(error.message);
@@ -340,3 +354,4 @@ app.use("/api/calendar",require("./controllers/Calendar"));
 app.listen(port,() =>{
     console.log("Server is listening");
 })
+

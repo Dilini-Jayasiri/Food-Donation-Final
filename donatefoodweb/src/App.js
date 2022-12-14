@@ -42,6 +42,8 @@ import CalendarForDonor from '../src/pages/Requests/CalendarForDonor';
 import OrgAccount from '../src/OrgProfile/OrgAccount';
 import TableNewDonor from '../src/pages/Requests/TableNewDonor';
 import Alart from '../src/components/DonationRequestAccept/alart';
+import DonationSummaryDonor from '../src/OrgProfile/DonationSummaryDonor';
+import DonationHistory from '../src/Profile/DonationHistory';
 Modal.setAppElement('#root');
 
 
@@ -135,6 +137,9 @@ function App() {
         <Route path="/orgAccount" element={<OrgAccount/>}/>
         <Route path="" element={<Home/>}/>
         <Route path="/tableNewDonor" element={<TableNewDonor/>}/>
+        <Route path="/donationSummaryDonor" element={<DonationSummaryDonor/>}/>
+        <Route path="/donationHistory" element={<DonationHistory/>}/>
+        
         <Route path="/alart" element={<Alart/>}/>
         
       </Routes>

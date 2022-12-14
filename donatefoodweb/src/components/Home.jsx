@@ -15,9 +15,9 @@ const Home = () =>{
                    <div className="row justify-content-center">
                         <div className="col-md-8 mt-5">
                             <h2 className="display-6 fw-bolder mb-4 text-center text-white">Donate Love With Poor Heart</h2>
-                            <p className="lead text-center fs-4 mb-5 text-white">Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
-                            Doloremque sapiente natus velit consequatur ex officia accusantium eius fugiat eligendi culpa debitis magnam, 
-                            possimus nemo perspiciatis.</p>
+                            <p className="lead text-center fs-4 mb-5 text-white">Our work makes a positive difference in the lives of Sri Lanka, with recipients of food and grocery relief reporting they feel less hungry, are able to focus and concentrate, are less stressed and more hopeful.
+
+Foodbank not only plays a lead role in fighting hunger, but also a vitally important role in tackling Sri Lanka's billion food waste problem and helping the environment. </p>
                            
                         </div>
                    </div>
