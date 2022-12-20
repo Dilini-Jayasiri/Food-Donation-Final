@@ -3,7 +3,7 @@ import GradientButton from 'react-linear-gradient-button/lib/GradientButton'
 import { Box, Grid, requirePropFactory } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import { Col, Button, Row } from 'react-bootstrap';
-import "../assets/office.jpg"
+import "../../assets/donate.gif"
 import { margin } from '@mui/system';
 
 const navLinkStyles = () => {
@@ -28,27 +28,27 @@ export default function DonorAccount() {
 
       </center>
       </Col>
-      <Col> <img src={require("../assets/donate.gif")} alt="image" /></Col>
+      <Col> <img src={require("../../assets/donate.gif")} alt="image" /></Col>
       {/* <center> */}
       <Col xs={4}>
         <center>
-          <Box my={5}>
-            {/* <NavLink style={navLinkStyles} to="/">
+          {/* <Box my={5}>
+            <NavLink style={navLinkStyles} to="/">
               <GradientButton style={{ backgroundImage: `linear-gradient(to right, #1abc9c 50%, #16a085 100%)`, }} >Edit Profile</GradientButton>
-            </NavLink> */}
+            </NavLink>
 
-          </Box>
+          </Box> */}
           <Box my={5}>
             <NavLink style={navLinkStyles} to="/donationSummary">
               <GradientButton style={{ backgroundImage: `linear-gradient(to right, #1abc9c 50%, #16a085 100%)`, }} >Last Donation Status</GradientButton>
             </NavLink>
           </Box>
 
-          {/* <Box my={5}>
-            <NavLink style={navLinkStyles} to="/">
+          <Box my={5}>
+            <NavLink style={navLinkStyles} to="/donationHistory">
               <GradientButton style={{ backgroundImage: `linear-gradient(to right, #1abc9c 50%, #16a085 100%)`, }} >View Donation History</GradientButton>
             </NavLink>
-          </Box> */}
+          </Box>
 
           <Box my={5}>
             <NavLink style={navLinkStyles} to="/calForDon">

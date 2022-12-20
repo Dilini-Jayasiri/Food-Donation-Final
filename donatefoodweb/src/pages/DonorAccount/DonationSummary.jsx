@@ -1,5 +1,5 @@
 import React, { useEffect,useState} from 'react'
-import '../assets/partials/services.scss'
+import '../../assets/partials/services.scss'
 import axios from 'axios';
 import { Box, Grid } from '@mui/material';
 import GradientButton from 'react-linear-gradient-button'
@@ -44,7 +44,7 @@ const DonationSummary =()=>{
 //   console.log(error.message);
 //   }
 // }
-//getDon();
+// getDon();
 useEffect(()=>{
   getDonationDetails();
 },[])
@@ -61,7 +61,8 @@ const updateDonation = async () => {
 }
     useEffect(() => {
         const fetchDonation = async () => {
-          const {response} = await axios.get('/reservedDon/get');
+          const dons = await ReservedDonation.find().sort({_id:-1}).limit(1);
+         // const {response} = await axios.get(`/api/reservedDonations/:${params.id}`);
           setDonation(response);
           console.log('donation',response);
           const json = await response.json()

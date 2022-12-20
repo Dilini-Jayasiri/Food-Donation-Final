@@ -14,7 +14,7 @@ import Services from './components/Services';
 import Contact from './components/Contact';
 import Logout from './components/Logout';
 import OrgList from './pages/OrgList';
-import DonationSummary from '../src/Profile/DonationSummary';
+import DonationSummary from './pages/DonorAccount/DonationSummary';
 import ReceiverAccount from '../src/pages/ReciverAccount';
 import DonationSummaryInstant from './Profile/DonationSummaryInstant';
 import ProtectedRoutes from './ProtectedRoutes';
@@ -23,7 +23,8 @@ import RequestForm from './pages/Requests/RequestForm';
 import { useEffect, useState } from 'react';
 import InstantDonation from './pages/InstantDonation';
 import ReservedDonation from './pages/ReservedDonation';
-import DonorAccount from './pages/DonorAccount';
+import ReservedDonationNew from './pages/ReservedDonationNew';
+import DonorAccount from './pages/DonorAccount/DonorAccount';
 import TableNew from './pages/Requests/TableNew';
 import Inst from './pages/InstantDon';
 import AcceptPage from './AcceptPage';
@@ -140,6 +141,7 @@ function App() {
         <Route path="/tableNewDonor" element={<TableNewDonor/>}/>
         <Route path="/donationSummaryDonor" element={<DonationSummaryDonor/>}/>
         <Route path="/donationHistory" element={<DonationHistory/>}/>
+        <Route path="/reservedDonationNew" element={<ReservedDonationNew/>}/>
         
         <Route path="/alart" element={<Alart/>}/>
         

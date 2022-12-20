@@ -25,6 +25,7 @@ const authenticate = require('./middleware/authenticate');
 const requestRoute = require('./routes/requests');
 const instantRoute = require('./routes/instantDonation');
 const reservedRoute = require('./routes/reservedDonation');
+const reservedNewRoute = require('./routes/reservedDonNew');
 const userRoutes = require('./routes/users');
 //const router = require('./routes/requests');
 //These method is used to get data and cookies from frontend
@@ -35,6 +36,7 @@ app.use('/api/requests',requestRoute);
 app.use('/api/reservedDonations',reservedRoute);
 app.use('/api/instantDonations',instantRoute);
 app.use('/api/user',userRoutes);
+app.use('/api/resDonNew',reservedNewRoute);
 const User = require('./models/userSchema')
 
 //middleware
