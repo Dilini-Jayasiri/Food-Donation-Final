@@ -14,6 +14,8 @@ import GradientButton from 'react-linear-gradient-button'
 import { useNavigate } from 'react-router-dom';
 import emailjs from 'emailjs-com';
 import { NavLink } from 'react-router-dom';
+import { useDonationContext } from '../components/hoooks/useDonationContext'
+import {useAuthContext} from '../components/hoooks/useAuthContext'
 
 const navLinkStyles = () => {
     return {
@@ -56,22 +58,45 @@ const initialValues = {
 
 export default function InstantDonation(props) {
    // const { addOrEdit } = props
-
+   const {donations,dispatch}  = useDonationContext()
+   const {user} = useAuthContext()
+  
 const [organizationName,setOrganizationName]=useState("");
 const [orgs,setOrgs] = React.useState([{'orgName':'','_id':''}]);
 const [isSubmit,setIsSubmit] = useState(false);
 const [formErrors,setFormErrors] = useState({});
 const navigate = useNavigate();
 
+// useEffect(() => {
+//   const fetchData = async () => {
+//     const response = await fetch('/api/requests');
+//     const newData = await response.json();
+//     setOrgs(newData);
+//     //console.log(newData);
+//   };
+//   fetchData();
+// },[]);
+
 useEffect(() => {
-  const fetchData = async () => {
-    const response = await fetch('/api/requests/');
-    const newData = await response.json();
-    setOrgs(newData);
-    //console.log(newData);
-  };
-  fetchData();
-},[]);
+    const fetchDonations = async () => {
+      const response = await fetch('/api/requests',{
+          headers: {
+              'Authorization':`Bearer ${user.token}`
+          }
+      })
+      const json = await response.json()
+
+      if(response.ok){
+          dispatch({type: 'SET_DONATIONS', payload : json})
+      }
+    }
+
+    if(user){
+      fetchDonations()
+    }
+    
+  },[dispatch,user])
+
 
 
 
@@ -323,7 +348,7 @@ useEffect(() => {
         <MenuItem value="">
           <em>None</em>
         </MenuItem>
-        {orgs.map(org => (
+        {donations && donations.map((org)=>(
           <MenuItem value={org.orgName} key={org._id}>{org.orgName}</MenuItem>
         ))}
          

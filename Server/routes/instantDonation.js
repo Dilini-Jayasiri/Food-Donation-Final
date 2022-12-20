@@ -8,6 +8,10 @@ const {
     updatenstantDonation
 } = require('../controllers/instantDonationController')
 
+//require auth for all donation routes
+const requireAuth = require('../middleware/requireAuth')
+
+router.use(requireAuth)
 //Get all donations
 router.get('/',getDonations)
 

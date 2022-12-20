@@ -1,86 +1,67 @@
-const mongoose = require('mongoose');
-const bcryptjs = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+const mongoose = require('mongoose')
+const bcrypt = require('bcrypt')
+const validator = require('validator')
 
-//User Schema or Document
-const userSchema = new mongoose.Schema({
-    // firstName : {
-    //     type : String,
-    //     required : true,
+const Schema = mongoose.Schema
 
-    // },
-    // lastName : {
-    //     type : String,
-    //     required : true,
-    // },
-    
-    // addressNo : {
-    //     type : String,
-
-    // },
-    // StreetLine1: {
-    //     type : String
-    // },
-    // StreetLine2: {
-    //     type : String
-    // },
-    // city: {
-    //     type : String,
-    //    // required : true
-    // },
-    username : {
-        type : String,
-        required: true,
-        unique : true
-    },
-    email : {
-        type : String,
-        required : true,
-        unique : true
-    },
-    password : {
-        type : String,
-        required : true
-    },
-    role : {
-        type : String,
-        required : true
-    },
-    // mobile : {
-    //     type : String,
-    //   //  required : true
-    // },
-    tokens : [
-        {
-            token : {
-                type : String,
-                required : true
-            }
-        }
-    ]
+const userSchema = new Schema({
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  password: {
+    type: String,
+    required: true
+  }
 })
 
-//Hashing Password to Secure
-userSchema.pre('save',async function(next){
-    if(this.isModified('password')){
-        this.password = bcryptjs.hashSync(this.password,10);
-    }
-    next();
-},{timestamps:true})
+// static signup method
+userSchema.statics.signup = async function(email, password) {
 
-//Generate Tokens to verify user
-userSchema.methods.generateToken = async function(){
-    try {
-        let generatedToken = jwt.sign({_id : this._id}, process.env.SECRET_KEY);
-        this.tokens = this.tokens.concat({token : generatedToken});
-        await this.save();
-        return generatedToken;
-    } catch (error) {
-        console.log(error)
-    }
+  // validation
+  if (!email || !password) {
+    throw Error('All fields must be filled')
+  }
+  if (!validator.isEmail(email)) {
+    throw Error('Email not valid')
+  }
+  if (!validator.isStrongPassword(password)) {
+    throw Error('Password not strong enough')
+  }
+
+  const exists = await this.findOne({ email })
+
+  if (exists) {
+    throw Error('Email already in use')
+  }
+
+  const salt = await bcrypt.genSalt(10)
+  const hash = await bcrypt.hash(password, salt)
+
+  const user = await this.create({ email, password: hash })
+
+  return user
 }
 
-//Create Model
-const Users = new mongoose.model("USER", userSchema);
+// static login method
+userSchema.statics.login = async function(email, password) {
 
-module.exports = Users;
+  if (!email || !password) {
+    throw Error('All fields must be filled')
+  }
+
+  const user = await this.findOne({ email })
+  if (!user) {
+    throw Error('Incorrect email')
+  }
+
+  const match = await bcrypt.compare(password, user.password)
+  if (!match) {
+    throw Error('Incorrect password')
+  }
+
+  return user
+}
+
+module.exports = mongoose.model('User', userSchema)

@@ -10,6 +10,8 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import {useNavigate} from 'react-router';
+import { useDonationContext } from '../../components/hoooks/useDonationContext';
+import {useAuthContext} from '../../components/hoooks/useAuthContext'
 
 const mealTypeItems = [
     { id: 'breakfast', title: 'Breakfast' },
@@ -47,6 +49,8 @@ const initialValues = {
 export default function RequestForm(props) {
     //const { addOrEdit } = props
     const navigate = useNavigate();
+    const {dispatch} = useDonationContext()
+    const {user} = useAuthContext()
     const [isSubmit,setIsSubmit] = useState(false);
     const [formErrors,setFormErrors] = useState({});
     const validate = (fieldValues = values) => {
@@ -98,6 +102,10 @@ export default function RequestForm(props) {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+         if(!user){
+            setFormErrors('You must be logged in')
+            return
+        }
         setFormErrors(validate(values));
         if (validate()) {
         setIsSubmit(true)
@@ -115,7 +123,8 @@ export default function RequestForm(props) {
             const res = await fetch('/requests', {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization":`Bearer ${user.token}`
                 },
                 body: JSON.stringify({
                     orgName,orgEmail, orgSize, phone, city,quantity,orgType,reason,mealType,confirmedDate
@@ -136,8 +145,9 @@ export default function RequestForm(props) {
                     reason:'',
                     mealType: '',
                     confirmedDate: '',
-                })
+                },dispatch({type:'CREATE_DONATIONS', payload : JSON}))
                 console.log(values);
+                
               //  window.location.reload();
                 navigate('/tableNew')
             }

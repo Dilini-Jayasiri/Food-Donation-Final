@@ -1,14 +1,20 @@
 import { useDonationContext } from "./hoooks/useDonationContext"
-
+import {useAuthContext} from './hoooks/useAuthContext'
 //date fns
 import formatDistanceToNow from "date-fns/formatDistanceToNow"
 
 const DonationDetails = ({donation}) =>{
   const {dispatch} = useDonationContext()
-
+  const {user} = useAuthContext()
     const handleClick = async () =>{
+        if(!user){
+            return
+        }
         const response = await fetch('/api/reservedDonations/' + donation._id,{
-            method:'DELETE'
+            method:'DELETE',
+            headers: {
+                'Authorization':`Bearer ${user.token}`
+            }
         })
         const json = await response.json()
         
@@ -24,11 +30,11 @@ const DonationDetails = ({donation}) =>{
            <p><strong>Donation Sheduled Date : </strong>{donation.date}</p>
            <p><strong>Created At: </strong>{formatDistanceToNow(new Date(donation.date),{addSuffix:true})}</p>
            <span class="material-symbols-outlined" onClick={handleClick}>
-delete
-</span>
+               delete
+          </span>
         </div>
         </div>
-    )
-}
+)
+    }
 
 export default DonationDetails;

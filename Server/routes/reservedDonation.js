@@ -1,13 +1,21 @@
 const express=require('express');
 const router = express.Router();
+const ReservedDonation = require('../models/reservedDonationSchema')
 
 const {
+    createResDonation,
     getDonations,
     getReservedDonation,
     deleteReservedDonation,
     updateReservedDonation
 } = require('../controllers/reservedDonationController')
 
+const requireAuth = require('../middleware/requireAuth')
+
+router.use(requireAuth)
+
+//Post donation
+router.post('/',createResDonation);
 //Get all donations
 router.get('/',getDonations)
 

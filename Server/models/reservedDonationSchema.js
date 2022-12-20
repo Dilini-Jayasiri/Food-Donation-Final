@@ -1,16 +1,6 @@
 const mongoose = require('mongoose');
 
 const reservedDonationSchema = new mongoose.Schema({
-    id : {
-        type : String,
-        
-        
-    },
-    // donationType : {
-    //     type : String,
-    //     required: true,
-        
-    // },
     donorName : {
         type : String,
         required : true,
@@ -56,18 +46,11 @@ const reservedDonationSchema = new mongoose.Schema({
         type : String,
         required : true
     },
-    mealType : {
-        type : String,
-        required : true
-    },
     user_id:{
         type:String,
-        required:true
+       required:true
     }
-    
-    
-
-   
+ 
 },{timestamps:true})
 
 //Create Model

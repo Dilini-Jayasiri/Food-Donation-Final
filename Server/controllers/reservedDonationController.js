@@ -1,5 +1,58 @@
+
 const ReservedDonation = require('../models/reservedDonationSchema')
 const mongoose = require('mongoose')
+
+
+//post donation
+const createResDonation = async (req,res) => {
+    const {donorName,phone,donEmail,address,orgName,date,foodName,quantity,mealType,foodType} = req.body
+
+    let emptyFields = []
+
+    if(!donorName){
+        emptyFields.push('donorName')
+    }
+    if(!phone){
+        emptyFields.push('phone')
+    }
+    if(!donEmail){
+        emptyFields.push('donEmail')
+    }
+    if(!address){
+        emptyFields.push('address')
+    }
+    if(!orgName){
+        emptyFields.push('orgName')
+    }
+    if(!date){
+        emptyFields.push('date')
+    }
+    if(!foodName){
+        emptyFields.push('foodName')
+    }
+    if(!quantity){
+        emptyFields.push('quantity')
+    }
+    if(!mealType){
+        emptyFields.push('mealType')
+    }
+    if(!foodType){
+        emptyFields.push('foodType')
+    }
+    if(emptyFields.length > 0) {
+        return res.status(400).json({error:'Please fill in all fields',emptyFields})
+    }
+
+    try {
+        const user_id = req.user._id;
+       const reservedDonation = await ReservedDonation.create({donorName,phone,donEmail,address,orgName,date,foodName,quantity,mealType,foodType,user_id})
+       res.status(200).json(reservedDonation)
+    } catch (error){
+        res.status(400).send(error);
+       //res.status(400).json({error : error.message})
+    }
+} 
+
 
 
 //get all donations
@@ -59,6 +112,7 @@ const updateReservedDonation = async (req,res)=>{
 }
 
 module.exports= {
+    createResDonation,
     getDonations,
     getReservedDonation,
     deleteReservedDonation,

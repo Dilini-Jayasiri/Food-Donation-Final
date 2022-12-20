@@ -4,11 +4,6 @@ const instantDonationSchema = new mongoose.Schema({
     id : {
         type : String,
     },
-    nic : {
-        type : String,
-        required : true,
-        
-    },
     donorName : {
         type : String,
         required : true,
@@ -64,11 +59,11 @@ const instantDonationSchema = new mongoose.Schema({
     foodName : {
         type : String,
         required : true
-    },  
-    user_id:{
-        type:String,
-        required:true
     }
+    // user_id:{
+    //     type:String,
+    //     required:true
+    // }
 },{timestamps:true})
 
 //Create Model

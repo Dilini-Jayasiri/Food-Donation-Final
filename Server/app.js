@@ -22,90 +22,98 @@ const Request = require('./models/requestSchema');
 const ReservedDonation = require('./models/reservedDonationSchema');
 const InstantDonation = require('./models/instantDonationSchema');
 const authenticate = require('./middleware/authenticate');
-
 const requestRoute = require('./routes/requests');
 const instantRoute = require('./routes/instantDonation');
 const reservedRoute = require('./routes/reservedDonation');
+const userRoutes = require('./routes/users');
 //const router = require('./routes/requests');
 //These method is used to get data and cookies from frontend
-
+app.use(express.json());
 app.use(express.urlencoded({extended : false}));
 app.use(cookieParser());
 app.use('/api/requests',requestRoute);
 app.use('/api/reservedDonations',reservedRoute);
 app.use('/api/instantDonations',instantRoute);
+app.use('/api/user',userRoutes);
+const User = require('./models/userSchema')
 
 //middleware
 app.use(express.json());
 app.use((req,res,next)=>{
-    console.log(req.path,req.method)
+//    console.log(req.path,req.method)
     next()
 })
 
 app.get('/',(req,res) =>{
     res.send("Hello world");
 })
+//const requireAuth = require('./middleware/requireAuth')
 
+// app.use(requireAuth);
 // Registration
-app.post('/register',async(req,res) =>{
-    try{
-        //Get body or data
-        const username = req.body.username;
-        const email = req.body.email;
-        const password = req.body.password;
-        const role = req.body.role;
+// app.post('/register',async(req,res) =>{
+//     try{
+//         //Get body or data
+//         const username = req.body.username;
+//         const email = req.body.email;
+//         const password = req.body.password;
+//        // const role = req.body.role;
 
-        const createUser = new Users({
-            username : username,
-            email : email,
-            password : password,
-            role:role
-        });
+//         const createUser = new Users({
+//             username : username,
+//             email : email,
+//             password : password
+//          //   role:role
+//         });
+        
+        
 
-        //Save method is used to create user
-        //But before saving or inserting, password will hash.
-        //Because of hashing.After hash, it will save to DB
-        const created = await createUser.save();
-        console.log(created);
-        res.status(200).send("Registered");
-    }catch(error){
-        res.status(400).send(error);
-    }
-})
+//         //Save method is used to create user
+//         //But before saving or inserting, password will hash.
+//         //Because of hashing.After hash, it will save to DB
+//         const created = await createUser.save();
+//         console.log(created);
+//         //const token = createToken(_id)
+//       //  res.status(200).send("Registered");
+//         res.status(200).json({email,password})
+//     }catch(error){
+//         res.status(400).send(error);
+//     }
+// })
 
 //Login User
-app.post('/login',async (req,res) =>{
-    try {
-        const email = req.body.email;
-        const password = req.body.password;
-        const role = req.body.role;
+// app.post('/login',async (req,res) =>{
+//     try {
+//         const email = req.body.email;
+//         const password = req.body.password;
+        
 
-        //Find User if Exist
-        const user = await Users.findOne( {email : email});
-        if(user){
-            //Verify Password
-            const isMatch = await bcryptjs.compare(password, user.password);
+//         //Find User if Exist
+//         const user = await Users.findOne( {email : email});
+//         if(user){
+//             //Verify Password
+//             const isMatch = await bcryptjs.compare(password, user.password);
 
-            if(isMatch){
-                //Generate Token Which is Define in user schema
-                const token = await user.generateToken();
-                res.cookie("jwt",token,{
-                    //Expires Token in 24 hours
-                    expires : new Date(Date.now() + 86400000),
-                    httpOnly : true
-                })
-                res.status(200).send("LoggedIn")
+//             if(isMatch){
+//                 //Generate Token Which is Define in user schema
+//                 const token = await user.generateToken();
+//                 res.cookie("jwt",token,{
+//                     //Expires Token in 24 hours
+//                     expires : new Date(Date.now() + 86400000),
+//                     httpOnly : true
+//                 })
+//                 res.status(200).send("LoggedIn")
 
-            }else{
-                res.status(400).send("Invalid Credentials");
-            }
-        }else{
-            res.status(400).send("Invalid Credentials");
-        }
-    } catch (error) {
-        res.status(400).send(error);
-    }
-})
+//             }else{
+//                 res.status(400).send("Invalid Credentials");
+//             }
+//         }else{
+//             res.status(400).send("Invalid Credentials");
+//         }
+//     } catch (error) {
+//         res.status(400).send(error);
+//     }
+// })
 
 // Messages
 app.post('/message',async(req,res) =>{
@@ -132,52 +140,99 @@ app.post('/message',async(req,res) =>{
         res.status(400).send(error);
     }
 })
-
 app.post('/reservedDon',async(req,res) =>{
-    try{
-        const user_id = req.user._id
-        //Get body or data
-        const donorName = req.body.donorName;
-        //const donationType = req.body.donationType;
-        const phone = req.body.phone;
-        const donEmail = req.body.donEmail;
-        const address = req.body.address;
-        const orgName = req.body.orgName;
-        //const donorTypeId = req.body.donorTypeId;
-        const date = req.body.date;
-        const foodName = req.body.foodName;
-        const quantity = req.body.quantity;
-        const mealType = req.body.mealType;
-        const foodType = req.body.foodType;
+   
+    //     req.user = await User.findOne({ _id }).select('_id')
+    //    // const user_id = req.user._id
+    //     //Get body or data
+    //     const donorName = req.body.donorName;
+    //     //const donationType = req.body.donationType;
+    //     const phone = req.body.phone;
+    //     const donEmail = req.body.donEmail;
+    //     const address = req.body.address;
+    //     const orgName = req.body.orgName;
+    //     //const donorTypeId = req.body.donorTypeId;
+    //     const date = req.body.date;
+    //     const foodName = req.body.foodName;
+    //     const quantity = req.body.quantity;
+    //     const mealType = req.body.mealType;
+    //     const foodType = req.body.foodType;
+      //  const user_id = req.body.user_id;
+ //const user_id = req.user._id;
+ const {donorName,phone,donEmail,address,orgName,date,foodName,quantity,mealType,foodType} = req.body
 
-
-        const reservedDon= new ReservedDonation({
-        donorName:donorName ,
-        //donationType: donationType,
-        phone: phone,
-        donEmail:donEmail,
-        address: address,
-        orgName: orgName,
-        //donorTypeId:donorTypeId,
-        date: date,
-        foodName: foodName,
-        quantity: quantity,
-        mealType: mealType,
-        foodType: foodType,
-        user_id:user_id
+        // const reservedDon= new ReservedDonation({
+        // donorName:donorName ,
+        // //donationType: donationType,
+        // phone: phone,
+        // donEmail:donEmail,
+        // address: address,
+        // orgName: orgName,
+        // //donorTypeId:donorTypeId,
+        // date: date,
+        // foodName: foodName,
+        // quantity: quantity,
+        // mealType: mealType,
+        // foodType: foodType,
+      //  user_id : _id
         
             
-        });
+    //     }); 
 
-        //Save method is used to create user
-        //But before saving or inserting, password will hash.
-        //Because of hashing.After hash, it will save to DB
-        const created = await reservedDon.save();
-        console.log(created);
-        res.status(200).send("Donation Details Sent");
+    //     //Save method is used to create user
+    //     //But before saving or inserting, password will hash.
+    //     //Because of hashing.After hash, it will save to DB
+    //    // const user_id = req.user.user_id;
+    //     const created = await reservedDon.save();
+    //     console.log(created);
+    //     res.status(200).send("Donation Details Sent");
 
-    }catch(error){
+    // }catch(error){
+    //     res.status(400).send(error);
+    // }
+    let emptyFields = []
+
+    if(!donorName){
+        emptyFields.push('donorName')
+    }
+    if(!phone){
+        emptyFields.push('phone')
+    }
+    if(!donEmail){
+        emptyFields.push('donEmail')
+    }
+    if(!address){
+        emptyFields.push('address')
+    }
+    if(!orgName){
+        emptyFields.push('orgName')
+    }
+    if(!date){
+        emptyFields.push('date')
+    }
+    if(!foodName){
+        emptyFields.push('foodName')
+    }
+    if(!quantity){
+        emptyFields.push('quantity')
+    }
+    if(!mealType){
+        emptyFields.push('mealType')
+    }
+    if(!foodType){
+        emptyFields.push('foodType')
+    }
+    if(emptyFields.length > 0) {
+        return res.status(400).json({error:'Please fill in all fields',emptyFields})
+    }
+    
+    try {
+        const user_id = req.user._id;
+       const reservedDonation = await ReservedDonation.create({donorName,phone,donEmail,address,orgName,date,foodName,quantity,mealType,foodType,user_id})
+       res.status(200).json(reservedDonation)
+    } catch (error){
         res.status(400).send(error);
+       //res.status(400).json({error : error.message})
     }
 })
 

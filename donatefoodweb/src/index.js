@@ -7,13 +7,16 @@ import '../node_modules/font-awesome/css/font-awesome.min.css';
 import { BrowserRouter} from 'react-router-dom'
 import "react-datetime/css/react-datetime.css";
 import { DonationContextProvider } from './context/DonationContext';
-
+import { AuthContextProvider } from './context/AuthContext';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
+  <AuthContextProvider>
   <DonationContextProvider>
+    
     <App />
     </DonationContextProvider>
+    </AuthContextProvider>
   </BrowserRouter>
 );
 

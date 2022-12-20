@@ -9,6 +9,9 @@ const {
 
 const router = express.Router();
 
+const requireAuth = require('../middleware/requireAuth')
+
+router.use(requireAuth)
 //Get all requests
 router.get('/',getRequests);
 

@@ -16,6 +16,7 @@ import {Routes,Route} from 'react-router';
 import emailjs from 'emailjs-com';
 import { NavLink } from 'react-router-dom';
 import { useDonationContext } from '../components/hoooks/useDonationContext';
+import {useAuthContext} from '../components/hoooks/useAuthContext'
 import {useNavigate} from 'react-router';
 
 const navLinkStyles = () =>{
@@ -24,6 +25,8 @@ const navLinkStyles = () =>{
      width: '50%'
    }
  }
+ 
+
 const mealTypeItems = [
     { id: 'breakfast', title: 'Breakfast' },
     { id: 'lunch', title: 'Lunch' },
@@ -52,7 +55,8 @@ const initialValues = {
     }
 export default function ReservedDonation(props) {
     const navigate = useNavigate();
-    const {dispatch} = useDonationContext()
+    const {donations,dispatch}  = useDonationContext()
+    const {user} = useAuthContext()
        // const { addOrEdit } = props
         const [organizationName,setOrganizationName]=useState("");
         const [orgs,setOrgs] = React.useState([{'orgName':'','_id':''}]);
@@ -61,15 +65,35 @@ export default function ReservedDonation(props) {
 
 
 
+        // useEffect(() => {
+        //     const fetchData = async () => {
+        //       const response = await fetch('/api/requests');
+        //       const newData = await response.json();
+        //       setOrgs(newData);
+        //       console.log(newData);
+        //     };
+        //     fetchData();
+        //   },[]);
+
         useEffect(() => {
-            const fetchData = async () => {
-              const response = await fetch('/api/requests/');
-              const newData = await response.json();
-              setOrgs(newData);
-              console.log(newData);
-            };
-            fetchData();
-          },[]);
+            const fetchDonations = async () => {
+              const response = await fetch('/api/requests',{
+                  headers: {
+                      'Authorization':`Bearer ${user.token}`
+                  }
+              })
+              const json = await response.json()
+        
+              if(response.ok){
+                  dispatch({type: 'SET_DONATIONS', payload : json})
+              }
+            }
+        
+            if(user){
+              fetchDonations()
+            }
+            
+          },[dispatch,user])
 // const ReservedDonation = () => {
 //     const [values, setResDon] = useState({
 //         );
@@ -131,27 +155,33 @@ export default function ReservedDonation(props) {
     //Handle Submit
     const handleSubmit = async (event) => {
         event.preventDefault();
+       
+        // if(!user){
+        //     setFormErrors('You must be logged in')
+        //     return
+        // }
         setFormErrors(validate(values));
         if (validate()) {
             setIsSubmit(true)
             navigate('/donationSummary')
             }
-            emailjs.send('service_4myyg6h', 'template_ms3zy5j', values, 'AGKmDLzp5SojZrssC')
-            .then(response => {
-                console.log('Success',response);
-            },error => {
-                console.log('Failed...',error)
-            })
+            // emailjs.send('service_4myyg6h', 'template_ms3zy5j', values, 'AGKmDLzp5SojZrssC')
+            // .then(response => {
+            //     console.log('Success',response);
+            // },error => {
+            //     console.log('Failed...',error)
+            // })
        
         const {donorName, donationType, donorTypeId, phone, donEmail,address, orgName, date, foodName, quantity, mealType, foodType } = values;
         try {
             //It is submitted on port 3000 by default 
             //which is front end but we need to submit it on
             //backend which is on port 3001. so we need proxy
-            const res = await fetch('/reservedDon', {
+            const res = await fetch('/api/reservedDonation', {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    // 'Authorization':`Bearer ${user.token}`
                 },
                 body: JSON.stringify({
                     donorName, donationType, donorTypeId, phone,donEmail, address, orgName, date, foodName, quantity, mealType, foodType
@@ -283,7 +313,7 @@ export default function ReservedDonation(props) {
         <MenuItem value="">
           <em>None</em>
         </MenuItem>
-        {orgs.map(org => (
+        {donations && donations.map((org)=>(
           <MenuItem value={org.orgName} key={org._id}>{org.orgName}</MenuItem>
         ))}
          
