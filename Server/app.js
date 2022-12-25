@@ -26,6 +26,7 @@ const requestRoute = require('./routes/requests');
 const instantRoute = require('./routes/instantDonation');
 const reservedRoute = require('./routes/reservedDonation');
 const reservedNewRoute = require('./routes/reservedDonNew');
+const donationStatusRoute = require('./routes/status');
 const userRoutes = require('./routes/users');
 //const router = require('./routes/requests');
 //These method is used to get data and cookies from frontend
@@ -37,6 +38,7 @@ app.use('/api/reservedDonations',reservedRoute);
 app.use('/api/instantDonations',instantRoute);
 app.use('/api/user',userRoutes);
 app.use('/api/resDonNew',reservedNewRoute);
+app.use('/api/status',donationStatusRoute);
 const User = require('./models/userSchema')
 
 //middleware
@@ -325,14 +327,24 @@ console.log(error.message);
 }
 });
 
-app.get("/reservedDon/:id",async (req,res) => {
-    let result  = await ReservedDonation.findOne({_id:req.params.id})
-    if(result){
-        res.send(result)
-    }else{
-        res.send({"result":"No record found"})
-    }
-})
+// app.get("/reservedDon/:id",async (req,res) => {
+//     let result  = await ReservedDonation.findOne({_id:req.params.id})
+//     if(result){
+//         res.send(result)
+//     }else{
+//         res.send({"result":"No record found"})
+//     }
+// })
+
+app.get('/reservedDon/_id', async(req, res) => {
+    let result  = await ReservedDonation.findOne().sort({_id:-1}).limit(1);
+      if (error) {
+        console.error("no record");
+        return res.sendStatus(500);
+      }
+      res.send(result);
+    });
+  
 
 app.get("/instantDon/:id",async (req,res) => {
     let result  = await ReservedDonation.findOne({_id:req.params.id})
@@ -411,4 +423,17 @@ app.use("/api/calendar",require("./controllers/Calendar"));
 app.listen(port,() =>{
     console.log("Server is listening");
 })
+
+// async function getDon() {
+//     try{
+//         const dons = await ReservedDonation.find().sort({_id:-1}).limit(1);
+//        console.log(dons);
+       
+//     }catch(error){
+//     console.log(error.message);
+//     }
+// }
+
+
+
 

@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import '../assets/partials/instantDonation.scss'
 import styled from 'styled-components';
@@ -12,20 +12,20 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import DonationSummary from './DonorAccount/DonationSummary';
-import {Routes,Route} from 'react-router';
+import { Routes, Route } from 'react-router';
 import emailjs from 'emailjs-com';
 import { NavLink } from 'react-router-dom';
 import { useDonationContext } from '../components/hoooks/useDonationContext';
-import {useAuthContext} from '../components/hoooks/useAuthContext'
-import {useNavigate} from 'react-router';
+import { useAuthContext } from '../components/hoooks/useAuthContext'
+import { useNavigate } from 'react-router';
 
-const navLinkStyles = () =>{
-   return{
-     textDecoration:  'none',
-     width: '50%'
-   }
- }
- 
+const navLinkStyles = () => {
+    return {
+        textDecoration: 'none',
+        width: '50%'
+    }
+}
+
 
 const mealTypeItems = [
     { id: 'breakfast', title: 'Breakfast' },
@@ -39,64 +39,66 @@ const foodTypeItems = [
     { id: 'both', title: 'Both' }
 ]
 const initialValues = {
-        
-        donorName: '',
-        donationType: '',
-        phone: '',
-        donEmail:'',
-        address: '',
-        orgName: '',
-        //donorTypeId: '',
-        date: '',
-        foodName: '',
-        quantity: '',
-        mealType: '',
-        foodType: '',
-    }
+
+    donorName: '',
+    donationType: '',
+    phone: '',
+    donEmail: '',
+    address: '',
+    orgName: '',
+    orgEmail:'',
+    //donorTypeId: '',
+    date: '',
+    foodName: '',
+    quantity: '',
+    mealType: '',
+    foodType: '',
+}
 export default function ReservedDonation(props) {
     const navigate = useNavigate();
-    const {donations,dispatch}  = useDonationContext()
-    const {user} = useAuthContext()
-       // const { addOrEdit } = props
-        const [organizationName,setOrganizationName]=useState("");
-        const [orgs,setOrgs] = React.useState([{'orgName':'','_id':''}]);
-        const [isSubmit,setIsSubmit] = useState(false);
-        const [formErrors,setFormErrors] = useState({});
+    const { donations, dispatch } = useDonationContext()
+    const { user } = useAuthContext()
+    // const { addOrEdit } = props
+    const [organizationName, setOrganizationName] = useState("");
+    const [orgs, setOrgs] = React.useState([{ 'orgName': '', '_id': '' }]);
+    const [isSubmit, setIsSubmit] = useState(false);
+    const [formErrors, setFormErrors] = useState({});
 
-//const [donorName, phone, donEmail,address, orgName, date, foodName, quantity, mealType, foodType] = useState('');
+    //const [donorName, phone, donEmail,address, orgName, date, foodName, quantity, mealType, foodType] = useState('');
 
-        // useEffect(() => {
-        //     const fetchData = async () => {
-        //       const response = await fetch('/api/requests');
-        //       const newData = await response.json();
-        //       setOrgs(newData);
-        //       console.log(newData);
-        //     };
-        //     fetchData();
-        //   },[]);
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //       const response = await fetch('/api/requests');
+    //       const newData = await response.json();
+    //       setOrgs(newData);
+    //       console.log(newData);
+    //     };
+    //     fetchData();
+    //   },[]);
 
-        useEffect(() => {
-            const fetchDonations = async () => {
-              const response = await fetch('/api/requests',{
-                  headers: {
-                      'Authorization':`Bearer ${user.token}`
-                  }
-              })
-              const json = await response.json()
-        
-              if(response.ok){
-                  dispatch({type: 'SET_DONATIONS', payload : json})
-              }
+    useEffect(() => {
+        const fetchDonations = async () => {
+            const response = await fetch('/api/requests', {
+                headers: {
+                    'Authorization': `Bearer ${user.token}`
+                }
+            })
+            const json = await response.json()
+
+            if (response.ok) {
+                dispatch({ type: 'SET_DONATIONS', payload: json })
             }
-        
-            if(user){
-              fetchDonations()
-            }
-            
-          },[dispatch,user])
-// const ReservedDonation = () => {
-//     const [values, setResDon] = useState({
-//         );
+        }
+
+        if (user) {
+            fetchDonations()
+        }
+
+    }, [dispatch, user])
+    console.log()
+    // const ReservedDonation = () => {
+    //     const [values, setResDon] = useState({
+    //         );
 
     //validation
     const validate = (fieldValues = values) => {
@@ -125,7 +127,7 @@ export default function ReservedDonation(props) {
             temp.mealType = fieldValues.mealType ? "" : "This field is required."
         if ('foodType' in fieldValues)
             temp.foodType = fieldValues.foodType ? "" : "This field is required."
-         setErrors({
+        setErrors({
             ...temp
         })
 
@@ -150,14 +152,14 @@ export default function ReservedDonation(props) {
         setValues({ ...values, [name]: value });
         console.log(setValues.donEmail)
     }
-{/* <Routes>
+    {/* <Routes>
      <Route exact path="/donationSummary" element={<DonationSummary/>}/>
      </Routes> */}
     //Handle Submit
     const handleSubmit = async (event) => {
         event.preventDefault();
-       
-        if(!user){
+
+        if (!user) {
             setFormErrors('You must be logged in')
             return
         }
@@ -165,112 +167,113 @@ export default function ReservedDonation(props) {
         if (validate()) {
             setIsSubmit(true)
             navigate('/donationSummary')
+        }
+        emailjs.send('service_4myyg6h', 'template_ms3zy5j', values, 'AGKmDLzp5SojZrssC')
+        .then(response => {
+            console.log('Success',response);
+        },error => {
+            console.log('Failed...',error)
+        })
+        const { donorName, phone, donEmail, address, orgName, orgEmail,date, foodName, quantity, mealType, foodType } = values;
+
+        const donation = { donorName, phone, donEmail, address, orgName,orgEmail, date, foodName, quantity, mealType, foodType }
+
+        const res = await fetch('/api/reservedDonations', {
+            method: "POST",
+            body: JSON.stringify(donation),
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${user.token}`
             }
-            // emailjs.send('service_4myyg6h', 'template_ms3zy5j', values, 'AGKmDLzp5SojZrssC')
-            // .then(response => {
-            //     console.log('Success',response);
-            // },error => {
-            //     console.log('Failed...',error)
-            // })
-            const {donorName, phone, donEmail,address, orgName, date, foodName, quantity, mealType, foodType } = values;
+        })
 
-            const donation = {donorName, phone, donEmail,address, orgName, date, foodName, quantity, mealType, foodType}
+        const json = await res.json()
 
-            const res = await fetch('/api/reservedDonations', {
-                method: "POST",
-                body: JSON.stringify(donation),
-                headers: {
-                    "Content-Type": "application/json",
-                    'Authorization':`Bearer ${user.token}`
-                }    
-            })
+        if (!res.ok) {
+            setFormErrors(json.error)
+            window.alert("Message Not Sent. Try Again Later")
+        }
+        if (res.ok) {
+            console.log('new donation added', json)
+            window.alert("Message Sent Successfully");
+            setValues({
+                donorName: '',
+                donationType: '',
+                //donorTypeId: '',
+                phone: '',
+                donEmail: '',
+                address: '',
+                orgName: '',
+                orgEmail:'',
+                date: '',
+                foodName: '',
+                quantity: '',
+                mealType: '',
+                foodType: ''
 
-            const json = await res.json()
 
-            if(!res.ok){
-                setFormErrors(json.error)
-                window.alert("Message Not Sent. Try Again Later")
-            }
-            if(res.ok){
-                console.log('new donation added',json)
-                window.alert("Message Sent Successfully");
-                setValues({
-                    donorName: '',
-                    donationType: '',
-                    //donorTypeId: '',
-                    phone: '',
-                    donEmail:'',
-                    address: '',
-                    orgName: '',
-                    date: '',
-                    foodName: '',
-                    quantity: '',
-                    mealType: '',
-                    foodType: ''
+            },
+                dispatch({ type: 'CREATE_DONATIONS', payload: JSON })
+            )
+        }
 
-                    
-                },
-                dispatch({type:'CREATE_DONATIONS', payload : JSON})
-                )
-            }
-       
-        
-    //     try {
-    //         //It is submitted on port 3000 by default 
-    //         //which is front end but we need to submit it on
-    //         //backend which is on port 3001. so we need proxy
-    //         const res = await fetch('/api/reservedDonations', {
-    //             method: "POST",
-    //             headers: {
-    //                 "Content-Type": "application/json",
-    //                 // 'Authorization':`Bearer ${user.token}`
-    //             },
-    //             body: JSON.stringify({
-    //                 donorName, donationType, donorTypeId, phone,donEmail, address, orgName, date, foodName, quantity, mealType, foodType
-    //             })
-                
-    //         })
-    //         if (res.status === 400 || !res) {
-    //             window.alert("Message Not Sent. Try Again Later")
-    //         } else {
-    //             window.alert("Message Sent Successfully");
-                // setValues({
-                //     donorName: '',
-                //     donationType: '',
-                //     //donorTypeId: '',
-                //     phone: '',
-                //     donEmail:'',
-                //     address: '',
-                //     orgName: '',
-                //     date: '',
-                //     foodName: '',
-                //     quantity: '',
-                //     mealType: '',
-                //     foodType: ''
 
-                    
-                // },
+        //     try {
+        //         //It is submitted on port 3000 by default 
+        //         //which is front end but we need to submit it on
+        //         //backend which is on port 3001. so we need proxy
+        //         const res = await fetch('/api/reservedDonations', {
+        //             method: "POST",
+        //             headers: {
+        //                 "Content-Type": "application/json",
+        //                 // 'Authorization':`Bearer ${user.token}`
+        //             },
+        //             body: JSON.stringify({
+        //                 donorName, donationType, donorTypeId, phone,donEmail, address, orgName, date, foodName, quantity, mealType, foodType
+        //             })
 
-    //             dispatch({type:'CREATE_DONATIONS', payload : JSON})
+        //         })
+        //         if (res.status === 400 || !res) {
+        //             window.alert("Message Not Sent. Try Again Later")
+        //         } else {
+        //             window.alert("Message Sent Successfully");
+        // setValues({
+        //     donorName: '',
+        //     donationType: '',
+        //     //donorTypeId: '',
+        //     phone: '',
+        //     donEmail:'',
+        //     address: '',
+        //     orgName: '',
+        //     date: '',
+        //     foodName: '',
+        //     quantity: '',
+        //     mealType: '',
+        //     foodType: ''
 
-    //             )
-    //             navigate('/donationHistory')
-    //         }
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-        
+
+        // },
+
+        //             dispatch({type:'CREATE_DONATIONS', payload : JSON})
+
+        //             )
+        //             navigate('/donationHistory')
+        //         }
+        //     } catch (error) {
+        //         console.log(error);
+        //     }
+
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log(formErrors)
-        if(Object.keys(formErrors).length === 0 && isSubmit){
+        if (Object.keys(formErrors).length === 0 && isSubmit) {
             console.log(values)
         }
-    },[formErrors])
+    }, [formErrors])
 
     return (
-        
+
         <div className='donation'>
             <MainContainer>
                 <DonationText>
@@ -302,7 +305,7 @@ export default function ReservedDonation(props) {
                                     value={values.donorTypeId}
                                     onChange={handleChange}
                                     options={orgType.getDonorType()}
-                                    //error={errors.donorTypeId}
+                                //error={errors.donorTypeId}
 
                                 // error={errors.orgTypeId}
                                 />
@@ -321,16 +324,16 @@ export default function ReservedDonation(props) {
                                 />
                             </Box>
                             <Box my={4} mx={4}>
-                            <Controls.Input
+                                <Controls.Input
 
-                                label="Email Address"
-                                name="donEmail"
-                                value={values.donEmail}
-                                onChange={handleChange}
-                                error={errors.donEmail}
-                               
-                            />
-                        </Box>
+                                    label="Email Address"
+                                    name="donEmail"
+                                    value={values.donEmail}
+                                    onChange={handleChange}
+                                    error={errors.donEmail}
+
+                                />
+                            </Box>
 
                             <Box my={4} mx={4}>
                                 <Controls.TextArea
@@ -342,35 +345,35 @@ export default function ReservedDonation(props) {
                                 />
                             </Box>
                             <Box my={2} mx={4}>
-                                        <FormControl sx={{width: 400 }}> 
-        <InputLabel id="demo-simple-select-autowidth-label">Organization Type</InputLabel>
-      <Select
-      name="orgName"
-        labelId="demo-select-small"
-        id="demo-select-small"
-        value={values.orgName}
-        label="Organization Name"
-        onChange={handleChange}
-      >
-        <MenuItem value="">
-          <em>None</em>
-        </MenuItem>
-        {donations && donations.map((org)=>(
-          <MenuItem value={org.orgName} key={org._id}>{org.orgName}</MenuItem>
-        ))}
-         
-        
-      </Select>
-    </FormControl>
-    {/* <h1> {orgs.map(org => (
+                                <FormControl sx={{ width: 400 }}>
+                                    <InputLabel id="demo-simple-select-autowidth-label">Organization Type</InputLabel>
+                                    <Select
+                                        name="orgName"
+                                        labelId="demo-select-small"
+                                        id="demo-select-small"
+                                        value={values.orgName}
+                                        label="Organization Name"
+                                        onChange={handleChange}
+                                    >
+                                        <MenuItem value="">
+                                            <em>None</em>
+                                        </MenuItem>
+                                        {donations && donations.map((org) => (
+                                            <MenuItem value={org.orgEmail} key={org._id}>{org.orgName}</MenuItem>
+                                        ))}
+
+
+                                    </Select>
+                                </FormControl>
+                                {/* <h1> {orgs.map(org => (
           <MenuItem value={org.orgEmail} key={org.orgName}>{org.orgEmail}</MenuItem>
         ))}</h1> */}
 
 
                             </Box>
-                            </Grid>
+                        </Grid>
 
-                            <Grid item xs={6}>
+                        <Grid item xs={6}>
                             <Box my={4} mx={6}>
                                 <Controls.Input
                                     name="foodName"
@@ -381,8 +384,8 @@ export default function ReservedDonation(props) {
 
                                 />
                             </Box>
-                       
-                        
+
+
 
                             <Box my={4} mx={6}>
                                 <Controls.Input
@@ -425,27 +428,27 @@ export default function ReservedDonation(props) {
                                 </Box>
                             </div>
                             <Box my={1.5} mx={5}>
-                            <FormControl sx={{width: 350 }}> 
-                                <Controls.DatePicker1 
-                                    name="date"
-                                    label="Date"
-                                    value={values.date}
-                                    onChange={handleChange}
-                                    
-                                />
+                                <FormControl sx={{ width: 350 }}>
+                                    <Controls.DatePicker1
+                                        name="date"
+                                        label="Date"
+                                        value={values.date}
+                                        onChange={handleChange}
+
+                                    />
                                 </FormControl>
                             </Box>
 
                             <div>
                                 <Box my={5} mx={12}>
-                                <NavLink style={navLinkStyles} to="/donationSummary">
-              <GradientButton style={{ backgroundImage: `linear-gradient(to right, #1abc9c 50%, #16a085 100%)`, }}
-              onClick={handleSubmit}
-              type="submit"
-              text="Submit"
-              > Submit <i className="fa fa-paper-plane ms-2"></i></GradientButton>
-            </NavLink>   
-                                
+                                    <NavLink style={navLinkStyles} to="/donationSummary">
+                                        <GradientButton style={{ backgroundImage: `linear-gradient(to right, #1abc9c 50%, #16a085 100%)`, }}
+                                            onClick={handleSubmit}
+                                            type="submit"
+                                            text="Submit"
+                                        > Submit <i className="fa fa-paper-plane ms-2"></i></GradientButton>
+                                    </NavLink>
+
                                     {/* <link to="/donationSummary/10">Summary</link> */}
 
                                     {/* <Controls.Button
@@ -455,7 +458,7 @@ export default function ReservedDonation(props) {
     onClick={handleSubmit}
     type="submit"
     text="Submit" */
-    }
+                                    }
                                 </Box>
                             </div>
                         </Grid>

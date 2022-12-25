@@ -23,29 +23,29 @@
 //     const handleSubmit = async (event) =>{
 //         event.preventDefault();
 //         const {email, password} = user;
-//         try {
-//             const res = await fetch('/login', {
-//                 method :"POST",
-//                 headers: {
-//                     "Content-Type" : "application/json"
-//                 },
-//                 body : JSON.stringify({
-//                     email,password
-//                 })
-//             });
+        // try {
+        //     const res = await fetch('/login', {
+        //         method :"POST",
+        //         headers: {
+        //             "Content-Type" : "application/json"
+        //         },
+        //         body : JSON.stringify({
+        //             email,password
+        //         })
+        //     });
 
-//             if(res.status === 400 || !res){
-//                 window.alert("Invalid Credentials");
-//             }else{
-//                 window.alert("Login Successfull");
-//                 //window.location.reload();
-//                 navigate('/home');
-//             }
+        //     if(res.status === 400 || !res){
+        //         window.alert("Invalid Credentials");
+        //     }else{
+        //         window.alert("Login Successfull");
+        //         //window.location.reload();
+        //         navigate('/home');
+        //     }
 
-//         } catch (error) {
-//             console.log(error);
-//         }
-//     }
+        // } catch (error) {
+        //     console.log(error);
+        // }
+    
 //     return(
        
 //     )
@@ -55,17 +55,58 @@
 
 import { useState } from "react"
 import { useLogin } from "./hoooks/useLogin" 
-import {NavLink} from 'react-router-dom';
+import {Navigate, NavLink} from 'react-router-dom';
+import {useNavigate} from 'react-router';
+//import { useHistory } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const {login, error, isLoading} = useLogin()
-
+  const {login, isLoading} = useLogin()
+  const [error,setError] = useState(null);
+  const navigate = useNavigate();
+  //const history = useHistory();
   const handleSubmit = async (e) => {
     e.preventDefault()
 
     await login(email, password)
+
+    try {
+      const res = await fetch('/api/user/login', {
+          method :"POST",
+          headers: {
+              "Content-Type" : "application/json"
+          },
+          body : JSON.stringify({
+              email,password
+          })
+      });
+
+      if(res.status === 400 || !res){
+          window.alert("Invalid Credentials");
+      }else{
+          window.alert("Login Successfull");
+          //window.location.reload();
+          navigate('/home');
+      }
+
+  } catch (error) {
+      console.log(error);
+  }
+    
+    // if(error){
+    //   alert("Not login")
+    // }else{
+    //   navigate("/home");
+    // }
+    // if(email && password == null){
+    // navigate('/home');
+    // }
+    // if(!error){
+    //   navigate('/home')
+    // }else{
+    //   window.alert("Message Not Sent. Try Again Later")
+    // }
   }
 
   return (
@@ -97,7 +138,9 @@ const Login = () => {
                                   onChange={(e) => setPassword(e.target.value)}/>
                             </div>
                            
-                            <button disabled={isLoading} type="submit" class="btn btn-primary w-100 mt-4 rounded-pill">Login</button>
+                      <div><button disabled={isLoading} type="submit" navigate class="btn btn-primary w-100 mt-4 rounded-pill">Login</button>
+                      
+                            </div>
                             {error && <div className="error">{error}</div>}
                         </form>
                    </div>

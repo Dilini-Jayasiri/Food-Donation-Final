@@ -1,4 +1,4 @@
-chtml {
+html {
     height: 100%;
     /* box-sizing: border-box; */
 }
@@ -6,8 +6,8 @@ chtml {
 body {
     overflow-x: hidden;
     width: 100vw;
-    /* margin-left: 0;
-    margin-right: 0;*/
+    margin-left: 0;
+    margin-right: 0;
     position: relative;
     margin-right: 10px;
     padding-right: 8px;
@@ -17,6 +17,13 @@ body {
     /* box-sizing: inherit; */
     /* display: flex;
     flex-direction: column; */
+}
+
+*{
+    margin: 5rem;
+    padding: 5rem;
+    box-sizing: border-box;
+    /* font-family: "PT Sans"; */
 }
 
 #home {
@@ -29,6 +36,9 @@ body {
     /* //overflow: hidden; */
 }
 
+.form .footer{
+    display: none;
+}
 .form {
     background-color: #1abc9c;
     background: linear-gradient(90deg, #1abc9c 50%, #16a085 100%);

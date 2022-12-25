@@ -58,14 +58,14 @@ const ReservedDonation = new mongoose.model("RESERVEDDONATION", reservedDonation
 
 module.exports = ReservedDonation;
 
-async function getDon() {
-    try{
-        const dons = await ReservedDonation.find().sort({_id:-1}).limit(1);
-       console.log(dons);
+// async function getDon() {
+//     try{
+//         const dons = await ReservedDonation.find().sort({_id:-1}).limit(1);
+//         console.log(dons);
        
-    }catch(error){
-    console.log(error.message);
-    }
-}
-getDon();
+//     }catch(error){
+//     console.log(error.message);
+//     }
+// }
+//getDon();
 //const getreserveddon = localStorage.getItem("newItem",getDon()) ;

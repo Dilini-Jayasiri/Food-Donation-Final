@@ -101,7 +101,16 @@ const TableNewDonor = () => {
 
 
     ], [rowId]);
-
+    if(tableDataResNew.length === 0 && tableDataIns.length === 0 && tableDataRes.length ===0 ) {
+        return null;
+     }else if(tableDataRes.length === 0){
+        alert("No Reserved Donations")
+     }else if(tableDataIns.length === 0){
+        alert("No Instant Donations")
+     }else if(tableDataRes.length ===0){
+        alert("No Donations")
+     }
+    
     return (
         
         <Box
@@ -126,6 +135,7 @@ const TableNewDonor = () => {
 
             
             <DataGrid
+               className="restable"
                 columns={columns}
                 rows={tableDataRes}
                 getRowId={row => row._id}

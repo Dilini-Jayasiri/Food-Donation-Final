@@ -1,6 +1,8 @@
 
 import './App.css';
 import NavBar from './components/NavBar';
+import Nav from './components/Navbar/Navbar'
+import Navbarmenu from './components/NavbarMenu';
 import Home from './components/Home';
 import About from './components/About';
 import Footer from './components/Footer';
@@ -15,6 +17,7 @@ import Contact from './components/Contact';
 import Logout from './components/Logout';
 import OrgList from './pages/OrgList';
 import DonationSummary from './pages/DonorAccount/DonationSummary';
+import DonationSummary2 from './components/DonationSummary';
 import ReceiverAccount from '../src/pages/ReciverAccount';
 import DonationSummaryInstant from './Profile/DonationSummaryInstant';
 import ProtectedRoutes from './ProtectedRoutes';
@@ -85,15 +88,20 @@ function App() {
 
   return (
     <>
-      <NavBar auth={auth1} />
-
+    
+      {/* <NavBar auth={auth1} /> */}
+      <Nav/>
+      <Routes>
+      <Route path="/login" element= {!user ? <Login/> : <Navigate to="/home"/>}/>
+     <Route path="/register" element={!user ?<Register /> :<Navigate to="/login"/> }/>
+     </Routes>
       <Routes>
         <Route path="/home" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/register" element={<Register />}/>
-        <Route path="/login" element={<Login />}/>
+        
+       
         {/* <Route element={<ProtectedRoutes/>}>
             
             <Route  path="/donateDash" element={<DonateDash/>} auth={auth}/>
@@ -112,36 +120,37 @@ function App() {
 
 
         <Route path="/donateDash" element={<DonateDash />}/>
-        <Route path="/donationForm" element={<DonationForm />} auth={auth1} />
-        <Route path="/instantDonation" element={<InstantDonation />} auth={auth1} />
-        <Route path="/reservedDonation" element={<ReservedDonation />} auth={auth1} />
-        <Route path="/donationType" element={<DonationType />} auth={auth1} />
+        <Route path="/donationForm" element={<DonationForm />} />
+        <Route path="/instantDonation" element={user ? <InstantDonation />: <Navigate to="/login"/>}/>
+        <Route path="/reservedDonation" element={user ? <ReservedDonation /> : <Navigate to="/login"/>} auth={auth1} />
+        <Route path="/donationType" element={<DonationType />}/>
         <Route path="/tableNew" element={user ? <TableNew /> : <Navigate to="/login"/>}/>
-        <Route path="/requestForm" element={<RequestForm />} auth={auth1} />
-        <Route path="/donorAccount" element={<DonorAccount />} auth={auth1} />
-        <Route path="/logout" element={<Logout />} auth={auth1} />
+        <Route path="/requestForm" element={user ? <RequestForm /> : <Navigate to="/login"/>}/>
+        <Route path="/donorAccount" element={<DonorAccount />}/>
+        <Route path="/logout" element={<Logout />}/>
         <Route path="/orgList" element={<OrgList />} />
-        <Route path="/donationSummary" element={<DonationSummary />} />
+        <Route path="/donationSummary" element={user ? <DonationSummary /> : <Navigate to="/login"/>} />
+        <Route path="/donSum" element={<DonationSummary2/>} />
         <Route path="/inst" element={<Inst />} />
-        <Route path="/acceptPage" element={<AcceptPage />} />
-        <Route path="/receiverAccount" element={<ReceiverAccount />} />
+        <Route path="/acceptPage" element={user ? <AcceptPage /> : <Navigate to="/login"/>} />
+        <Route path="/receiverAccount" element={user ? <ReceiverAccount /> : <Navigate to="/login"/>} />
         <Route path="/instantDonSummary/:id" element={<DonationSummaryInstant />} />
-        <Route path="/calendar" element={<Calendar />} />
-        <Route path="/cal" element={<Calendar2/>} />
-        <Route path="/calForDon" element={<CalendarForDonor/>}/>
-        <Route path="/donationReqAcc" element={<DonationRequestAccept />} />
+        <Route path="/calendar" element={user ? <Calendar /> : <Navigate to="/login"/>} />
+        <Route path="/cal" element={user ? <Calendar2/> : <Navigate to="/login"/>} />
+        <Route path="/calForDon" element={user ? <CalendarForDonor/>: <Navigate to="/login"/>}/>
+        <Route path="/donationReqAcc" element={user ? <DonationRequestAccept /> : <Navigate to="/login"/>} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/adminOrgs" element={<AdminOrgs/>}/>
-        <Route path="/adminInsDon" element={<AdminInsDon/>}/>
-        <Route path="/adminResDon" element={<AdminResDon/>}/>
-        <Route path="/adminMain" element={<AdminMain/>}/>
+        <Route path="/adminOrgs" element={user ? <AdminOrgs/> : <Navigate to="/login"/>}/>
+        <Route path="/adminInsDon" element={user ? <AdminInsDon/> : <Navigate to="/login"/>}/>
+        <Route path="/adminResDon" element={user ? <AdminResDon/> : <Navigate to="/login"/>}/>
+        <Route path="/adminMain" element={user ? <AdminMain/> : <Navigate to="/login"/>}/>
         <Route path="/dash2" element={<Dash2/>}/>
         <Route path="/orgAccount" element={<OrgAccount/>}/>
         <Route path="" element={<Home/>}/>
-        <Route path="/tableNewDonor" element={<TableNewDonor/>}/>
-        <Route path="/donationSummaryDonor" element={<DonationSummaryDonor/>}/>
-        <Route path="/donationHistory" element={<DonationHistory/>}/>
-        <Route path="/reservedDonationNew" element={<ReservedDonationNew/>}/>
+        <Route path="/tableNewDonor" element={user ? <TableNewDonor/> : <Navigate to="/login"/>}/>
+        <Route path="/donationSummaryDonor" element={user ? <DonationSummaryDonor/> : <Navigate to="/login"/>}/>
+        <Route path="/donationHistory" element={user ? <DonationHistory/> : <Navigate to="/login"/>}/>
+        <Route path="/reservedDonationNew" element={user ? <ReservedDonationNew/> : <Navigate to="/login"/>}/>
         
         <Route path="/alart" element={<Alart/>}/>
         

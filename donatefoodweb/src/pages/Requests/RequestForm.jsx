@@ -148,8 +148,13 @@ export default function RequestForm(props) {
                 },dispatch({type:'CREATE_DONATIONS', payload : JSON}))
                 console.log(values);
                 
+
               //  window.location.reload();
+              if(validate){
                 navigate('/tableNew')
+              }else{
+                window.alert("Message Not Sent. Try Again Later")
+              }
             }
         } catch (error) {
             console.log(error);

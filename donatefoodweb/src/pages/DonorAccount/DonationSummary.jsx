@@ -60,18 +60,18 @@ const updateDonation = async () => {
   console.warn(donorName,phone,donEmail)
 }
     useEffect(() => {
-        const fetchDonation = async () => {
-          const dons = await ReservedDonation.find().sort({_id:-1}).limit(1);
-         // const {response} = await axios.get(`/api/reservedDonations/:${params.id}`);
-          setDonation(response);
-          console.log('donation',response);
-          const json = await response.json()
+        // const fetchDonation = async () => {
+        //   const dons = await ReservedDonation.find().sort({_id:-1}).limit(1);
+        //  // const {response} = await axios.get(`/api/reservedDonations/:${params.id}`);
+        //   setDonation(response);
+        //   console.log('donation',response);
+        //   const json = await response.json()
     
-          if (response.ok) {
-            setDonation(json)
-          }
-        }
-        fetchDonation()
+        //   if (response.ok) {
+        //     setDonation(json)
+        //   }
+        // }
+        // fetchDonation()
       }, []);
     return(
         <center>

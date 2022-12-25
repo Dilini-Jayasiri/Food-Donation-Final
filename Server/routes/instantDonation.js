@@ -2,6 +2,7 @@ const express=require('express');
 const router = express.Router();
 
 const {
+    createInsDonation,
     getDonations,
     getInstantDonation,
     deleteInstantDonation,
@@ -12,6 +13,9 @@ const {
 const requireAuth = require('../middleware/requireAuth')
 
 router.use(requireAuth)
+
+//Post donation
+router.post('/',createInsDonation);
 //Get all donations
 router.get('/',getDonations)
 

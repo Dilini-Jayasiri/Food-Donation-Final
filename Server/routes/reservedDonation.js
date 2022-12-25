@@ -23,7 +23,9 @@ router.get('/',getDonations)
 //GET a single donation
 router.get('/:id',getReservedDonation)
 
-router.get('/',lastDonation)
+router.get('/:id',lastDonation)
+
+//router.get('/:id', dataController.getLastRecordForUser);
 //Delete a donation
 router.delete('/:id',deleteReservedDonation)
 
