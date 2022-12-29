@@ -122,7 +122,8 @@ function App() {
         <Route path="/donateDash" element={<DonateDash />}/>
         <Route path="/donationForm" element={<DonationForm />} />
         <Route path="/instantDonation" element={user ? <InstantDonation />: <Navigate to="/login"/>}/>
-        <Route path="/reservedDonation" element={user ? <ReservedDonation /> : <Navigate to="/login"/>} auth={auth1} />
+        <Route path="/reservedDonation" element={user ? <ReservedDonation /> : <Navigate to="/login"/>} />
+        <Route path="/reservedDonationNew" element={<ReservedDonationNew/>}/>
         <Route path="/donationType" element={<DonationType />}/>
         <Route path="/tableNew" element={user ? <TableNew /> : <Navigate to="/login"/>}/>
         <Route path="/requestForm" element={user ? <RequestForm /> : <Navigate to="/login"/>}/>
@@ -130,7 +131,8 @@ function App() {
         <Route path="/logout" element={<Logout />}/>
         <Route path="/orgList" element={<OrgList />} />
         <Route path="/donationSummary" element={user ? <DonationSummary /> : <Navigate to="/login"/>} />
-        <Route path="/donSum" element={<DonationSummary2/>} />
+        <Route path="/donationSummary2" element={<DonationSummary2 />}/>
+        {/* <Route path="/donSum" element={<DonationSummary2/>} /> */}
         <Route path="/inst" element={<Inst />} />
         <Route path="/acceptPage" element={user ? <AcceptPage /> : <Navigate to="/login"/>} />
         <Route path="/receiverAccount" element={user ? <ReceiverAccount /> : <Navigate to="/login"/>} />
@@ -150,7 +152,7 @@ function App() {
         <Route path="/tableNewDonor" element={user ? <TableNewDonor/> : <Navigate to="/login"/>}/>
         <Route path="/donationSummaryDonor" element={user ? <DonationSummaryDonor/> : <Navigate to="/login"/>}/>
         <Route path="/donationHistory" element={user ? <DonationHistory/> : <Navigate to="/login"/>}/>
-        <Route path="/reservedDonationNew" element={user ? <ReservedDonationNew/> : <Navigate to="/login"/>}/>
+        
         
         <Route path="/alart" element={<Alart/>}/>
         

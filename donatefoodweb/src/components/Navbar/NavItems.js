@@ -40,3 +40,26 @@ export const accountDropDown = [
         cName:"nav-item",
     }
 ]
+
+export const donationDropdown = [
+    {
+        id: 1,
+        title : "Innstant Donation",
+        path:"./instantDonation",
+        cName:"nav-item",
+    },
+    {
+        id: 2,
+        title : "Reserved Donation",
+        path:"./reservedDonation",
+        cName:"nav-item",
+    },
+    {
+        id: 3,
+        title : "Common Donation",
+        path:"./reservedDonationNew",
+        cName:"nav-item",
+    },
+
+]
+

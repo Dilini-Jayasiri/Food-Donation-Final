@@ -6,6 +6,7 @@ const bcryptjs=require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 
+
 const app=express();
 
 //Config env file and require connection file
@@ -354,15 +355,29 @@ app.get("/instantDon/:id",async (req,res) => {
         res.send({"result":"No record found"})
     }
 })
-// async function getDon() {
-//     try{
-//         const dons = await ReservedDonation.find().sort({_id:-1}).limit(1);
-//         console.log(dons);
-//     }catch(error){
-//     console.log(error.message);
-//     }
-// }
-// getDon();
+app.get("/api/reservedDonation/last",async(req,res) => {
+  // const {user_id} = req.user._id; 
+        const dons = await ReservedDonation.findOne().sort({_id:-1}).limit(1);
+        console.log(dons);
+        if(dons){
+            res.send(dons)
+        }else {
+    res.send({"dons":"no record found"})
+    }
+    });
+
+    // app.get("/api/reservedDonation/lastDon",async(req,res) => {
+    //     const user_id = req.user._id
+    //     const dons = await ReservedDonation.find().sort({user_id:-1}).limit(1);
+    //     console.log(dons);
+    //     if(dons){
+    //         res.send(dons)
+    //     }else {
+    // res.send({"dons":"no record found"})
+    // }
+    // });
+
+//getDon();
    
 
 
