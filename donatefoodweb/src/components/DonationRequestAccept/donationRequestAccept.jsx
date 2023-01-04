@@ -5,16 +5,28 @@ import {alert} from '@mobiscroll/react';
 import { useNavigate } from 'react-router'
 import '../../assets/partials/services.scss'
 import '@mobiscroll/react/dist/css/mobiscroll.min.css';
-//import useAuthContext from "../hoooks/useAuthContext";
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import { useAuthContext } from "../hoooks/useAuthContext";
+import { useDonationContext } from "../hoooks/useDonationContext";
+import { useForm, Form } from '../../components/useForm';
 //import summary from '../summary'
- 
+const initialValues = {status:''}
 
 const DonationRequestAccept = () => {
     // const {user} = useAuthContext();
     const navigate = useNavigate();
+    const { donations, dispatch } = useDonationContext()
+    const { user } = useAuthContext()
+    const [isSubmit, setIsSubmit] = useState(false);
+    const [formErrors, setFormErrors] = useState({});
     const handleClick = ()=>{
         navigate("/alart")
     }
+
+   
 
     const showAlert = () => {
         alert({
@@ -26,6 +38,20 @@ const DonationRequestAccept = () => {
     // navigate("/home")
     const [donation,setDonation] = useState([])
     const [requests,setRequests] = useState("")
+    const [status, setStatus] = useState('')
+   
+    const validate = (fieldValues = values) => {
+        let temp = { ...errors }
+        if ('status' in fieldValues)
+            temp.donorName = fieldValues.status ? "" : "This field is required."
+
+            setErrors({
+                ...temp
+            })
+    
+            if (fieldValues === values)
+                return Object.values(temp).every(x => x == "")
+        }
 
     useEffect(() => {
         const fetchDonation = async () => {
@@ -44,6 +70,101 @@ const DonationRequestAccept = () => {
         fetchDonation()
         //}
     },[])
+    
+    const {
+        values,
+        setValues,
+        errors,
+        setErrors,
+        //handleChange,
+        resetForm
+    } = useForm(initialValues, true,validate);
+
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        if (!user) {
+            setFormErrors('You must be logged in')
+            return
+        }
+       
+            setIsSubmit(true)
+            navigate('/home')
+    
+      
+
+        const donation = { status }
+
+        const res = await fetch('/api/status', {
+            method: "POST",
+            body: JSON.stringify(donation),
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${user.token}`
+            }
+        })
+
+        const json = await res.json()
+
+        if (!res.ok) {
+            setFormErrors(json.error)
+            window.alert("Message Not Sent. Try Again Later")
+        }
+        if (res.ok) {
+            console.log('new donation added', json)
+            // window.alert("Message Sent Successfully");
+            showAlert();
+            setValues({
+                status:''
+            },
+                dispatch({ type: 'CREATE_DONATIONS', payload: JSON })
+            )
+        }
+
+    }
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault()
+    
+       
+    
+    //     try {
+    //       const res = await fetch('/api/status', {
+    //           method :"POST",
+    //           headers: {
+    //               "Content-Type" : "application/json"
+    //           },
+    //           body : JSON.stringify({
+    //               status
+    //           })
+    //       });
+    
+    //       if(res.status === 400 || !res){
+    //           window.alert("Invalid Credentials");
+    //       }else{
+    //           window.alert("Donation Confirmed");
+    //           //window.location.reload();
+    //         //   navigate('/home');
+    //       }
+    
+    //   } catch (error) {
+    //       console.log(error);
+    //   }
+        
+        // if(error){
+        //   alert("Not login")
+        // }else{
+        //   navigate("/home");
+        // }
+        // if(email && password == null){
+        // navigate('/home');
+        // }
+        // if(!error){
+        //   navigate('/home')
+        // }else{
+        //   window.alert("Message Not Sent. Try Again Later")
+        // }
+      
 
     // useEffect(() => {
     //     const fetchRequests = async () => {
@@ -65,6 +186,7 @@ const DonationRequestAccept = () => {
             <div className="col">
                 
                 <center>
+                <form onSubmit={handleSubmit}>
                 <div class="card">
                 <h1>Donation Confirmation</h1>
                
@@ -75,13 +197,33 @@ const DonationRequestAccept = () => {
                 ))}
                 </div>
                 <p class="card-text lead">If you are like to recive the food donation Please confirm here</p>
-                <div>
-                     
-                                <button type="button" onClick={showAlert}  class="btn btn-outline-primary btn-sm"><i className="fa fa-check-square" aria-hidden="true"></i> Confirm Request</button>
-                                </div>
+                <center>               
+                     <FormControl sx={{ width: 300 , marginBottom: '3rem'}}>
+                                                <InputLabel id="demo-simple-select-autowidth-label">Donation Acceptance</InputLabel>
+                                                <Select
+                                                    name="status"
+                                                    labelId="demo-select-small"
+                                                    id="demo-select-small"
+                                                    value={status}
+                                                    label="Organization Type"
+                                                    onChange={(e) => setStatus(e.target.value)}
+                                                    
+                                                >
+                                                  
+                                                    <MenuItem value={"Accepted"}>Accepted</MenuItem>
+                                                    <MenuItem value={"Rejected"}>Rejected</MenuItem>
+                                                   
+                                                </Select>
+                                            </FormControl>
+
+                                            </center>
+                                            <div sx={{ width: 300 , marginBottom: '3rem'}}>
+                                            <button type="submit" onClick={showAlert} class="btn btn-outline-primary w-25 mb-4 rounded-pill">Confirm Donation Status</button>
+                                            </div>
+               
                      </div>
                      
-                     
+                     </form>
                      </center>
                      </div>
                      </div>

@@ -26,6 +26,7 @@ const authenticate = require('./middleware/authenticate');
 const requestRoute = require('./routes/requests');
 const instantRoute = require('./routes/instantDonation');
 const reservedRoute = require('./routes/reservedDonation');
+const reservedLastRoute = require('./routes/ReservedLastRoute');
 const reservedNewRoute = require('./routes/reservedDonNew');
 const donationStatusRoute = require('./routes/status');
 const userRoutes = require('./routes/users');
@@ -34,8 +35,12 @@ const userRoutes = require('./routes/users');
 app.use(express.json());
 app.use(express.urlencoded({extended : false}));
 app.use(cookieParser());
-app.use('/api/requests',requestRoute);
-app.use('/api/reservedDonations',reservedRoute);
+app.use('/requests',requestRoute);
+app.use('/api/lastRequest',requestRoute);
+
+app.use('/reservedDonations',reservedRoute);
+app.use('/lastDon',reservedLastRoute);
+
 app.use('/api/instantDonations',instantRoute);
 app.use('/api/user',userRoutes);
 app.use('/api/resDonNew',reservedNewRoute);
@@ -52,6 +57,7 @@ app.use((req,res,next)=>{
 app.get('/',(req,res) =>{
     res.send("Hello world");
 })
+
 //const requireAuth = require('./middleware/requireAuth')
 
 // app.use(requireAuth);
@@ -356,7 +362,7 @@ app.get("/instantDon/:id",async (req,res) => {
     }
 })
 app.get("/api/reservedDonation/last",async(req,res) => {
-  // const {user_id} = req.user._id; 
+     //   const {user_id} = req.params; 
         const dons = await ReservedDonation.findOne().sort({_id:-1}).limit(1);
         console.log(dons);
         if(dons){
@@ -366,6 +372,36 @@ app.get("/api/reservedDonation/last",async(req,res) => {
     }
     });
 
+// app.get("/api/request/org",async (req,res) => {
+//     const user_id = req.user._id
+//     const reservedDonations = await Request.find({user_id}).sort({createdAt:-1})
+    
+//     res.status(200).json(reservedDonations)
+// })
+
+// app.get("/requests/last",async(req,res) => {
+//         //   const {user_id} = req.params; 
+//            const dons = await Request.findOne().sort({_id:-1}).limit(1);
+//            console.log(dons);
+//            if(dons){
+//                res.send(dons)
+//            }else {
+//        res.send({"dons":"no record found"})
+//        }
+//        });
+
+    app.get("/api/instantDonation/last",async(req,res) => {
+        //   const {user_id} = req.params; 
+           const dons = await InstantDonation.findOne().sort({_id:-1}).limit(1);
+           console.log(dons);
+           if(dons){
+               res.send(dons)
+           }else {
+       res.send({"dons":"no record found"})
+       }
+       });
+
+       
     // app.get("/api/reservedDonation/lastDon",async(req,res) => {
     //     const user_id = req.user._id
     //     const dons = await ReservedDonation.find().sort({user_id:-1}).limit(1);
@@ -421,6 +457,29 @@ app.post('/requests',async(req,res) =>{
     }
 })
 
+// app.get(async (req,res) => {
+//     const {id} = req.params
+
+//     if(!mongoose.Types.ObjectId.isValid(id)){
+//         return res.status(404).json({error:"No such request"})
+//     }
+
+//     const request = await Request.findById(id)
+
+//     if(!request){
+//         return res.status(404).json({error:"No such request"})
+//     }
+//     res.status(200).json(request)
+// }
+app.get('/requests/all',(req,res) =>{
+    Request.find((err,data)=>{
+        if(err){
+            res.status(500).send(err)
+        }else{
+            res.status(200).send(data);
+        }
+    })
+})
 //Logout Page
 app.get('/logout', (req,res) =>{
     res.clearCookie("jwt",{path : '/'})

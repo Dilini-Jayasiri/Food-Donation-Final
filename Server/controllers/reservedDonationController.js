@@ -88,15 +88,23 @@ const getReservedDonation = async (req,res) =>{
 //             res.status(200).json(reservedDons)
 // }
 
-const lastDonation = async (req, res) => {
-    try {
-      const data = await ReservedDonation.findOne().sort({ field: 'asc', _id: -1 });
-      res.send(data);
-    } catch (error) {
-      res.status(500).send(error);
-    }
-  }
+// const lastDonation = async (req, res) => {
+//     try {
+//       const data = await ReservedDonation.findOne().sort({ field: 'asc', _id: -1 });
+//       res.send(data);
+//     } catch (error) {
+//       res.status(500).send(error);
+//     }
+//   }
+//   const lastDonation = async (req,res) => {
 
+//     const user_id = req.user._id;
+//               const dons = await ReservedDonation.find({user_id}).sort({_id:-1}).limit(1);
+//               if(!dons){
+//                 return res.status(404).json({error:'No such donation'})
+//             }
+//             res.status(200).json(dons)
+// }
 //delete a donation
 const deleteReservedDonation = async (req,res)=>{
     const {id} = req.params
@@ -135,7 +143,7 @@ module.exports= {
     createResDonation,
     getDonations,
     getReservedDonation,
-    lastDonation,
+   // lastDonation,
     deleteReservedDonation,
     updateReservedDonation
 }

@@ -50,9 +50,10 @@ const Navbarmenu = () => {
                         </li>
                         <li className="menu-item " ><NavLink onClick={toggleClass} activeClassName='is-active' to={`/contact`}> Contact us </NavLink> </li>
                         <li onClick={toggleSubmenu} className="menu-item sub__menus__arrows" > <Link to="#"> Shop <FiChevronDown /> </Link>
+                        
                             <ul className={boxClassSubMenu.join(' ')} > 
                                 <li> <NavLink onClick={toggleClass} activeClassName='is-active'  to={`/donorAccount`}> Donor Account</NavLink> </li>
-                                <li><NavLink onClick={toggleClass} activeClassName='is-active' to={`/orgAccount`}> Organization Account </NavLink> </li>
+                                {/* <li><NavLink onClick={toggleClass} activeClassName='is-active' to={`/orgAccount`}> Organization Account </NavLink> </li> */}
                             </ul>
                         </li>
                         <li className="menu-item " ><NavLink onClick={toggleClass} activeClassName='is-active' to={`/donateDash`}> Donate </NavLink> </li>

@@ -29,7 +29,7 @@ const DonationDetails = ({don}) =>{
            <h4><strong>Organization Name: {don.orgName}</strong></h4>
            <p><strong>Quantity : </strong>{don.quantity}</p>
            <p><strong>Donation Sheduled Date : </strong>{don.date}</p>
-           <p><strong>Created At: </strong>{formatDistanceToNow(new Date(don.date),{addSuffix:true})}</p>
+           {/* <p><strong>Created At: </strong>{formatDistanceToNow(new Date(don.date),{addSuffix:true})}</p> */}
            {/* <span class="material-symbols-outlined" onClick={handleClick}>
                delete
           </span> */}

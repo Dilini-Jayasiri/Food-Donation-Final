@@ -9,9 +9,9 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import {useNavigate} from 'react-router';
+import { useNavigate } from 'react-router';
 import { useDonationContext } from '../../components/hoooks/useDonationContext';
-import {useAuthContext} from '../../components/hoooks/useAuthContext'
+import { useAuthContext } from '../../components/hoooks/useAuthContext'
 
 const mealTypeItems = [
     { id: 'breakfast', title: 'Breakfast' },
@@ -33,7 +33,7 @@ const mealTypeItems = [
 //   });
 
 const initialValues = {
-   // id: '',
+    // id: '',
     orgName: '',
     orgEmail: '',
     orgSize: '',
@@ -49,10 +49,10 @@ const initialValues = {
 export default function RequestForm(props) {
     //const { addOrEdit } = props
     const navigate = useNavigate();
-    const {dispatch} = useDonationContext()
-    const {user} = useAuthContext()
-    const [isSubmit,setIsSubmit] = useState(false);
-    const [formErrors,setFormErrors] = useState({});
+    const { dispatch } = useDonationContext()
+    const { user } = useAuthContext()
+    const [isSubmit, setIsSubmit] = useState(false);
+    const [formErrors, setFormErrors] = useState({});
     const validate = (fieldValues = values) => {
         let temp = { ...errors }
         if ('orgName' in fieldValues)
@@ -102,20 +102,20 @@ export default function RequestForm(props) {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-         if(!user){
+        if (!user) {
             setFormErrors('You must be logged in')
             return
         }
         setFormErrors(validate(values));
         if (validate()) {
-        setIsSubmit(true)
+            setIsSubmit(true)
         }
         // if (validate()) {
         //     addOrEdit(values, resetForm)
         // }
         //Object Destructuring
         //Store object data into variables
-        const { orgName,orgEmail, orgSize, phone, city,quantity,orgType,reason,mealType,confirmedDate } = values;
+        const { orgName, orgEmail, orgSize, phone, city, quantity, orgType, reason, mealType, confirmedDate } = values;
         try {
             //It is submitted on port 3000 by default 
             //which is front end but we need to submit it on
@@ -124,10 +124,10 @@ export default function RequestForm(props) {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization":`Bearer ${user.token}`
+                    "Authorization": `Bearer ${user.token}`
                 },
                 body: JSON.stringify({
-                    orgName,orgEmail, orgSize, phone, city,quantity,orgType,reason,mealType,confirmedDate
+                    orgName, orgEmail, orgSize, phone, city, quantity, orgType, reason, mealType, confirmedDate
                 })
             })
             if (res.status === 400 || !res) {
@@ -142,30 +142,30 @@ export default function RequestForm(props) {
                     city: '',
                     quantity: '',
                     orgType: '',
-                    reason:'',
+                    reason: '',
                     mealType: '',
                     confirmedDate: '',
-                },dispatch({type:'CREATE_DONATIONS', payload : JSON}))
+                }, dispatch({ type: 'CREATE_DONATIONS', payload: JSON }))
                 console.log(values);
-                
 
-              //  window.location.reload();
-              if(validate){
-                navigate('/tableNew')
-              }else{
-                window.alert("Message Not Sent. Try Again Later")
-              }
+
+                //  window.location.reload();
+                if (validate) {
+                    navigate('/tableNew')
+                } else {
+                    window.alert("Message Not Sent. Try Again Later")
+                }
             }
         } catch (error) {
             console.log(error);
         }
     }
-    useEffect(()=>{
+    useEffect(() => {
         console.log(formErrors)
-        if(Object.keys(formErrors).length === 0 && isSubmit){
+        if (Object.keys(formErrors).length === 0 && isSubmit) {
             console.log(values)
         }
-    },[formErrors])
+    }, [formErrors])
     // const MainContainer = styled.div`
 
     // align-items:center;
@@ -274,25 +274,25 @@ export default function RequestForm(props) {
                                             />
                                         </Box> */}
                                         <Box my={4} mx={4}>
-                                         <FormControl sx={{width: 400 }}> 
-         <InputLabel id="demo-simple-select-autowidth-label">Organization Type</InputLabel>
-      <Select
-      name="orgType"
-        labelId="demo-select-small"
-        id="demo-select-small"
-        value={values.orgType}
-        label="Organization Type"
-        onChange={handleInputChange}
-      >
-        <MenuItem value={values.orgType}>
-          <em>None</em>
-        </MenuItem>
-        <MenuItem value={"Childrens Home"}>Childrens Home</MenuItem>
-        <MenuItem value={"Elders Home"}>Elders Home</MenuItem>
-        <MenuItem value={"Nursing Home"}>Nursing Home</MenuItem>
-      </Select>
-    </FormControl>
-    {/* <Controls.Input
+                                            <FormControl sx={{ width: 400 }}>
+                                                <InputLabel id="demo-simple-select-autowidth-label">Organization Type</InputLabel>
+                                                <Select
+                                                    name="orgType"
+                                                    labelId="demo-select-small"
+                                                    id="demo-select-small"
+                                                    value={values.orgType}
+                                                    label="Organization Type"
+                                                    onChange={handleInputChange}
+                                                >
+                                                    <MenuItem value={values.orgType}>
+                                                        <em>None</em>
+                                                    </MenuItem>
+                                                    <MenuItem value={"Childrens Home"}>Childrens Home</MenuItem>
+                                                    <MenuItem value={"Elders Home"}>Elders Home</MenuItem>
+                                                    <MenuItem value={"Nursing Home"}>Nursing Home</MenuItem>
+                                                </Select>
+                                            </FormControl>
+                                            {/* <Controls.Input
 
 label="cfvgb"
 name="orgType"
@@ -300,9 +300,9 @@ value={values.orgType}
 onChange={handleInputChange}
 error={errors.orgType}
 /> */}
-    </Box>
+                                        </Box>
 
-                                      <Box my={4} mx={4}>
+                                        <Box my={4} mx={4}>
                                             <Controls.TextArea
 
                                                 label="Reason for Request"
@@ -323,34 +323,34 @@ error={errors.orgType}
                                         {/* <div class="form-check form-check-inline"> */}
                                         <Box my={3} mx={4}>
 
-                                    <Controls.RadioGroups
-                                        row
-                                        name="mealType"
-                                        label="Meal Type"
-                                        value={values.mealType}
-                                        onChange={handleInputChange}
-                                        items={mealTypeItems}
-                                        //error={errors.mealType}
-                                    />
-                                </Box> 
-                                       
+                                            <Controls.RadioGroups
+                                                row
+                                                name="mealType"
+                                                label="Meal Type"
+                                                value={values.mealType}
+                                                onChange={handleInputChange}
+                                                items={mealTypeItems}
+                                            //error={errors.mealType}
+                                            />
+                                        </Box>
+
                                         {/* </div> */}
 
 
                                         {/* <Box my={4} mx={4}> */}
                                         <Box my={2} mx={4}>
-                                        <FormControl sx={{width: 400 }}> 
-                                            <Controls.DatePicker1
-                                                name="confirmedDate"
-                                                label="Confirmed Date"
-                                                value={values.confirmedDate}
-                                                onChange={handleInputChange}
-                                            />
+                                            <FormControl sx={{ width: 400 }}>
+                                                <Controls.DatePicker1
+                                                    name="confirmedDate"
+                                                    label="Confirmed Date"
+                                                    value={values.confirmedDate}
+                                                    onChange={handleInputChange}
+                                                />
                                             </FormControl>
                                         </Box>
                                         {/* <DatePicker1/> */}
                                         <div >
-                                        <Box my={4} mx={4}>
+                                            <Box my={4} mx={4}>
 
                                                 <Controls.Button
                                                     // variant="contained"
@@ -360,7 +360,7 @@ error={errors.orgType}
                                                     type="submit"
                                                     text="Submit"
 
-                                                
+
                                                 />
 
 

@@ -62,6 +62,7 @@ import {useNavigate} from 'react-router';
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [role,setRole] = useState('')
   const {login, isLoading} = useLogin()
   const [error,setError] = useState(null);
   const navigate = useNavigate();
@@ -69,7 +70,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    await login(email, password)
+    await login(email, password,role)
 
     try {
       const res = await fetch('/api/user/login', {
@@ -78,7 +79,7 @@ const Login = () => {
               "Content-Type" : "application/json"
           },
           body : JSON.stringify({
-              email,password
+              email,password,role
           })
       });
 
@@ -136,6 +137,14 @@ const Login = () => {
                                   name="password"
                                   value={password}
                                   onChange={(e) => setPassword(e.target.value)}/>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">User Role</label>
+                                <input type="text" class="form-control" id="role"
+                                       name="role"
+                                       value={role}
+                                       onChange={(e) => setRole(e.target.value)} aria-describedby="emailHelp"/>
+                            
                             </div>
                            
                       <div><button disabled={isLoading} type="submit" navigate class="btn btn-primary w-100 mt-4 rounded-pill">Login</button>

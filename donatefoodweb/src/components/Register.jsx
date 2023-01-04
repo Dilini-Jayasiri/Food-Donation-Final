@@ -89,13 +89,14 @@ import { useSignup } from "./hoooks/useSignup"
 const Signup = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [role,setRole] = useState('')
   const {signup, error, isLoading} = useSignup()
   
 
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    await signup(email, password)
+    await signup(email, password,role)
   }
 
   return (
@@ -129,7 +130,15 @@ const Signup = () => {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)} />
                     </div>
-            
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">User Role</label>
+                        <input type="text" class="form-control" id="role" aria-describedby="emailHelp"
+                        
+                            name="role"
+                            value={role}
+                            onChange={(e) => setRole(e.target.value)} />
+                       
+                    </div>
                     
                     <div class="mb-3 form-check">
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" />

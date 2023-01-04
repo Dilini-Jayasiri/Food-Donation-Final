@@ -1,28 +1,95 @@
 const Request = require('../models/requestSchema');
 const mongoose = require('mongoose')
 
-//get All requests
-const getRequests = async (req,res) => {
-    const requests = await Request.find({}).sort({createdAt: -1})
+const createRequest = async (req,res) => {
+    const {orgName,orgEmail,orgSize,phone,city,quantity,orgType,reason,mealType,confirmedDate} = req.body
 
-    res.status(200).json(requests)
+    let emptyFields = []
+
+    if(!orgName){
+        emptyFields.push('orgName')
+    }
+    if(!orgEmail){
+        emptyFields.push('orgEmail')
+    }
+    if(!orgSize){
+        emptyFields.push('orgSize')
+    }
+    if(!phone){
+        emptyFields.push('phone')
+    }
+    if(!city){
+        emptyFields.push('city')
+    }
+    if(!quantity){
+        emptyFields.push('quantity')
+    }
+    if(!orgType){
+        emptyFields.push('orgType')
+    }
+    if(!reason){
+        emptyFields.push('reason')
+    }
+    if(!mealType){
+        emptyFields.push('mealType')
+    }
+    if(!confirmedDate){
+        emptyFields.push('confirmedDate')
+    }
+    if(emptyFields.length > 0) {
+        return res.status(400).json({error:'Please fill in all fields',emptyFields})
+    }
+
+    try {
+        const user_id = req.user._id;
+       const request = await Request.create({orgName,orgEmail,orgSize,phone,city,quantity,orgType,reason,mealType,confirmedDate,user_id})
+       res.status(200).json(request)
+    } catch (error){
+        res.status(400).json({error:error.message});
+       //res.status(400).json({error : error.message})
+    }
+} 
+
+//get All requests
+// const getUserRequests = async (req,res) => {
+//     const user_id = req.user._id;
+//     const requests = await Request.find({user_id}).sort({createdAt: -1})
+
+//     res.status(200).json(requests)
+// }
+
+//get All requests
+// const getRequests = async (req,res) => {
+//     const requests = await Request.find({}).sort({createdAt: -1})
+
+//     res.status(200).json(requests)
+// }
+
+const lastRequest = async (req,res) => {
+
+    const user_id = req.user._id;
+              const dons = await Request.find({user_id}).sort({_id:-1}).limit(1);
+              if(!dons){
+                return res.status(404).json({error:'No such donation'})
+            }
+            res.status(200).json(dons)
 }
 
 //get a single request
-const getRequest = async (req,res) => {
-    const {id} = req.params
+// const getRequest = async (req,res) => {
+//     const {id} = req.params
 
-    if(!mongoose.Types.ObjectId.isValid(id)){
-        return res.status(404).json({error:"No such request"})
-    }
+//     if(!mongoose.Types.ObjectId.isValid(id)){
+//         return res.status(404).json({error:"No such request"})
+//     }
 
-    const request = await Request.findById(id)
+//     const request = await Request.findById(id)
 
-    if(!request){
-        return res.status(404).json({error:"No such request"})
-    }
-    res.status(200).json(request)
-}
+//     if(!request){
+//         return res.status(404).json({error:"No such request"})
+//     }
+//     res.status(200).json(request)
+// }
 
 //delete a request
 const deleteRequest = async (req,res) =>{
@@ -59,8 +126,11 @@ const updateRequest = async (req,res) => {
 }
 
 module.exports = {
-    getRequest,
-    getRequests,
+    createRequest,
+   // getRequest,
+   /// getUserRequests,
+   lastRequest,
+    //getRequests,
     deleteRequest,
     updateRequest
 }

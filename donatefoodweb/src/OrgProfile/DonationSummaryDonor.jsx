@@ -58,33 +58,45 @@ const DonationSummaryDonor =()=>{
 //   }
 // }
 //getDon();
-useEffect(()=>{
-  getDonationDetails();
+// useEffect(()=>{
+//   getDonationDetails();
+// },[])
+
+// const getDonationDetails = async ()=>{
+//   console.warn(params)
+//   let result = await fetch(`/reservedDon/get/${params.id}`);
+//   result = await result.json();
+//   console.warn(result);
+// }
+
+useEffect(() => {
+  const fetchDonation = async () => {
+      const response = await fetch('/api/reservedDonation/last')
+      const json = await response.json()
+
+      if(response.ok){
+          setDonation(json)
+      } 
+  }
+  fetchDonation()
 },[])
 
-const getDonationDetails = async ()=>{
-  console.warn(params)
-  let result = await fetch(`/reservedDon/get/${params.id}`);
-  result = await result.json();
-  console.warn(result);
-}
-
-const updateDonation = async () => {
-  console.warn(donorName,phone,donEmail)
-}
-    useEffect(() => {
-        const fetchDonation = async () => {
-          const {response} = await axios.get('/reservedDon/get');
-          setDonation(response);
-          console.log('donation',response);
-          const json = await response.json()
+// const updateDonation = async () => {
+//   console.warn(donorName,phone,donEmail)
+// }
+    // useEffect(() => {
+    //     const fetchDonation = async () => {
+    //       const {response} = await axios.get('/api/reservedDon/get');
+    //       setDonation(response);
+    //       console.log('donation',response);
+    //       const json = await response.json()
     
-          if (response.ok) {
-            setDonation(json)
-          }
-        }
-        fetchDonation()
-      }, []);
+    //       if (response.ok) {
+    //         setDonation(json)
+    //       }
+    //     }
+    //     fetchDonation()
+    //   }, []);
     return(
         <center>
             <div className="container py-5">
@@ -116,18 +128,22 @@ const updateDonation = async () => {
     })} */}
                         {/* {don.map(org => (org._id))} 
           */}
+         
    <h3>Your Donation Summary
    </h3>
-                        <p>Donor name : Dilini Jayasiri</p>
-                        <p>Donor Type : Individual </p>
-                        <p> Conatct No : 0716613876 </p>
-                        
-                        <p> Address :Panadura </p>
-                       
-                        <p> Date :21.12.2022 </p>
-                        <p> Food Name : Rice</p>
-                        <p> Quantity :60 </p>
-                        <p> Meal Type :Lunch </p>
+   {[donations] && [donations].map(don => (
+   <>
+   <p key={don._id}><strong>Donor Name : </strong>{don.donorName}</p>
+   <p key={don._id}><strong>Contact No : </strong>{don.phone}</p>
+    <p key={don._id}><strong>Email : </strong>{don.donEmail}</p>
+    <p key={don._id}><strong>Address : </strong>{don.address}</p>
+    <p key={don._id}><strong>Date : </strong>{don.date}</p>
+    <p key={don._id}><strong>Food Name : </strong>{don.foodName}</p>
+    <p key={don._id}><strong>Quantity : </strong>{don.quantity}</p>
+    <p key={don._id}><strong>Meal Type : </strong>{don.mealType}</p>
+
+    </>
+   ))}
                         <center>
                         <Box my={5}>
             <NavLink style={navLinkStyles} to="/">

@@ -32,7 +32,7 @@ const TableNewDonor = () => {
 
     useEffect(() => {
       const fetchDonations = async () => {
-        const response = await fetch('/api/requests/',{
+        const response = await fetch('/requests/all',{
             headers: {
                 'Authorization':`Bearer ${user.token}`
             }

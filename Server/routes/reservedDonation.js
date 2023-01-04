@@ -6,7 +6,7 @@ const {
     createResDonation,
     getDonations,
     getReservedDonation,
-    lastDonation,
+    //lastDonation,
     deleteReservedDonation,
     updateReservedDonation
 } = require('../controllers/reservedDonationController')
@@ -23,7 +23,8 @@ router.get('/',getDonations)
 //GET a single donation
 router.get('/:id',getReservedDonation)
 
-router.get('/:id',lastDonation)
+// router.get('/',lastDonation)
+
 
 //router.get('/:id', dataController.getLastRecordForUser);
 //Delete a donation

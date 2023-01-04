@@ -34,6 +34,7 @@ import AcceptPage from './AcceptPage';
 import Calendar from './Calendar/calendar';
 import Modal from 'react-modal';
 import DonationRequestAccept from './components/DonationRequestAccept/donationRequestAccept';
+import RequestSummary from './components/DonationRequestAccept/RequestSummary';
 import Dashboard from './adminSide/pages/Dashboard/dashboard';
 import Dash2 from './adminSide/pages/Dashboard/dash2';
 import AdminOrgs from './adminSide/pages/Dashboard/Organizations/Organizations';
@@ -54,6 +55,7 @@ Modal.setAppElement('#root');
 
 function App() {
   const {user} = useAuthContext()
+  const [roleType,setRoleType] = useState('');
   const [auth, setauth] = useState(false);
   const [auth1, setauth1] = useState(true);
 
@@ -85,7 +87,31 @@ function App() {
   // useEffect(() => {
   //   isLoggedIn();
   // }, []);
+  useEffect(() => {
+    fetch('/api/user/login')
+       .then(res => res.json())
+       .then(data => setRoleType(data.role));
+       console.log(data => setRoleType(data.role));
+  },[]);
+//   useEffect(() => {
+//     const fetchUser = async () => {
+//         const response = await fetch('/api/user/login')
+//         const json = await response.json()
 
+//         if(response.ok){
+//             setDonation(json)
+//         } 
+//     }
+//     fetchUser()
+// },[])
+
+  if (roleType === 'admin') {
+    return (
+      <div>
+        
+      </div>
+    );
+  }else{
   return (
     <>
     
@@ -100,9 +126,8 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />
         <Route path="/contact" element={<Contact />} />
-        
-       
-        {/* <Route element={<ProtectedRoutes/>}>
+                
+        { /* <Route element={<ProtectedRoutes/>}>
             
             <Route  path="/donateDash" element={<DonateDash/>} auth={auth}/>
             <Route  path="/donationForm" element={<DonationForm/>} auth={auth}/>
@@ -114,7 +139,7 @@ function App() {
             <Route path="/donorAccount" element={<DonorAccount/>} auth={auth}/>
             <Route  path="/logout" element={<Logout/>} auth={auth}/>
             <Route path="/orgList" element={<OrgList/>} auth={auth}/>
-            </Route> */}
+            </Route>  */}
 
 
 
@@ -141,7 +166,7 @@ function App() {
         <Route path="/cal" element={user ? <Calendar2/> : <Navigate to="/login"/>} />
         <Route path="/calForDon" element={user ? <CalendarForDonor/>: <Navigate to="/login"/>}/>
         <Route path="/donationReqAcc" element={user ? <DonationRequestAccept /> : <Navigate to="/login"/>} />
-        <Route path="/dashboard" element={<Dashboard />} />
+       
         <Route path="/adminOrgs" element={user ? <AdminOrgs/> : <Navigate to="/login"/>}/>
         <Route path="/adminInsDon" element={user ? <AdminInsDon/> : <Navigate to="/login"/>}/>
         <Route path="/adminResDon" element={user ? <AdminResDon/> : <Navigate to="/login"/>}/>
@@ -152,8 +177,8 @@ function App() {
         <Route path="/tableNewDonor" element={user ? <TableNewDonor/> : <Navigate to="/login"/>}/>
         <Route path="/donationSummaryDonor" element={user ? <DonationSummaryDonor/> : <Navigate to="/login"/>}/>
         <Route path="/donationHistory" element={user ? <DonationHistory/> : <Navigate to="/login"/>}/>
-        
-        
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/requestSummary" element={user ? <RequestSummary /> : <Navigate to="/login"/>} /> 
         <Route path="/alart" element={<Alart/>}/>
         
       </Routes>
@@ -218,6 +243,7 @@ function App() {
       <Footer/> 
     </>
   );
+  }
 }
 
 export default App;

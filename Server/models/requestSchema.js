@@ -43,10 +43,42 @@ const requestSchema = new mongoose.Schema({
         type : String,
         required : true
     },
-    // user_id:{
-    //     type:String,
-    //     required:true
-    // }
+    user_id:{
+        type:String,
+        required: true
+    },
+    donors:{
+        donorName: {
+            type: String
+        },
+        phone: {
+            type: String
+        },
+        donEmail: {
+            type: String
+        },
+        address: {
+            type: String
+        },
+        orgName: {
+            type: String
+        },
+        date: {
+            type: String
+        },
+        foodName: {
+            type: String
+        },
+        quantity: {
+            type: Number
+        },
+        mealType: {
+            type: String
+        },
+        foodType: {
+            type: String
+        }
+    }
  
 },{timestamps:true})
 

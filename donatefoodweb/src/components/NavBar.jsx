@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import { NavLink } from 'react-router-dom';
 import '../assets/partials/navbar.scss';
 import { useLogout } from './hoooks/useLogout';
@@ -15,10 +15,17 @@ const NavBar = (props) => {
   const handleClick =()=>{
     logout()
   }
+
+
+
+  
+
+
   return (
-
-
+   
     <div>
+     
+
       <nav className="navbar navbar-expand-lg navbar-light shadow">
         <div className="container">
 
