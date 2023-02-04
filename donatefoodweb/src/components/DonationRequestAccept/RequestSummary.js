@@ -5,6 +5,8 @@ import GradientButton from 'react-linear-gradient-button'
 import { NavLink } from 'react-router-dom';
 import { useDonationContext } from "../../components/hoooks/useDonationContext"
 import { useAuthContext } from '../../components/hoooks/useAuthContext'
+import Nav from '../Navbar/Navbar';
+import Footer from '../Footer';
 
 const navLinkStyles = () => {
     return {
@@ -79,6 +81,8 @@ useEffect(() => {
 
 
     return(
+      <>
+       <Nav/>
         <center>
             <div className="container py-5">
             <div className="col-md-5">
@@ -124,7 +128,8 @@ useEffect(() => {
     </div>
 
    </center>
-
+   <Footer/>
+</>
     )
 }
 

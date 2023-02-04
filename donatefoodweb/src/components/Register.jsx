@@ -85,19 +85,46 @@ import Select from '@mui/material/Select';
 
 import { useState } from "react"
 import { useSignup } from "./hoooks/useSignup"
+import { Box, Grid } from '@mui/material';
+import {useNavigate} from 'react-router';
 
 const Signup = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [role,setRole] = useState('')
   const {signup, error, isLoading} = useSignup()
-  
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault()
 
     await signup(email, password,role)
+
+    try {
+        const res = await fetch('/api/user/signup', {
+            method :"POST",
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            body : JSON.stringify({
+                email,password,role
+            })
+        });
+        if(res.status === 400 || !res){
+            window.alert("Invalid Credentials");
+        }else{
+            window.alert("Registered Successfull");
+            //window.location.reload();
+            navigate('/home');
+            localStorage.setItem("role",role)
+          console.log(role);
+        }
+  
+    } catch (error) {
+        console.log(error);
+    }
   }
+
 
   return (
     <div>
@@ -130,7 +157,7 @@ const Signup = () => {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)} />
                     </div>
-                    <div class="mb-3">
+                    {/* <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">User Role</label>
                         <input type="text" class="form-control" id="role" aria-describedby="emailHelp"
                         
@@ -138,8 +165,30 @@ const Signup = () => {
                             value={role}
                             onChange={(e) => setRole(e.target.value)} />
                        
-                    </div>
-                    
+                    </div> */}
+                     <Box my={4} >
+
+                          
+<FormControl sx={{ width: '100%' }}>
+    <InputLabel id="demo-simple-select-autowidth-label">User Type</InputLabel>
+    <Select
+        name="role"
+        labelId="demo-select-small"
+        id="demo-select-small"
+        value={role}
+        label="Organization Type"
+        onChange={(e) => setRole(e.target.value)}
+    >
+        <MenuItem value={role}>
+            <em>None</em>
+        </MenuItem>
+        <MenuItem value={"Donor"}>Donor</MenuItem>
+        <MenuItem value={"Needy Organization"}>Needy Organization</MenuItem>
+       
+    </Select>
+</FormControl>
+
+</Box>
                     <div class="mb-3 form-check">
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" />
                         <label class="form-check-label" for="exampleCheck1">I Agree Terms and Condditions</label>

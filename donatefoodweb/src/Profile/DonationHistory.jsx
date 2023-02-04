@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Box } from '@mui/material';
+import { Box, Paper } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { DataGrid } from "@mui/x-data-grid";
 import { useMemo } from 'react';
@@ -7,6 +7,9 @@ import { gridClasses } from "@material-ui/core";
 import { grey } from 'material-ui-colors'; 
 import { useDonationContext } from "../components/hoooks/useDonationContext"
 import { useAuthContext } from '../components/hoooks/useAuthContext'
+import Nav from "../components/Navbar/Navbar";
+import Footer from "../components/Footer";
+import DonGif from "../assets/donate-now.gif";
 
 
 const TableNewDonor = () => {
@@ -19,7 +22,7 @@ const TableNewDonor = () => {
 
     useEffect(() => {
         const fetchDonations = async () => {
-            const response = await fetch('/api/reservedDonations/', {
+            const response = await fetch('/reservedDonations/', {
                 headers: {
                     'Authorization': `Bearer ${user.token}`
                 }
@@ -89,22 +92,32 @@ const TableNewDonor = () => {
         { field: 'orgName', headerName: 'Organization Name', width: 200, headAlign: 'center', headerClassName: 'super-app-theme--header', editable: true },
         { field: 'date', headerName: 'Date', sort: true, width: 200, editable: true, headAlign: 'center' },
         { field: 'foodName', headerName: 'Food Name', sort: true, width: 200, editable: true, headAlign: 'center' },
-        { field: 'quantity', headerName: 'Needed Food Parcels', sort: true, width: 300, editable: true, headAlign: 'center' },
+        { field: 'quantity', headerName: 'Needed Food Parcels', sort: true, width: 200, editable: true, headAlign: 'center' },
         { field: 'mealType', headerName: 'Meal Type', width: 200, headAlign: 'center' },
-        { field: 'foodType', headerName: 'Food Type', width: 200, headAlign: 'center' }
+        { field: 'foodType', headerName: 'Food Type', width: 150, headAlign: 'center' }
     ], [rowId]);
 
-    if (tableDataRes.length === 0) {
+    if (tableDataRes.length === 0 && tableDataIns.length !== 0 && tableDataResNew.length!==0) {
         return (
             <>
+             <Nav/>
+             
                 <Box
                     sx={{
                         height: '100%',
                         width: '90%'
                     }}
                 >
+                     <Box>
+     <Paper sx={{mt:4,mr:2,ml:10,mb:4,width:'100%'}}>
+     <Typography
+                    variant="h2"
+                    component='h2'
+                    sx={{ textAlign: 'center', marginTop: '4%' }}>
+                   <div className="donHistory"><h3>Donation History</h3></div>
+                </Typography>
                     <Typography
-                        variant="h4"
+                        variant="h3"
                         component='h3'
                         sx={{ textAlign: 'left', marginTop: '2%', marginLeft: '5%' }}>
                         <h3>My Instant Donation Details Table</h3>
@@ -124,8 +137,8 @@ const TableNewDonor = () => {
                         sx={{
                             height: 450,
                             marginBottom: '2%',
-                            marginLeft: 20,
-                            //margin: 6,
+                            marginLeft: 10,
+                            marginRight:10,
                             [`& .${gridClasses.row}`]: {
                                 bgcolor: theme => theme.palette.mode === 'light' ? grey[200] : grey[900],
 
@@ -144,7 +157,7 @@ const TableNewDonor = () => {
                         variant="h5"
                         component='h5'
                         sx={{ textAlign: 'left', marginTop: '2%', marginLeft: '5%' }}>
-                        <h3>My Reserved Donation Details Without Selecting Organization</h3>
+                        <h4>My Reserved Donation Details Without Selecting Organization</h4>
                     </Typography>
                     <DataGrid
                         columns={columns}
@@ -160,9 +173,9 @@ const TableNewDonor = () => {
                         })}
                         sx={{
                             height: 450,
-                            marginBottom: '5%',
-                            marginLeft: 20,
-                            //margin: 6,
+                            marginBottom: '2%',
+                            marginLeft: 10,
+                            marginRight:10,
                             [`& .${gridClasses.row}`]: {
                                 bgcolor: theme => theme.palette.mode === 'light' ? grey[200] : grey[900],
 
@@ -176,30 +189,40 @@ const TableNewDonor = () => {
 
                         }}
                         onCellEditCommit={params => setRowId(params.id)} />
-
+</Paper>
+</Box>
                 </Box>
+               
+                <Footer/>
             </>
         )
-    } else if (tableDataIns.length === 0) {
+    } else if (tableDataIns.length === 0 && tableDataRes.length!==0 && tableDataResNew.length!==0) {
+        
         return (
+        <>
 
+         <Nav/>
+         
             <Box
                 sx={{
                     height: '100%',
                     width: '90%'
                 }}
             >
+                 <Box>
+     <Paper sx={{mt:4,mr:2,ml:10,mb:4,width:'100%'}}>
+     
                 <Typography
                     variant="h2"
                     component='h2'
-                    sx={{ textAlign: 'center', marginTop: '5%' }}>
-                    <h3>Donation History</h3>
+                    sx={{ textAlign: 'center', marginTop: '4%' }}>
+                  <div className="donHistory"><h3>Donation History</h3></div>
                 </Typography>
                 <Typography
                     variant="h4"
                     component='h3'
                     sx={{ textAlign: 'left', marginTop: '2%', marginLeft: '5%' }}>
-                    <h3>My Reserved Donation Details Table</h3>
+                    <h4>My Reserved Donation Details Table</h4>
                 </Typography>
                 
                 <DataGrid
@@ -221,8 +244,8 @@ const TableNewDonor = () => {
                         },
                         overflow: "hidden",
                         marginBottom: '2%',
-                        marginLeft: 20,
-                        //margin: 6,
+                        marginLeft: 10,
+                        marginRight:10,
                         [`& .${gridClasses.row}`]: {
                             bgcolor: theme => theme.palette.mode === 'light' ? grey[200] : grey[900],
 
@@ -240,7 +263,7 @@ const TableNewDonor = () => {
                     variant="h5"
                     component='h5'
                     sx={{ textAlign: 'left', marginTop: '2%', marginLeft: '5%' }}>
-                    <h3>My Reserved Donation Details Without Selecting Organization</h3>
+                    <h4>My Reserved Donation Details Without Selecting Organization</h4>
                 </Typography>
                 <DataGrid
                     columns={columns}
@@ -256,9 +279,9 @@ const TableNewDonor = () => {
                     })}
                     sx={{
                         height: 450,
-                        marginBottom: '5%',
-                        marginLeft: 20,
-                        //margin: 6,
+                        marginBottom: '2%',
+                        marginLeft: 10,
+                        marginRight:10,
                         [`& .${gridClasses.row}`]: {
                             bgcolor: theme => theme.palette.mode === 'light' ? grey[200] : grey[900],
 
@@ -272,32 +295,41 @@ const TableNewDonor = () => {
 
                     }}
                     onCellEditCommit={params => setRowId(params.id)} />
-
+</Paper>
             </Box>
+           </Box>
+            <Footer/>
+            </>
         )
+        
 
     }
-    else if (tableDataResNew.length === 0) {
+    else if (tableDataResNew.length === 0 && tableDataIns.length!==0 && tableDataRes.length!==0) {
 
         return (
             <>
+            
+            <Nav/>
                 <Box
                     sx={{
                         height: '100%',
                         width: '90%'
                     }}
-                >
+                > <Box>
+     <Paper sx={{p:2,gridColumn:'1/3',mt:4,mr:2,ml:10,mb:4,width:'100%'}}>
                     <Typography
                         variant="h2"
                         component='h2'
-                        sx={{ textAlign: 'center', marginTop: '5%' }}>
-                        <h3>Donation History</h3>
+                        sx={{ textAlign: 'center', marginTop: '4%' }}>
+                     <div className="donHistory"><h3>Donation History</h3></div>
+                        
                     </Typography>
+                   
                     <Typography
                         variant="h4"
-                        component='h3'
+                        component='h4'
                         sx={{ textAlign: 'left', marginTop: '2%', marginLeft: '5%' }}>
-                        <h3>My Reserved Donation Details Table</h3>
+                        <h4>My Reserved Donation Details Table</h4>
                     </Typography>
 
                     <DataGrid
@@ -319,7 +351,8 @@ const TableNewDonor = () => {
                             },
                             overflow: "hidden",
                             marginBottom: '2%',
-                            marginLeft: 20,
+                            marginLeft: 10,
+                            marginRight:10,
                             //margin: 6,
                             [`& .${gridClasses.row}`]: {
                                 bgcolor: theme => theme.palette.mode === 'light' ? grey[200] : grey[900],
@@ -339,7 +372,7 @@ const TableNewDonor = () => {
                         variant="h4"
                         component='h3'
                         sx={{ textAlign: 'left', marginTop: '2%', marginLeft: '5%' }}>
-                        <h3>My Instant Donation Details Table</h3>
+                        <h4>My Instant Donation Details Table</h4>
                     </Typography>
                     <DataGrid
                         columns={columns}
@@ -356,8 +389,8 @@ const TableNewDonor = () => {
                         sx={{
                             height: 450,
                             marginBottom: '2%',
-                            marginLeft: 20,
-                            //margin: 6,
+                            marginLeft: 10,
+                            marginRight:10,
                             [`& .${gridClasses.row}`]: {
                                 bgcolor: theme => theme.palette.mode === 'light' ? grey[200] : grey[900],
 
@@ -371,26 +404,38 @@ const TableNewDonor = () => {
 
                         }}
                         onCellEditCommit={params => setRowId(params.id)} />
-
+</Paper>
                 </Box>
+                </Box>
+                <Footer/>
             </>
         )
     }
 
-    else if (tableDataRes.length === 0 && tableDataIns.length === 0) {
+    else if (tableDataRes.length === 0 && tableDataIns.length === 0 && tableDataResNew.length!==0) {
         return (
             <>
+            
+            <Nav/>
                 <Box
                     sx={{
                         height: '100%',
                         width: '90%'
                     }}
-                >
+                > <Box>
+     <Paper sx={{mt:4,mr:2,ml:10,mb:4,width:'100%'}}>
+     <Typography
+                    variant="h2"
+                    component='h2'
+                    sx={{ textAlign: 'center', marginTop: '4%' }}>
+                   <div className="donHistory"><h3>Donation History</h3></div>
+                </Typography>
+
                     <Typography
                         variant="h5"
                         component='h5'
                         sx={{ textAlign: 'left', marginTop: '2%', marginLeft: '5%' }}>
-                        <h3>My Reserved Donation Details Without Selecting Organization</h3>
+                        <h4>My Reserved Donation Details Without Selecting Organization</h4>
                     </Typography>
                     <DataGrid
                         columns={columns}
@@ -406,9 +451,9 @@ const TableNewDonor = () => {
                         })}
                         sx={{
                             height: 450,
-                            marginBottom: '5%',
-                            marginLeft: 20,
-                            //margin: 6,
+                            marginBottom: '2%',
+                            marginLeft: 10,
+                            marginRight:10,
                             [`& .${gridClasses.row}`]: {
                                 bgcolor: theme => theme.palette.mode === 'light' ? grey[200] : grey[900],
 
@@ -422,10 +467,12 @@ const TableNewDonor = () => {
 
                         }}
                         onCellEditCommit={params => setRowId(params.id)} />
+                        </Paper>
                 </Box>
+               </Box>
             </>
         )
-    } else if (tableDataRes.length === 0 && tableDataResNew.length === 0) {
+    } else if (tableDataRes.length === 0 && tableDataResNew.length === 0 && tableDataIns.length!==0) {
         return (
             <>
                 <Box
@@ -434,11 +481,19 @@ const TableNewDonor = () => {
                         width: '90%'
                     }}
                 >
-                    <Typography
+                    <Box>
+     <Paper sx={{mt:4,mr:2,ml:10,mb:4,width:'100%'}}>
+     <Typography
+                    variant="h2"
+                    component='h2'
+                    sx={{ textAlign: 'center', marginTop: '4%' }}>
+                   <div className="donHistory"><h3>Donation History</h3></div>
+                </Typography>
+        <Typography
                         variant="h4"
                         component='h3'
                         sx={{ textAlign: 'left', marginTop: '2%', marginLeft: '5%' }}>
-                        <h3>My Instant Donation Details Table</h3>
+                        <h4>My Instant Donation Details Table</h4>
                     </Typography>
                     <DataGrid
                         columns={columns}
@@ -455,8 +510,8 @@ const TableNewDonor = () => {
                         sx={{
                             height: 450,
                             marginBottom: '2%',
-                            marginLeft: 20,
-                            //margin: 6,
+                            marginLeft: 10,
+                            marginRight:10,
                             [`& .${gridClasses.row}`]: {
                                 bgcolor: theme => theme.palette.mode === 'light' ? grey[200] : grey[900],
 
@@ -470,29 +525,35 @@ const TableNewDonor = () => {
 
                         }}
                         onCellEditCommit={params => setRowId(params.id)} />
+                        </Paper>
                 </Box>
+                </Box>
+                <Footer/>
             </>
         )
-    } else if (tableDataIns.length === 0 && tableDataResNew.length === 0) {
+    } else if (tableDataIns.length === 0 && tableDataResNew.length === 0 && tableDataRes!==0) {
         return (
             <>
+            
+                <Nav/>
                 <Box
                     sx={{
                         height: '100%',
                         width: '90%'
                     }}
-                >
+                > <Box>
+     <Paper sx={{mt:4,mr:2,ml:10,mb:4,width:'100%'}}>
                     <Typography
                         variant="h2"
                         component='h2'
                         sx={{ textAlign: 'center', marginTop: '5%' }}>
-                        <h3>Donation History</h3>
+                        <div className="donHistory"><h3>Donation History</h3></div>
                     </Typography>
                     <Typography
                         variant="h4"
                         component='h3'
                         sx={{ textAlign: 'left', marginTop: '2%', marginLeft: '5%' }}>
-                        <h3>My Reserved Donation Details Table</h3>
+                        <h4>My Reserved Donation Details Table</h4>
                     </Typography>
 
                     <DataGrid
@@ -514,8 +575,8 @@ const TableNewDonor = () => {
                             },
                             overflow: "hidden",
                             marginBottom: '2%',
-                            marginLeft: 20,
-                            //margin: 6,
+                            marginLeft: 10,
+                            marginRight:10,
                             [`& .${gridClasses.row}`]: {
                                 bgcolor: theme => theme.palette.mode === 'light' ? grey[200] : grey[900],
 
@@ -529,31 +590,54 @@ const TableNewDonor = () => {
 
                         }}
                         onCellEditCommit={params => setRowId(params.id)} />
+                        </Paper>
                 </Box>
+                </Box>
+                <Footer/>
             </>
         )
     } else if (tableDataResNew.length === 0 && tableDataIns.length === 0 && tableDataRes.length === 0) {
-        return null;
-    } else {
+        return (
+         <Paper sx={{mt:4,mr:2,ml:10,mb:4,width:'100%'}}>
+        <Typography
+                        variant="h2"
+                        component='h2'
+                        sx={{ textAlign: 'center', marginTop: '5%' }}>
+                       <div className="donHistory"><h3>Donation History</h3></div>
+                    </Typography>
+                    <Typography
+                        variant="h4"
+                        component="h3"
+                        sx={{ textAlign: 'left', marginTop: '2%', marginLeft: '5%' }}>
+                        <h4>You have no donation summary</h4>
+                    </Typography>
+</Paper>
+                   )
+    } else if(tableDataIns.length!==0 && tableDataRes.length!==0 && tableDataResNew.length!==0) {
         return (
             <>
+            
+            <Nav/>
+            
                 <Box
                     sx={{
                         height: '100%',
                         width: '90%'
                     }}
                 >
-                    <Typography
+                    <Box>
+     <Paper sx={{mt:4,mr:2,ml:10,mb:4,width:'100%'}}>
+        <Typography
                         variant="h2"
                         component='h2'
                         sx={{ textAlign: 'center', marginTop: '5%' }}>
-                        <h3>Donation History</h3>
+                        <div className="donHistory"><h3>Donation History</h3></div>
                     </Typography>
                     <Typography
                         variant="h4"
-                        component='h3'
+                        component="h3"
                         sx={{ textAlign: 'left', marginTop: '2%', marginLeft: '5%' }}>
-                        <h3>My Reserved Donation Details Table</h3>
+                        <h4>My Reserved Donation Details Table</h4>
                     </Typography>
 
                     <DataGrid
@@ -575,8 +659,8 @@ const TableNewDonor = () => {
                             },
                             overflow: "hidden",
                             marginBottom: '2%',
-                            marginLeft: 20,
-                            //margin: 6,
+                            marginLeft: 10,
+                            marginRight:10,
                             [`& .${gridClasses.row}`]: {
                                 bgcolor: theme => theme.palette.mode === 'light' ? grey[200] : grey[900],
 
@@ -595,7 +679,7 @@ const TableNewDonor = () => {
                         variant="h4"
                         component='h3'
                         sx={{ textAlign: 'left', marginTop: '2%', marginLeft: '5%' }}>
-                        <h3>My Instant Donation Details Table</h3>
+                        <h4>My Instant Donation Details Table</h4>
                     </Typography>
                     <DataGrid
                         columns={columns}
@@ -612,7 +696,8 @@ const TableNewDonor = () => {
                         sx={{
                             height: 450,
                             marginBottom: '2%',
-                            marginLeft: 20,
+                            marginLeft: 10,
+                            marginRight:10,
                             //margin: 6,
                             [`& .${gridClasses.row}`]: {
                                 bgcolor: theme => theme.palette.mode === 'light' ? grey[200] : grey[900],
@@ -632,7 +717,7 @@ const TableNewDonor = () => {
                         variant="h5"
                         component='h5'
                         sx={{ textAlign: 'left', marginTop: '2%', marginLeft: '5%' }}>
-                        <h3>My Reserved Donation Details Without Selecting Organization</h3>
+                        <h4>My Reserved Donation Details Without Selecting Organization</h4>
                     </Typography>
                     <DataGrid
                         columns={columns}
@@ -648,9 +733,9 @@ const TableNewDonor = () => {
                         })}
                         sx={{
                             height: 450,
-                            marginBottom: '5%',
-                            marginLeft: 20,
-                            //margin: 6,
+                            marginBottom: '2%',
+                            marginLeft: 10,
+                            marginRight:10,
                             [`& .${gridClasses.row}`]: {
                                 bgcolor: theme => theme.palette.mode === 'light' ? grey[200] : grey[900],
 
@@ -664,8 +749,10 @@ const TableNewDonor = () => {
 
                         }}
                         onCellEditCommit={params => setRowId(params.id)} />
+                        </Paper>
                 </Box>
-
+                </Box>
+<Footer/>
             </>
         )
     }

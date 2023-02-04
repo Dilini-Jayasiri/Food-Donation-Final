@@ -57,6 +57,13 @@ import { useState } from "react"
 import { useLogin } from "./hoooks/useLogin" 
 import {Navigate, NavLink} from 'react-router-dom';
 import {useNavigate} from 'react-router';
+import Nav from "./Navbar/Navbar";
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import { Box, Grid } from '@mui/material';
+import Controls from '../components/controls/Controls'
 //import { useHistory } from 'react-router-dom';
 
 const Login = () => {
@@ -89,6 +96,8 @@ const Login = () => {
           window.alert("Login Successfull");
           //window.location.reload();
           navigate('/home');
+          localStorage.setItem("role",role)
+        console.log(role);
       }
 
   } catch (error) {
@@ -111,6 +120,8 @@ const Login = () => {
   }
 
   return (
+    <>
+    <Nav/>
     <div>
            <div className="container shadow my-5">
                <div className="row">
@@ -131,6 +142,25 @@ const Login = () => {
                                        onChange={(e) => setEmail(e.target.value)} aria-describedby="emailHelp"/>
                             
                             </div>
+                            {/* <Box my={4} mx={4}>
+                                            <Controls.Input
+                                                name="email"
+                                                label="Email Address"
+                                                value={email}
+                                                onChange={(e) => setEmail(e.target.value)}
+                                                
+                                            />
+                                        </Box> */}
+                                        {/* <Box my={4} mx={4}>
+                                            <Controls.Input
+                                                type="setPassword"
+                                                name="password"
+                                                label="Password"
+                                                value={password}
+                                                onChange={(e) => setPassword(e.target.value)}
+                                                
+                                            />
+                                        </Box> */}
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Password</label>
                                 <input type="password" class="form-control" id="exampleInputPassword1"
@@ -138,14 +168,29 @@ const Login = () => {
                                   value={password}
                                   onChange={(e) => setPassword(e.target.value)}/>
                             </div>
-                            <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">User Role</label>
-                                <input type="text" class="form-control" id="role"
-                                       name="role"
-                                       value={role}
-                                       onChange={(e) => setRole(e.target.value)} aria-describedby="emailHelp"/>
-                            
-                            </div>
+                            <Box my={4} >
+
+                          
+                                            <FormControl sx={{ width: '100%' }}>
+                                                <InputLabel id="demo-simple-select-autowidth-label">User Type</InputLabel>
+                                                <Select
+                                                    name="role"
+                                                    labelId="demo-select-small"
+                                                    id="demo-select-small"
+                                                    value={role}
+                                                    label="Organization Type"
+                                                    onChange={(e) => setRole(e.target.value)}
+                                                >
+                                                    <MenuItem value={role}>
+                                                        <em>None</em>
+                                                    </MenuItem>
+                                                    <MenuItem value={"Donor"}>Donor</MenuItem>
+                                                    <MenuItem value={"Needy Organization"}>Needy Organization</MenuItem>
+                                                   
+                                                </Select>
+                                            </FormControl>
+                                        
+                                        </Box>
                            
                       <div><button disabled={isLoading} type="submit" navigate class="btn btn-primary w-100 mt-4 rounded-pill">Login</button>
                       
@@ -156,6 +201,8 @@ const Login = () => {
                </div>
            </div>
         </div>
+
+        </>
   )
 }
 

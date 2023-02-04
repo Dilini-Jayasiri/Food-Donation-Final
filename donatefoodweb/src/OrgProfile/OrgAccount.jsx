@@ -5,6 +5,8 @@ import { NavLink } from 'react-router-dom';
 import { Col, Button, Row } from 'react-bootstrap';
 import "../assets/office.jpg"
 import { margin } from '@mui/system';
+import Footer from '../components/Footer';
+import Nav from '../components/Navbar/Navbar';
 
 const navLinkStyles = () => {
   return {
@@ -21,7 +23,9 @@ const navLinkStyles = () => {
 
 export default function OrgAccount() {
   return (
-    <div className='account' >
+    <>
+    <Nav/>
+        <div className='account' >
       <Col xs={4}><center><h1>No one has ever</h1>
         <h1>become poor</h1>
         <h1>from giving</h1>
@@ -64,5 +68,7 @@ export default function OrgAccount() {
 
 
     </div>
+    <Footer/>
+    </>
   )
 }

@@ -5,6 +5,8 @@ import { NavLink } from 'react-router-dom';
 import { Col, Button, Row } from 'react-bootstrap';
 import "../../assets/donate.gif"
 import { margin } from '@mui/system';
+import Footer from '../../components/Footer';
+import Nav from '../../components/Navbar/Navbar';
 
 const navLinkStyles = () => {
   return {
@@ -21,6 +23,9 @@ const navLinkStyles = () => {
 
 export default function DonorAccount() {
   return (
+    <>
+    <Nav/>
+    
     <div className='account' >
       <Col xs={4}><center><h1>No one has ever</h1>
         <h1>become poor</h1>
@@ -39,7 +44,7 @@ export default function DonorAccount() {
 
           </Box> */}
           <Box my={5}>
-            <NavLink style={navLinkStyles} to="/donationSummary2">
+            <NavLink style={navLinkStyles} to="/donationSummaryComm">
               <GradientButton style={{ backgroundImage: `linear-gradient(to right, #1abc9c 50%, #16a085 100%)`, }} >Last Donation Status</GradientButton>
             </NavLink>
           </Box>
@@ -64,5 +69,7 @@ export default function DonorAccount() {
 
 
     </div>
+    <Footer/>
+    </>
   )
 }

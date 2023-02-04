@@ -16,10 +16,11 @@ import Services from './components/Services';
 import Contact from './components/Contact';
 import Logout from './components/Logout';
 import OrgList from './pages/OrgList';
-import DonationSummary from './pages/DonorAccount/DonationSummary';
-import DonationSummary2 from './components/DonationSummary';
+import DonationSummaryReserved from './pages/DonorAccount/DonationSummaryReserved';
+import DonationSummaryInstant from './pages/DonorAccount/DonationSummaryReserved';
+import DonationSummaryCommon from './pages/DonorAccount/DonationSummaryCommon';
 import ReceiverAccount from '../src/pages/ReciverAccount';
-import DonationSummaryInstant from './Profile/DonationSummaryInstant';
+// import DonationSummaryInstant from './Profile/DonationSummaryInstant';
 import ProtectedRoutes from './ProtectedRoutes';
 import Requests from './pages/Requests/TableNew';
 import RequestForm from './pages/Requests/RequestForm';
@@ -37,10 +38,6 @@ import DonationRequestAccept from './components/DonationRequestAccept/donationRe
 import RequestSummary from './components/DonationRequestAccept/RequestSummary';
 import Dashboard from './adminSide/pages/Dashboard/dashboard';
 import Dash2 from './adminSide/pages/Dashboard/dash2';
-import AdminOrgs from './adminSide/pages/Dashboard/Organizations/Organizations';
-import AdminResDon from './adminSide/pages/Dashboard/ReservedDonors/ReservedDonors';
-import AdminInsDon from './adminSide/pages/Dashboard/instantdonors/InstantDonors';
-import AdminMain from './adminSide/pages/Dashboard/main/Main';
 import Calendar2 from './Calendar/cal';
 import requestActions from '../src/pages/Requests/RequestActions';
 import CalendarForDonor from '../src/pages/Requests/CalendarForDonor';
@@ -50,6 +47,11 @@ import Alart from '../src/components/DonationRequestAccept/alart';
 import DonationSummaryDonor from '../src/OrgProfile/DonationSummaryDonor';
 import DonationHistory from '../src/Profile/DonationHistory';
 import { useAuthContext } from './components/hoooks/useAuthContext';
+//import HomeAdmin from '../src/adminSide/pages/HomePage';
+import PieDonationType from './adminSide/pages/Dashboard/main/PieDonationType';
+import AdminResDon from './adminSide/pages/Dashboard/ReservedDonors/ReservedDonors';
+import AdminInsDon from './adminSide/pages/Dashboard/instantdonors/InstantDonors';
+import Orgs from './adminSide/pages/Dashboard/Organizations/Organizations';
 Modal.setAppElement('#root');
 
 
@@ -116,7 +118,7 @@ function App() {
     <>
     
       {/* <NavBar auth={auth1} /> */}
-      <Nav/>
+      {/* <Nav/> */}
       <Routes>
       <Route path="/login" element= {!user ? <Login/> : <Navigate to="/home"/>}/>
      <Route path="/register" element={!user ?<Register /> :<Navigate to="/login"/> }/>
@@ -151,35 +153,39 @@ function App() {
         <Route path="/reservedDonationNew" element={<ReservedDonationNew/>}/>
         <Route path="/donationType" element={<DonationType />}/>
         <Route path="/tableNew" element={user ? <TableNew /> : <Navigate to="/login"/>}/>
-        <Route path="/requestForm" element={user ? <RequestForm /> : <Navigate to="/login"/>}/>
+        <Route path="/requestForm" element={<RequestForm />}/>
         <Route path="/donorAccount" element={<DonorAccount />}/>
         <Route path="/logout" element={<Logout />}/>
         <Route path="/orgList" element={<OrgList />} />
-        <Route path="/donationSummary" element={user ? <DonationSummary /> : <Navigate to="/login"/>} />
-        <Route path="/donationSummary2" element={<DonationSummary2 />}/>
+        <Route path="/donationSummaryIns" element={<DonationSummaryInstant/>} />
+        <Route path="/donationSummaryRes" element={<DonationSummaryReserved />}/>
+        <Route path="/donationSummaryComm" element={<DonationSummaryCommon/>}/>
+        
         {/* <Route path="/donSum" element={<DonationSummary2/>} /> */}
         <Route path="/inst" element={<Inst />} />
         <Route path="/acceptPage" element={user ? <AcceptPage /> : <Navigate to="/login"/>} />
         <Route path="/receiverAccount" element={user ? <ReceiverAccount /> : <Navigate to="/login"/>} />
-        <Route path="/instantDonSummary/:id" element={<DonationSummaryInstant />} />
+        {/* <Route path="/instantDonSummary/:id" element={<DonationSummaryInstant />} /> */}
         <Route path="/calendar" element={user ? <Calendar /> : <Navigate to="/login"/>} />
         <Route path="/cal" element={user ? <Calendar2/> : <Navigate to="/login"/>} />
         <Route path="/calForDon" element={user ? <CalendarForDonor/>: <Navigate to="/login"/>}/>
         <Route path="/donationReqAcc" element={user ? <DonationRequestAccept /> : <Navigate to="/login"/>} />
        
-        <Route path="/adminOrgs" element={user ? <AdminOrgs/> : <Navigate to="/login"/>}/>
-        <Route path="/adminInsDon" element={user ? <AdminInsDon/> : <Navigate to="/login"/>}/>
-        <Route path="/adminResDon" element={user ? <AdminResDon/> : <Navigate to="/login"/>}/>
-        <Route path="/adminMain" element={user ? <AdminMain/> : <Navigate to="/login"/>}/>
         <Route path="/dash2" element={<Dash2/>}/>
         <Route path="/orgAccount" element={<OrgAccount/>}/>
         <Route path="" element={<Home/>}/>
-        <Route path="/tableNewDonor" element={user ? <TableNewDonor/> : <Navigate to="/login"/>}/>
+        <Route path="/tableNewDonor" element={<TableNewDonor/>}/>
         <Route path="/donationSummaryDonor" element={user ? <DonationSummaryDonor/> : <Navigate to="/login"/>}/>
         <Route path="/donationHistory" element={user ? <DonationHistory/> : <Navigate to="/login"/>}/>
         <Route path="/dashboard" element={<Dashboard />} />
+        {/* <Route path="/homeAdmin" element={<HomeAdmin />} /> */}
         <Route path="/requestSummary" element={user ? <RequestSummary /> : <Navigate to="/login"/>} /> 
         <Route path="/alart" element={<Alart/>}/>
+        <Route path="/pieDonationType" element={<PieDonationType/>}/>
+        <Route path="/adminResDon" element={<AdminResDon/>}/>
+        <Route path="/adminInsDon" element={<AdminInsDon/>}/>
+        <Route path="/orgs" element={<Orgs/>}/>
+        {/* <Route path="/homeAdmin" element={<HomeAdmin/>}/> */}
         
       </Routes>
 
@@ -240,7 +246,7 @@ function App() {
       {/* <Home/>
    <About/> */}
       {/* </ProtectedRoute> */}
-      <Footer/> 
+      {/* <Footer/>  */}
     </>
   );
   }

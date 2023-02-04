@@ -7,6 +7,8 @@ import { gridClasses } from "@material-ui/core";
 import { grey } from 'material-ui-colors';
 import DonorActions from './InstDonActions';
 
+import { CropFree } from "@mui/icons-material";
+
 
 const InstantDonors = ({setSelectedLink,link}) => {
     const [donors,setDonors] = useState([]);
@@ -40,7 +42,7 @@ const InstantDonors = ({setSelectedLink,link}) => {
       editable:true},
         {field:'quantity',headerName:'Needed Food Parcels',sort:true,width:100,editable:true},
         {field:'foodName',headerName:'Food Name',width:100,editable:true},
-        {field:'active',headerName:'Active',width:100,editable:true,editable:true},
+       
         {field:'_id',headerName:'ID',width:200},
         {field:'action',headerName:'Action',
         type:'actions',
@@ -93,4 +95,17 @@ const InstantDonors = ({setSelectedLink,link}) => {
     )
 };
 
-export default InstantDonors;
+ export default InstantDonors;
+
+// import React,{useEffect} from 'react'
+
+// const InstantDonors = (setSelectedLink,link) => {
+//   useEffect(() => {
+//     setSelectedLink(link)
+//   },[])
+//   return (
+//     <div>InstantDonors</div>
+//   )
+// }
+
+// export default InstantDonors

@@ -12,6 +12,8 @@ import Select from '@mui/material/Select';
 import { useAuthContext } from "../hoooks/useAuthContext";
 import { useDonationContext } from "../hoooks/useDonationContext";
 import { useForm, Form } from '../../components/useForm';
+import Nav from "../Navbar/Navbar";
+import Footer from "../Footer";
 //import summary from '../summary'
 const initialValues = {status:''}
 
@@ -52,25 +54,70 @@ const DonationRequestAccept = () => {
             if (fieldValues === values)
                 return Object.values(temp).every(x => x == "")
         }
-
     useEffect(() => {
-        const fetchDonation = async () => {
-            const response = await fetch('/api/reservedDonation/last'
-                // headers:{
-                //     'Authorization' : `Bearer ${user.token}`
-                // }
-            )
+        const fetchDonations = async () => {
+            const response = await fetch('/reservedDon', {
+                headers: {
+                    'Authorization': `Bearer ${user.token}`
+                }
+            })
             const json = await response.json()
 
-            if(response.ok){
-                setDonation(json)
-            } 
+            if (response.ok) {
+                dispatch({ type: 'SET_DONATIONS', payload: json })
+                localStorage.setItem("donDetails",json)
+               // localStorage.setItem("orgName",json[0].orgName);
+               // const emailsList = json.map((record) => record.orgName);
+                // const all = [localStorage.setItem("Array", JSON.stringify(array))];
+                 //localStorage.setItem("emailsList",emailsList);
+                 const resDonEmail = json.map((record) => record.orgName);
+               //  localStorage.setItem("array",json[0].orgEmail);
+                 localStorage.setItem("donEmail", resDonEmail);
+            }
         }
-        // if(user){
-        fetchDonation()
-        //}
-    },[])
-    
+
+        if (user) {
+            fetchDonations()
+        }
+
+    }, [dispatch, user])
+
+    useEffect(() => {
+        const fetchDonations = async () => {
+            const response = await fetch('/api/lastRequest', {
+                headers: {
+                    'Authorization': `Bearer ${user.token}`
+                }
+            })
+            const json = await response.json()
+
+            if (response.ok) {
+                dispatch({ type: 'SET_DONATIONS', payload: json })
+              //  const array = [json]
+                const reqEmail = json.map((record) => record.orgEmail);
+               // const all = [localStorage.setItem("Array", JSON.stringify(array))];
+                localStorage.setItem("reqEmail",reqEmail);
+
+            }
+        }
+
+        if (user) {
+            fetchDonations()
+        }
+    }, [dispatch, user])
+
+//     const storedEmails = localStorage.get('emails');
+
+// storedEmails.map((email) => {
+//   console.log(email);
+// });
+// const storedEmailsList = localStorage.get('emailsList');
+
+// storedEmailsList.map((email) => {
+//   console.log(email);
+// });
+//const selectedEmail = localStorage.get("selectedEmail");
+//console.log(selectedEmail)
     const {
         values,
         setValues,
@@ -123,64 +170,59 @@ const DonationRequestAccept = () => {
         }
 
     }
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault()
-    
-       
-    
-    //     try {
-    //       const res = await fetch('/api/status', {
-    //           method :"POST",
-    //           headers: {
-    //               "Content-Type" : "application/json"
-    //           },
-    //           body : JSON.stringify({
-    //               status
-    //           })
-    //       });
-    
-    //       if(res.status === 400 || !res){
-    //           window.alert("Invalid Credentials");
-    //       }else{
-    //           window.alert("Donation Confirmed");
-    //           //window.location.reload();
-    //         //   navigate('/home');
-    //       }
-    
-    //   } catch (error) {
-    //       console.log(error);
-    //   }
+    let storedReqEmail = localStorage.getItem('reqEmail');
+    let storedArray = JSON.parse(localStorage.getItem('myArray'));
+
+    storedArray.forEach(function(storeValue) {
+        if(storeValue === storedReqEmail){
+            console.log(storeValue+ ' is already in the array');
+        }else {
+            storedArray.push(storedReqEmail);
+            localStorage.setItem('myArray',JSON.stringify(storedArray));
+            console.log(storedReqEmail+ ' added to  the array')      
+    }
+});
+    // let myArray =[];
+    // let donEmails = localStorage.getItem('donEmail');
+    // myArray.push(donEmails)
+    // localStorage.setItem('myArray', JSON.stringify(myArray));
+   
+
+
+// if (Array.isArray(donEmails)) {
+//  donEmails.map((email) => {
+//     // if(storedReqEmail === email){
+//     //     console.log(donEmails);
+//     //   }
+//      console.log(email)
+//  } )}
+// else{
+//     console.log("this is not a array");
+// }
+
+// if(Array.isArray(storedArray)){
+//     storedArray.map((email) => {
         
-        // if(error){
-        //   alert("Not login")
-        // }else{
-        //   navigate("/home");
-        // }
-        // if(email && password == null){
-        // navigate('/home');
-        // }
-        // if(!error){
-        //   navigate('/home')
-        // }else{
-        //   window.alert("Message Not Sent. Try Again Later")
-        // }
-      
+//          if(storedReqEmail === email){
+//             // console.log(email);
+//              console.log("is array")
+//          }
+//      })
+   
+// }else{
+//     console.log("not a array")
+// }
+ 
 
-    // useEffect(() => {
-    //     const fetchRequests = async () => {
-    //         const response = await('/api/requests')
-    //         const json = await response.json()
+   // const orgName = localStorage.getItem("orgName");
+   // const orgEmail = localStorage.getItem("orgEmail");
 
-    //         if(response.ok){
-    //            setRequests(json)
-    //         }
-    //     }
-    //     fetchRequests()
-    // },[])
-
-    
-
+   // if(orgName !== orgEmail){
+//console.log("they dont matched")
     return(
+        <>
+        
+        <Nav/>
         <center>
             <div className="container py-5">
             <div className="col">
@@ -228,10 +270,11 @@ const DonationRequestAccept = () => {
                      </div>
                      </div>
                      </center>
-                     
-        
+           <Footer/>          
+        </>
     )
-}
+                }
+            
 
 export default DonationRequestAccept;
 

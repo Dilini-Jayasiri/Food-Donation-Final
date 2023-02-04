@@ -16,6 +16,10 @@ import emailjs from 'emailjs-com';
 import { NavLink } from 'react-router-dom';
 import { useDonationContext } from '../components/hoooks/useDonationContext'
 import { useAuthContext } from '../components/hoooks/useAuthContext'
+import Nav from '../components/Navbar/Navbar';
+import Footer from '../components/Footer';
+
+
 
 const navLinkStyles = () => {
     return {
@@ -77,7 +81,7 @@ export default function InstantDonation(props) {
 
     useEffect(() => {
         const fetchDonations = async () => {
-            const response = await fetch('/api/requests', {
+            const response = await fetch('/requests/all', {
                 headers: {
                     'Authorization': `Bearer ${user.token}`
                 }
@@ -180,7 +184,7 @@ export default function InstantDonation(props) {
         setFormErrors(validate(values));
         if (validate()) {
             setIsSubmit(true)
-            navigate('/donationSummary')
+            navigate('/donationSummaryIns')
         }
         // emailjs.send('service_4myyg6h', 'template_ms3zy5j', values, 'AGKmDLzp5SojZrssC')
         // .then(response => {
@@ -312,7 +316,8 @@ export default function InstantDonation(props) {
     //   `;
 
     return (
-
+<>
+ <Nav/>
         <div className='donation'>
             {/* <div className='donDiv'> */}
             {/* <Col> <center><img src={require("../assets/donationform.jpg")} alt="image" /></center></Col>  */}
@@ -370,7 +375,7 @@ export default function InstantDonation(props) {
                                     </Box>
 
                                     <Box my={2} mx={4}>
-                                        <FormControl sx={{ width: 850 }}>
+                                        <FormControl sx={{ width: '100%' }}>
                                             <InputLabel id="demo-simple-select-autowidth-label">Organization Type</InputLabel>
                                             <Select
                                                 name="orgName"
@@ -456,7 +461,7 @@ export default function InstantDonation(props) {
 
 
                                     <Box my={4} mx={4}>
-                                        <FormControl sx={{ width: 852 }}>
+                                        <FormControl sx={{ width: '100%' }}>
                                             <Controls.DatePicker1
                                                 name="date"
                                                 label="Date"
@@ -486,16 +491,13 @@ export default function InstantDonation(props) {
                                     <div >
                                         <Box my={4} mx={4}>
                                             <Box my={4} mx={4}>
-                                                <NavLink style={navLinkStyles} to="/donationSummary">
+                                                <NavLink style={navLinkStyles} to="/donationSummaryIns">
                                                     <GradientButton style={{ backgroundImage: `linear-gradient(to right, #1abc9c 50%, #16a085 100%)`, }}
                                                         onClick={handleSubmit}
                                                         type="submit"
                                                         text="Submit"
                                                     > Submit <i className="fa fa-paper-plane ms-2"></i></GradientButton>
                                                 </NavLink>
-
-
-
                                             </Box>
                                         </Box>
                                     </div>
@@ -513,8 +515,8 @@ export default function InstantDonation(props) {
             {/* </Row> */}
 
         </div>
-
-
+<Footer/>
+</>
 
     )
 

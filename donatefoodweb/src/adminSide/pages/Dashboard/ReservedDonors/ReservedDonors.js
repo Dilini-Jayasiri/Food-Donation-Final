@@ -25,7 +25,7 @@ const ReservedDonors = ({setSelectedLink,link}) => {
     const [pageSize,setPageSize] = useState(5);
     const columns = useMemo( () => [
         {field:'donorName',headerName:'Donor Name',width:150,headAlign:'center',headerClassName: 'super-app-theme--header',editable:true},
-        {field:'email',headerName:'Donation Email',width:150,editable:true},
+        {field:'donEmail',headerName:'Donor Email',width:150,editable:true},
         {field:'address',headerName:'Address',sort:true,width:200,editable:true},
         {field:'phone',
         headerName:'Contact Number',
@@ -40,8 +40,8 @@ const ReservedDonors = ({setSelectedLink,link}) => {
       editable:true},
         {field:'quantity',headerName:'Needed Food Parcels',sort:true,width:100,editable:true},
         {field:'foodType',headerName:'Food Type',width:100,editable:true},
-        {field:'active',headerName:'Active',width:100,editable:true,editable:true},
-        {field:'_id',headerName:'ID',width:200},
+       
+        // {field:'_id',headerName:'ID',width:200},
         {field:'action',headerName:'Action',
         type:'actions',
         renderCell:(params) => (<DonorActions {...{params,rowId,setRowId}}/>),width:150},
@@ -55,7 +55,7 @@ const ReservedDonors = ({setSelectedLink,link}) => {
          >
             <Typography
               variant="h4"
-              component='h3'
+              component='h4'
               sx={{textAlign:'center',mt:3,mb:3}}>
                 Manage Reserved Donations
               </Typography>
@@ -94,3 +94,16 @@ const ReservedDonors = ({setSelectedLink,link}) => {
 };
 
 export default ReservedDonors;
+
+// import React, { useEffect } from 'react'
+
+// const ReservedDonors = (setSelectedLink,link) => {
+//   useEffect(() => {
+//     setSelectedLink(link)
+//   },[])
+//   return (
+//     <div>ReservedDonors</div>
+//   )
+// }
+
+// export default ReservedDonors

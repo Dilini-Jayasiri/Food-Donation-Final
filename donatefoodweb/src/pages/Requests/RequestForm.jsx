@@ -12,6 +12,8 @@ import Select from '@mui/material/Select';
 import { useNavigate } from 'react-router';
 import { useDonationContext } from '../../components/hoooks/useDonationContext';
 import { useAuthContext } from '../../components/hoooks/useAuthContext'
+import Nav from '../../components/Navbar/Navbar';
+import Footer from '../../components/Footer';
 
 const mealTypeItems = [
     { id: 'breakfast', title: 'Breakfast' },
@@ -151,7 +153,7 @@ export default function RequestForm(props) {
 
                 //  window.location.reload();
                 if (validate) {
-                    navigate('/tableNew')
+                    navigate('/requestSummary')
                 } else {
                     window.alert("Message Not Sent. Try Again Later")
                 }
@@ -178,7 +180,9 @@ export default function RequestForm(props) {
 
     return (
         // <Grid container  alignItems="center" justify="center">
-        <Row className='request'>
+        <>
+        <Nav/>
+                <Row className='request'>
             <div className='reqDiv'>
 
                 <center>
@@ -292,14 +296,6 @@ export default function RequestForm(props) {
                                                     <MenuItem value={"Nursing Home"}>Nursing Home</MenuItem>
                                                 </Select>
                                             </FormControl>
-                                            {/* <Controls.Input
-
-label="cfvgb"
-name="orgType"
-value={values.orgType}
-onChange={handleInputChange}
-error={errors.orgType}
-/> */}
                                         </Box>
 
                                         <Box my={4} mx={4}>
@@ -390,8 +386,9 @@ error={errors.orgType}
 
             </div>
         </Row>
-        // </Grid>
-
+        {/* // </Grid> */}
+<Footer/>
+</>
     )
 }
 

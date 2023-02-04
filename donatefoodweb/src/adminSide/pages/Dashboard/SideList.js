@@ -12,83 +12,86 @@ import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import { Route, Routes, useNavigate } from 'react-router';
 import { useMemo } from 'react';
-import Organizations from './Organizations/Organizations';
-import { DashboardCustomize, FoodBank, NotificationAdd, People, PeopleAlt } from '@mui/icons-material';
+import { DashboardCustomize, FoodBank, NotificationAdd, People, PeopleAlt,ChevronLeft } from '@mui/icons-material';
+
 import InstantDonors from './instantdonors/InstantDonors';
 import ReservedDonors from './ReservedDonors/ReservedDonors';
+import Organizations from './Organizations/Organizations';
 import Main from './main/Main';
-const drawerWidth = 240;
+const drawerWidth = 260;
 
 
 const openedMixin = (theme) => ({
-    width: drawerWidth,
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    overflowX: 'hidden',
-  });
-  
-  const closedMixin = (theme) => ({
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    overflowX: 'hidden',
-    width: `calc(${theme.spacing(7)} + 1px)`,
-    [theme.breakpoints.up('sm')]: {
-      width: `calc(${theme.spacing(8)} + 1px)`,
-    },
-  });
-  
-  const DrawerHeader = styled('div')(({ theme }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-  }));
+  width: drawerWidth,
+  transition: theme.transitions.create('width', {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.enteringScreen,
+  }),
+  overflowX: 'hidden',
+});
 
-  const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-    ({ theme, open }) => ({
-      width: drawerWidth,
-      flexShrink: 0,
-      whiteSpace: 'nowrap',
-      boxSizing: 'border-box',
-      ...(open && {
-        ...openedMixin(theme),
-        '& .MuiDrawer-paper': openedMixin(theme),
-      }),
-      ...(!open && {
-        ...closedMixin(theme),
-        '& .MuiDrawer-paper': closedMixin(theme),
-      }),
-    }),
-  );
-  
+const closedMixin = (theme) => ({
+  transition: theme.transitions.create('width', {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  overflowX: 'hidden',
+  width: `calc(${theme.spacing(7)} + 1px)`,
+  [theme.breakpoints.up('sm')]: {
+    width: `calc(${theme.spacing(8)} + 1px)`,
+  },
+});
+
+const DrawerHeader = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-end',
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+}));
+
+const Drawer = styled(MuiDrawer, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme, open }) => ({
+  width: drawerWidth,
+  flexShrink: 0,
+  whiteSpace: 'nowrap',
+  boxSizing: 'border-box',
+  ...(open && {
+    ...openedMixin(theme),
+    '& .MuiDrawer-paper': openedMixin(theme),
+  }),
+  ...(!open && {
+    ...closedMixin(theme),
+    '& .MuiDrawer-paper': closedMixin(theme),
+  }),
+}));
 
 const SideList = ({open,setOpen}) => {
-    const [orgs,setOrgs] = useState([]);
-  useEffect(() => {
-      const fetchRequests = async () => {
-        const response = await fetch('/requests');
-        const json = await response.json()
+    // const [orgs,setOrgs] = useState([]);
+  // useEffect(() => {
+  //     const fetchRequests = async () => {
+  //       const response = await fetch('/requests');
+  //       const json = await response.json()
   
-        if (response.ok) {
-            setOrgs(json)
-        }
-      }
-      fetchRequests()
-    }, [])
-  
+  //       if (response.ok) {
+  //           setOrgs(json)
+  //       }
+  //     }
+  //     fetchRequests()
+  //   }, [])
+    // const {
+    //   state: { currentUser },
+    //   dispatch,
+    // } = useValue();
     const {selectedLink,setSelectedLink} = useState('')
 const list = useMemo(()=>[
 {title:'Main',icon:<DashboardCustomize/>,link:'',component:<Main {...{setSelectedLink,link:''}}/>},
-{title:'Instant Donations',icon:<PeopleAlt/>,link:'/adminInsDon',component:<InstantDonors {...{setSelectedLink,link:'adminInsDon'}}/>},
-{title:'Reserved Donations',icon:<FoodBank/>,link:'/adminResDon',component:<ReservedDonors {...{setSelectedLink,link:'adminResDon'}}/>},
-{title:'Organizations',icon:<NotificationAdd/>,link:'/adminOrgs',component:<Organizations {...{setSelectedLink,link:'adminOrgs'}}/>},
-],[])
+{title:'Instant Donations',icon:<PeopleAlt/>,link:'',component:<InstantDonors {...{setSelectedLink,link:''}}/>},
+{title:'Reserved Donations',icon:<FoodBank/>,link:'',component:<ReservedDonors {...{setSelectedLink,link:''}}/>},
+{title:'Organizations',icon:<NotificationAdd/>,link:'',component:<Organizations {...{setSelectedLink,link:''}}/>},
+],[]);
     const navigate = useNavigate()
   return (
    <>
@@ -96,7 +99,7 @@ const list = useMemo(()=>[
      <Drawer variant="permanent" open={open}>
         <DrawerHeader>
           <IconButton onClick={()=>setOpen(false)}>
-           <ChevronRightIcon /> 
+           <ChevronLeft /> 
           </IconButton>
         </DrawerHeader>
         <Divider />
@@ -146,7 +149,7 @@ const list = useMemo(()=>[
         </Routes>
       </Box>
    </>
-  )
-}
+  );
+};
 
 export default SideList

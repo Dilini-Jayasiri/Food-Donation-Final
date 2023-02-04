@@ -27,6 +27,7 @@ const requestRoute = require('./routes/requests');
 const instantRoute = require('./routes/instantDonation');
 const reservedRoute = require('./routes/reservedDonation');
 const reservedLastRoute = require('./routes/ReservedLastRoute');
+const insLastRoute = require('./routes/InstantLastRoute');
 const reservedNewRoute = require('./routes/reservedDonNew');
 const donationStatusRoute = require('./routes/status');
 const userRoutes = require('./routes/users');
@@ -40,13 +41,13 @@ app.use('/api/lastRequest',requestRoute);
 
 app.use('/reservedDonations',reservedRoute);
 app.use('/lastDon',reservedLastRoute);
-
+app.use('/insLastDon',insLastRoute)
 app.use('/api/instantDonations',instantRoute);
 app.use('/api/user',userRoutes);
 app.use('/api/resDonNew',reservedNewRoute);
 app.use('/api/status',donationStatusRoute);
 const User = require('./models/userSchema')
-
+//app.use()
 //middleware
 app.use(express.json());
 app.use((req,res,next)=>{

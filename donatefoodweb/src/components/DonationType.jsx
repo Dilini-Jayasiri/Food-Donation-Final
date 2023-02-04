@@ -6,6 +6,8 @@ import { NavLink } from 'react-router-dom';
 import { width } from '@mui/system';
 import "../assets/partials/image.scss";
 import { Box, Grid, requirePropFactory } from '@mui/material';
+import Nav from './Navbar/Navbar';
+import Footer from './Footer';
 const navLinkStyles = () =>{
    return{
     
@@ -15,6 +17,8 @@ const navLinkStyles = () =>{
  }
 const DonationType =() => {
   return (
+   <>
+   <Nav/>
    <Row className='donationType'>
         
        
@@ -52,6 +56,8 @@ const DonationType =() => {
            </center>
         </Col>
      </Row>
+     <Footer/>
+     </>
   )
 }
 

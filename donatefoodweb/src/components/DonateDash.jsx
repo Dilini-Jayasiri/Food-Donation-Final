@@ -3,6 +3,8 @@ import { NavLink } from 'react-router-dom';
 import {Col,Button} from 'react-bootstrap';
 import 'animate.css';
 import GradientButton from 'react-linear-gradient-button'
+import Nav from './Navbar/Navbar';
+import Footer from './Footer';
 
 const navLinkStyles = () =>{
   return{
@@ -19,6 +21,8 @@ const navLinkStyles = () =>{
 
  const DonateDash = () => {
   return (
+    <>
+    <Nav/>
     <div>
        
            <div className="container shadow my-5 form animate__animated animate__backInRight">
@@ -67,7 +71,8 @@ const navLinkStyles = () =>{
              </center>
              </Col>
           </div>
-    
+          <Footer/>
+    </>
   )
 }
 

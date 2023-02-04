@@ -1,20 +1,20 @@
 import { useEffect,useState } from "react";
-import DonationDetails from "./DonationDetails";
-import { useDonationContext } from "../components/hoooks/useDonationContext"
-import { useAuthContext } from '../components/hoooks/useAuthContext'
+import DonationDetails from "../../components/DonationDetails";
+import { useDonationContext } from "../../components/hoooks/useDonationContext"
+import { useAuthContext } from '../../components/hoooks/useAuthContext'
+import Footer from "../../components/Footer";
+import Nav from "../../components/Navbar/Navbar";
+import { NavLink } from "react-router-dom";
+import { Breadcrumb } from "react-bootstrap";
 //import summary from '../summary'
  
 
-const DonationSummary = () => {
+const DonationSummaryReserved = () => {
     const { donations, dispatch } = useDonationContext()
     const { user } = useAuthContext()
     const [resdonation,setResDonation] = useState([])
-    const [insdonation,setInsDonation] = useState([])
-    const [column1, setColumn1] = useState([]);
-  const [column2, setColumn2] = useState([]);
-
     const [status,setStatus] = useState([])
-    const [requests,setRequests] = useState("")
+   
 
     // useEffect(() => {
     //     const fetchData = async () => {
@@ -64,6 +64,8 @@ const DonationSummary = () => {
             if (response.ok) {
                 dispatch({ type: 'SET_DONATIONS', payload: json })
                 console.log(resdonation)
+            }else{
+                console.log("nott")
             }
         }
         if (user) {
@@ -112,8 +114,12 @@ const DonationSummary = () => {
 
     
     // if(column1 === column2){
-
+        console.log(resdonation)
+        const resDon = localStorage.setItem(resdonation,"redDon");
+if(resdonation !== 0){ 
     return(
+        <>
+        <Nav/>
         <center>
             <div className="container py-5">
             <div className="col-md-5">
@@ -126,7 +132,7 @@ const DonationSummary = () => {
                 <h3>Your Donation Is Not Accepted Yet
    </h3>
                      <div class="card-body text-center">
-                
+               
                 {resdonation.map(don => (
                   <DonationDetails key={don._id} don={don}/>
                 ))}
@@ -142,12 +148,41 @@ const DonationSummary = () => {
                      </div>
                      </div>
                      </center>
-                     
+                     <Footer/>
+                     </>
         
     )
             // }else{
             //     return null
             // }
+} else if(resdonation === 0) {
+    
+        return(
+            <>
+             <Nav/>
+             <center>
+             <div className="container py-5">
+                <div className="col-lg-5">
+                    <center>
+                    <div class="card p-5">
+                    <h1>Donation Status</h1>
+                <h3>You didn't make any donation yet</h3>
+                <br/>
+                <h5>Go into make a Donation</h5>
+                <br/>
+               <center><NavLink to="/donationType" className="btn btn-outline-dark rounded-pill pb-2 w-50">Donate Here</NavLink></center>
+                
+                </div>
+                
+             </center>
+             </div>
+             </div>
+             </center>
+             <Footer/>
+            </>
+        )
+    
+}
 }
 
-export default DonationSummary;
+export default DonationSummaryReserved;

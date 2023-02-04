@@ -11,6 +11,8 @@ import { useNavigate } from "react-router";
 import { useDonationContext } from "../../components/hoooks/useDonationContext"
 import {useAuthContext} from '../../components/hoooks/useAuthContext'
 import OrganizationDetails from '../../components/OrganizationDetails'
+import Nav from "../../components/Navbar/Navbar";
+import Footer from "../../components/Footer";
 
 const TableNewDonor = () => {
  const {donations,dispatch} = useDonationContext()
@@ -71,9 +73,8 @@ const TableNewDonor = () => {
         type:'singleSelect',
         valueOptions:['breakfast','lunch','dinner'],
       editable:true},
-        {field:'quantity',headerName:'Needed Food Parcels',sort:true,width:100,editable:true},
-        {field:'active',headerName:'Active',width:100,editable:true,editable:true},
-        {field:'_id',headerName:'ID',width:200},
+        {field:'quantity',headerName:'Needed Food Parcels',sort:true,width:200,editable:true},
+        // {field:'_id',headerName:'ID',width:200},
         {field:'calendar',headerName:'View Calendar',
         type:'actions',renderCell: ({}) => (<Button variant="contained" color="success" onClick={handleButtonClick}>Calendar</Button>),width:150},
 
@@ -83,6 +84,8 @@ const TableNewDonor = () => {
       
   
     return(
+      <>
+      <Nav/>
        <Box
          sx={{
             height:540,
@@ -126,16 +129,18 @@ const TableNewDonor = () => {
       onCellEditCommit={params=>setRowId(params.id)}/>
 
             </Box>
-      // <div className='home'>
+      {/* // <div className='home'>
       // <h2>Donation History</h2>
       // <div className="donations">
-      //     {donations && donations.map((donation)=>(
-      //        <OrganizationDetails key={donation._id} donation={donation}/>
+      //     {donations && donations.map((donation)=>( */}
+      {/* //        <OrganizationDetails key={donation._id} donation={donation}/>
                
             
       //     ))}
-      // </div>
-  // </div>
+      // </div> */}
+  {/* // </div> */}
+  <Footer/>
+  </>
     )
 };
 

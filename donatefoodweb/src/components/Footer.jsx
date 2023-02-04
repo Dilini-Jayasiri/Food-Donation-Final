@@ -36,12 +36,12 @@ import { NavLink } from 'react-router-dom';
                         <h5>We Need Sponsors</h5>
                         <ul className="nav flex-column">
                             <li className="nav-item mb-2">
-                                <NavLink to="./requestForm" className="nav-link p-0 text-white">
+                                <NavLink to="/requestForm" className="nav-link p-0 text-white">
                                     Request food
                                 </NavLink>
                             </li>
                             <li className="nav-item mb-2">
-                            <NavLink to="./tableNewDonor" className="nav-link p-0 text-white">
+                            <NavLink to="/tableNewDonor" className="nav-link p-0 text-white">
                                     Show Food Requests
                                     </NavLink>
                             </li>

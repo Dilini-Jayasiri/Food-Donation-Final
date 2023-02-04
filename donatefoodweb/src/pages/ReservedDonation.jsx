@@ -11,7 +11,9 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import DonationSummary from './DonorAccount/DonationSummary';
+import DonationSummary from './DonorAccount/DonationSummaryReserved';
+import Footer from '../components/Footer';
+import Nav from '../components/Navbar/Navbar'
 import { Routes, Route } from 'react-router';
 import emailjs from 'emailjs-com';
 import { NavLink } from 'react-router-dom';
@@ -78,7 +80,7 @@ export default function ReservedDonation(props) {
 
     useEffect(() => {
         const fetchDonations = async () => {
-            const response = await fetch('/api/requests', {
+            const response = await fetch('/requests/all', {
                 headers: {
                     'Authorization': `Bearer ${user.token}`
                 }
@@ -150,7 +152,7 @@ export default function ReservedDonation(props) {
         let value = event.target.value;
 
         setValues({ ...values, [name]: value });
-        console.log(setValues.donEmail)
+        //console.log(setValues.donEmail)
     }
     {/* <Routes>
      <Route exact path="/donationSummary" element={<DonationSummary/>}/>
@@ -166,19 +168,19 @@ export default function ReservedDonation(props) {
         setFormErrors(validate(values));
         if (validate()) {
             setIsSubmit(true)
-            navigate('/donationSummary')
+            navigate('/donationSummaryRes')
         }
-        emailjs.send('service_4myyg6h', 'template_ms3zy5j', values, 'AGKmDLzp5SojZrssC')
-        .then(response => {
-            console.log('Success',response);
-        },error => {
-            console.log('Failed...',error)
-        })
+        // emailjs.send('service_4myyg6h', 'template_ms3zy5j', values, 'AGKmDLzp5SojZrssC')
+        // .then(response => {
+        //     console.log('Success',response);
+        // },error => {
+        //     console.log('Failed...',error)
+        // })
         const { donorName, phone, donEmail, address, orgName, orgEmail,date, foodName, quantity, mealType, foodType } = values;
 
         const donation = { donorName, phone, donEmail, address, orgName,orgEmail, date, foodName, quantity, mealType, foodType }
 
-        const res = await fetch('/api/reservedDonations', {
+        const res = await fetch('/reservedDonations', {
             method: "POST",
             body: JSON.stringify(donation),
             headers: {
@@ -273,7 +275,8 @@ export default function ReservedDonation(props) {
     }, [formErrors])
 
     return (
-
+<>
+<Nav/>
         <div className='donation'>
             <MainContainer>
                 <DonationText>
@@ -345,7 +348,7 @@ export default function ReservedDonation(props) {
                                 />
                             </Box>
                             <Box my={2} mx={4}>
-                                <FormControl sx={{ width: 400 }}>
+                                <FormControl sx={{ width: '100%' }}>
                                     <InputLabel id="demo-simple-select-autowidth-label">Organization Type</InputLabel>
                                     <Select
                                         name="orgName"
@@ -428,7 +431,7 @@ export default function ReservedDonation(props) {
                                 </Box>
                             </div>
                             <Box my={1.5} mx={5}>
-                                <FormControl sx={{ width: 350 }}>
+                                <FormControl sx={{ width: '100%' }}>
                                     <Controls.DatePicker1
                                         name="date"
                                         label="Date"
@@ -441,8 +444,8 @@ export default function ReservedDonation(props) {
 
                             <div>
                                 <Box my={5} mx={12}>
-                                    <NavLink style={navLinkStyles} to="/donationSummary">
-                                        <GradientButton style={{ backgroundImage: `linear-gradient(to right, #1abc9c 50%, #16a085 100%)`, }}
+                                    <NavLink style={navLinkStyles} to="/donationSummaryRes">
+                                        <GradientButton style={{ width:'100%', backgroundImage: `linear-gradient(to right, #1abc9c 50%, #16a085 100%)`, }}
                                             onClick={handleSubmit}
                                             type="submit"
                                             text="Submit"
@@ -470,6 +473,8 @@ export default function ReservedDonation(props) {
 
             </MainContainer>
         </div>
+        <Footer/> 
+        </>
     )
 }
 

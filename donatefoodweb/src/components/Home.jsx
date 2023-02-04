@@ -3,12 +3,16 @@ import About from './About';
 import '../assets/partials/home.scss'
 import Services from './Services';
 import Contact from './Contact';
+import Nav from '../components/Navbar/Navbar'
+import Footer from './Footer';
 
 
 
 
 const Home = () =>{
     return(
+        <>
+       <Nav/>
         <div>
            <section id="home">
                <div className="container">
@@ -27,8 +31,9 @@ Foodbank not only plays a lead role in fighting hunger, but also a vitally impor
         <About/>
         <Services/>
         <Contact/>
-       
+       <Footer/>
         </div>
+        </>
     );
 }
 

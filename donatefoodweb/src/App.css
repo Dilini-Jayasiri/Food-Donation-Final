@@ -126,6 +126,11 @@ h3{
     width: 80%;
 }
 
+.donHistory h3{
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: black;
+}
+
 .maindiv {
     display: inline-block;
     overflow: hidden;
