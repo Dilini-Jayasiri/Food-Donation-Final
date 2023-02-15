@@ -5,17 +5,17 @@ import Datetime from 'react-datetime';
 
 export default function ({isOpen,onClose,onEventAdded}) {
 
-    const [description,setDescription] = useState("");
+    const [donorName,setDonorName] = useState("");
     const [confirmDate,setConfirmDate] = useState(new Date());
 
     const onSubmit = (event) => {
         event.preventDefault();
 
         onEventAdded({
-            description,
+            donorName,
             confirmDate
         })
-        console.log(description)
+        console.log(donorName)
         console.log(confirmDate)
         onClose();
     }
@@ -23,8 +23,7 @@ export default function ({isOpen,onClose,onEventAdded}) {
     return (
         <Modal isOpen={isOpen} onRequestClose={onClose}>
             <form onSubmit={onSubmit}>
-               <input placeholder="Description" value={description} onChange={e =>setDescription(e.target.value)}/>
-
+               <input placeholder="Donor Name" value={donorName} onChange={e =>setDonorName(e.target.value)}/>
                <div>
                  <label>Confirmed Date</label>
                  <Datetime value={confirmDate} onChange={date => setConfirmDate(date._d)}/>

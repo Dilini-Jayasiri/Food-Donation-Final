@@ -4,6 +4,7 @@ import { useDonationContext } from '../../components/hoooks/useDonationContext';
 import { useAuthContext } from '../../components/hoooks/useAuthContext';
 import Footer from '../../components/Footer';
 import Nav from "../../components/Navbar/Navbar";
+import {Col,Row,Button} from 'react-bootstrap';
 import { NavLink } from "react-router-dom";
 
 const DonationSummaryCommon = () => {
@@ -244,21 +245,26 @@ const DonationSummaryCommon = () => {
 return (
     <>
 <Nav/>
-       
+<div>
+<Col>
        <div className="container py-5">
        <div className="col-md-5">
+       {/* <div class="card-body">
+                
+                <img src={require("../../assets/donate.gif")}/>
+                </div> */}
            <center>
-           <div class="card p-2">
-           <h1> Donation Confirmation</h1>
+           <div class="card">
+           <h3> Instant Donation Summary</h3>
            {[status] && [status].map((stat) => (
                <h3 key={stat._id}>{stat.status} </h3>
            ))}
            <h3>Your Donation Is Not Accepted Yet </h3>
                 <div class="card-body text-center">
           
-           {[insdonation] && [insdonation].map(don => (
-             <DonationDetails key={don._id} don={don}/>
-           ))}
+                {insdonation.map(don => (
+                  <DonationDetails key={don._id} don={don}/>
+                ))}
             
            </div>
                 
@@ -268,34 +274,39 @@ return (
                 </center>
                 </div>
                 </div>
-                <div className="container py-5">
-                <div className="container py-5">
+                <div className="container mb-4">
+               
        <div className="col-md-5">
            <center>
-           <div class="card p-2">
-           <h1>Donation Confirmation</h1>
+           <div class="card">
+           <h3>Reserved Donation Summary</h3>
            {[status] && [status].map((stat) => (
                <h3 key={stat._id}>{stat.status} </h3>
            ))}
-           <h3>Your Donation Is Not Accepted Yet
+           <h3>Your Donation Is Already Accepted
 </h3>
                 <div class="card-body text-center">
           
-           {[resdonation] && [resdonation].map((don) => (
+                {resdonation.map(don => (
+                  <DonationDetails key={don._id} don={don}/>
+                ))}
+              {/* {[insdonation] && [insdonation].map(don => (
              <DonationDetails key={don._id} don={don}/>
-           ))}
-             {/* {[insdonation] && [insdonation].map(don => (
-             <DonationDetails key={don._id} don={don}/>
-           ))} */}
+           ))}  */}
            </div>
                 
                 </div>
                 
                 
                 </center>
+                
                 </div>
+               
                 </div>
-                </div>
+                </Col>
+              
+</div>
+
                 <Footer/>
                 </>
    

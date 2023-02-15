@@ -40,13 +40,43 @@ const foodTypeItems = [
     { id: 'nonveg', title: 'Non-Veg' },
     { id: 'both', title: 'Both' }
 ]
+
+// const districs = [
+//     { id : 'Ampara',title:'Ampara'},
+//     { id : 'Anuradhapura',title:'Anuradhapura'},
+//     { id : 'Badulla',title:'Badulla'},
+//     { id : 'Batticaloa',title:'Batticaloa'},
+//     { id : 'Colombo',title:'Colombo'},
+//     { id : 'Galle',title:'Galle'},
+//     { id : 'Gampaha',title:'Gampaha'},
+//     { id : 'Hambantota',title:'Hambantota'},
+//     { id : 'Jaffna',title:'Jaffna'},
+//     { id : 'Kalutara',title:'Kalutara'},
+//     { id : 'Kandy',title:'Kandy'},
+//     { id : 'Kegalle',title:'Kegalle'},
+//     { id : 'Kilinochchi',title:'Kilinochchi'},
+//     { id : 'Kurunegala',title:'Kurunegala'},
+//     { id : 'Mannar',title:'Mannar'},
+//     { id : 'Matale',title:'Matale'},
+//     { id : 'Matara',title:'Matara'},
+//     { id : 'Monaragala',title:'Monaragala'},
+//     { id : 'Mullaitivu',title:'Mullaitivu'},
+//     { id : 'Nuwara Eliya',title:'Nuwara Eliya'},
+//     { id : 'Polonnaruwa',title:'Polonnaruwa'},
+//     { id : 'Puttalam',title:'Puttalam'},
+//     { id : 'Ratnapura',title:'Ratnapura'},
+//     { id : 'Trincomalee',title:'Trincomalee'},
+//     { id : 'Vavuniya',title:'Vavuniya'}
+// ]
+
 const initialValues = {
 
     donorName: '',
     donationType: '',
     phone: '',
     donEmail: '',
-    address: '',
+    district:'',
+    address: '', 
     orgName: '',
     orgEmail:'',
     //donorTypeId: '',
@@ -60,23 +90,12 @@ export default function ReservedDonation(props) {
     const navigate = useNavigate();
     const { donations, dispatch } = useDonationContext()
     const { user } = useAuthContext()
+    const [district,setDistrict] = useState('');
     // const { addOrEdit } = props
     const [organizationName, setOrganizationName] = useState("");
     const [orgs, setOrgs] = React.useState([{ 'orgName': '', '_id': '' }]);
     const [isSubmit, setIsSubmit] = useState(false);
     const [formErrors, setFormErrors] = useState({});
-
-    //const [donorName, phone, donEmail,address, orgName, date, foodName, quantity, mealType, foodType] = useState('');
-
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //       const response = await fetch('/api/requests');
-    //       const newData = await response.json();
-    //       setOrgs(newData);
-    //       console.log(newData);
-    //     };
-    //     fetchData();
-    //   },[]);
 
     useEffect(() => {
         const fetchDonations = async () => {
@@ -113,8 +132,10 @@ export default function ReservedDonation(props) {
             temp.phone = fieldValues.phone.length > 9 ? "" : "Minimum 10 numbers required."
         if ('donEmail' in fieldValues)
             temp.donEmail = (/$^|.+@.+..+/).test(values.donEmail) ? "" : "Email is not valid."
+        if ('district' in fieldValues)
+            temp.district = fieldValues.district ? "" : "This field is required."
         if ('address' in fieldValues)
-            temp.address = fieldValues.address ? "" : "This field is required."
+            temp.address = fieldValues.address ? "" : "This field is required." 
         if ('orgName' in fieldValues)
             temp.orgName = fieldValues.orgName ? "" : "This field is required."
         // if ('donorTypeId' in fieldValues)
@@ -176,9 +197,9 @@ export default function ReservedDonation(props) {
         // },error => {
         //     console.log('Failed...',error)
         // })
-        const { donorName, phone, donEmail, address, orgName, orgEmail,date, foodName, quantity, mealType, foodType } = values;
+        const { donorName, phone, donEmail,district, address, orgName, orgEmail,date, foodName, quantity, mealType, foodType } = values;
 
-        const donation = { donorName, phone, donEmail, address, orgName,orgEmail, date, foodName, quantity, mealType, foodType }
+        const donation = { donorName, phone, donEmail,district, address, orgName,orgEmail, date, foodName, quantity, mealType, foodType }
 
         const res = await fetch('/reservedDonations', {
             method: "POST",
@@ -204,6 +225,7 @@ export default function ReservedDonation(props) {
                 //donorTypeId: '',
                 phone: '',
                 donEmail: '',
+                district:'',
                 address: '',
                 orgName: '',
                 orgEmail:'',
@@ -218,53 +240,6 @@ export default function ReservedDonation(props) {
                 dispatch({ type: 'CREATE_DONATIONS', payload: JSON })
             )
         }
-
-
-        //     try {
-        //         //It is submitted on port 3000 by default 
-        //         //which is front end but we need to submit it on
-        //         //backend which is on port 3001. so we need proxy
-        //         const res = await fetch('/api/reservedDonations', {
-        //             method: "POST",
-        //             headers: {
-        //                 "Content-Type": "application/json",
-        //                 // 'Authorization':`Bearer ${user.token}`
-        //             },
-        //             body: JSON.stringify({
-        //                 donorName, donationType, donorTypeId, phone,donEmail, address, orgName, date, foodName, quantity, mealType, foodType
-        //             })
-
-        //         })
-        //         if (res.status === 400 || !res) {
-        //             window.alert("Message Not Sent. Try Again Later")
-        //         } else {
-        //             window.alert("Message Sent Successfully");
-        // setValues({
-        //     donorName: '',
-        //     donationType: '',
-        //     //donorTypeId: '',
-        //     phone: '',
-        //     donEmail:'',
-        //     address: '',
-        //     orgName: '',
-        //     date: '',
-        //     foodName: '',
-        //     quantity: '',
-        //     mealType: '',
-        //     foodType: ''
-
-
-        // },
-
-        //             dispatch({type:'CREATE_DONATIONS', payload : JSON})
-
-        //             )
-        //             navigate('/donationHistory')
-        //         }
-        //     } catch (error) {
-        //         console.log(error);
-        //     }
-
     }
 
     useEffect(() => {
@@ -337,8 +312,50 @@ export default function ReservedDonation(props) {
 
                                 />
                             </Box>
-
-                            <Box my={4} mx={4}>
+                            <Box my={0} mx={4}>
+<FormControl sx={{ width: '100%' }}>
+                <InputLabel id="demo-simple-select-autowidth-label">District</InputLabel>
+                <Select
+                    name="district"
+                    labelId="demo-select-small"
+                    id="demo-select-small"
+                    value={values.district}
+                    label="Organization Type"
+                    onChange={handleChange}
+                    error={errors.district}
+                >
+                    <MenuItem value={district}>
+                        <em>None</em>
+                    </MenuItem>
+                    <MenuItem value={"Ampara"}>Ampara</MenuItem>
+                    <MenuItem value={"Anuradhapura"}>Anuradhapura</MenuItem>
+                    <MenuItem value={"Badulla"}>Badulla</MenuItem>
+                    <MenuItem value={"Batticaloa"}>Batticaloa</MenuItem>
+                    <MenuItem value={"Colombo"}>Colombo</MenuItem>
+                    <MenuItem value={"Galle"}>Galle</MenuItem>
+                    <MenuItem value={"Gampaha"}>Gampaha</MenuItem>
+                    <MenuItem value={"Hambantota"}>Hambantota</MenuItem>
+                    <MenuItem value={"Jaffna"}>Jaffna</MenuItem>
+                    <MenuItem value={"Kalutara"}>Kalutara</MenuItem>
+                    <MenuItem value={"Kandy"}>Kandy</MenuItem>
+                    <MenuItem value={"Kegalle"}>Kegalle</MenuItem>
+                    <MenuItem value={"Kilinochchi"}>Kilinochchi</MenuItem>
+                    <MenuItem value={"Kurunegala"}>Kurunegala</MenuItem>
+                    <MenuItem value={"Mannar"}>Mannar</MenuItem>
+                    <MenuItem value={"Matale"}>Matale</MenuItem>
+                    <MenuItem value={"Matara"}>Matara</MenuItem>
+                    <MenuItem value={"Monaragala"}>Monaragala</MenuItem>
+                    <MenuItem value={"Mullaitivu"}>Mullaitivu</MenuItem>
+                    <MenuItem value={"Nuwara Eliya"}>Nuwara Eliya</MenuItem>
+                    <MenuItem value={"Polonnaruwa"}>Polonnaruwa</MenuItem>
+                    <MenuItem value={"Puttalam"}>Puttalam</MenuItem>
+                    <MenuItem value={"Ratnapura"}>Ratnapura</MenuItem>
+                    <MenuItem value={"Trincomalee"}>Trincomalee</MenuItem>
+                    <MenuItem value={"Vavuniya"}>Vavuniya</MenuItem>                 
+                </Select>
+            </FormControl>
+</Box>
+                    <Box my={4} mx={4}>
                                 <Controls.TextArea
                                     name="address"
                                     label="address"
@@ -346,7 +363,7 @@ export default function ReservedDonation(props) {
                                     onChange={handleChange}
                                     error={errors.address}
                                 />
-                            </Box>
+                            </Box>                   
                             <Box my={2} mx={4}>
                                 <FormControl sx={{ width: '100%' }}>
                                     <InputLabel id="demo-simple-select-autowidth-label">Organization Type</InputLabel>

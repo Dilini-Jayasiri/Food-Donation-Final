@@ -16,6 +16,11 @@ const instantDonationSchema = new mongoose.Schema({
         required : true,
         
     },
+    district : {
+        type : String,
+        required : true,
+        
+    },
     address : {
         type : String,
         required : true

@@ -44,6 +44,7 @@ const initialValues = {
     donorName: '',
     phone: '',
     donEmail: '',
+    district:'',
     address: '',
     orgName: '',
     date: '',
@@ -68,6 +69,7 @@ export default function InstantDonation(props) {
     const [isSubmit, setIsSubmit] = useState(false);
     const [formErrors, setFormErrors] = useState({});
     const navigate = useNavigate();
+    const [district,setDistrict] = useState('');
 
     // useEffect(() => {
     //   const fetchData = async () => {
@@ -114,6 +116,8 @@ export default function InstantDonation(props) {
             temp.phone = fieldValues.phone.length > 9 ? "" : "Minimum 10 numbers required."
         if ('donEmail' in fieldValues)
             temp.donEmail = (/$^|.+@.+..+/).test(values.donEmail) ? "" : "Email is not valid."
+        if ('district' in fieldValues)
+            temp.district = fieldValues.district ? "" : "This field is required."
         if ('address' in fieldValues)
             temp.address = fieldValues.address ? "" : "This field is required."
         if ('orgName' in fieldValues)
@@ -199,9 +203,9 @@ export default function InstantDonation(props) {
         // }
         //Object Destructuring
         //Store object data into variables
-        const { donorName, phone, donEmail, address, orgName, date, quantity, oldFood, mealType, area, foodType, foodName } = values;
+        const { donorName, phone, donEmail, district,address, orgName, date, quantity, oldFood, mealType, area, foodType, foodName } = values;
 
-        const donation = { donorName, phone, donEmail, address, orgName, date, quantity, oldFood, mealType, area, foodType, foodName }
+        const donation = { donorName, phone, donEmail, district,address, orgName, date, quantity, oldFood, mealType, area, foodType, foodName }
 
         const res = await fetch('/api/instantDonations', {
             method: "POST",
@@ -225,6 +229,7 @@ export default function InstantDonation(props) {
                 donorName: '',
                 phone: '',
                 donEmail: '',
+                district:'',
                 address: '',
                 orgName: '',
                 date: '',
@@ -363,7 +368,49 @@ export default function InstantDonation(props) {
                                             error={errors.donEmail}
                                         />
                                     </Box>
-
+                                    <Box my={0} mx={4}>
+<FormControl sx={{ width: '100%' }}>
+                <InputLabel id="demo-simple-select-autowidth-label">District</InputLabel>
+                <Select
+                    name="district"
+                    labelId="demo-select-small"
+                    id="demo-select-small"
+                    value={values.district}
+                    label="Organization Type"
+                    onChange={handleChange}
+                    error={errors.district}
+                >
+                    <MenuItem value={district}>
+                        <em>None</em>
+                    </MenuItem>
+                    <MenuItem value={"Ampara"}>Ampara</MenuItem>
+                    <MenuItem value={"Anuradhapura"}>Anuradhapura</MenuItem>
+                    <MenuItem value={"Badulla"}>Badulla</MenuItem>
+                    <MenuItem value={"Batticaloa"}>Batticaloa</MenuItem>
+                    <MenuItem value={"Colombo"}>Colombo</MenuItem>
+                    <MenuItem value={"Galle"}>Galle</MenuItem>
+                    <MenuItem value={"Gampaha"}>Gampaha</MenuItem>
+                    <MenuItem value={"Hambantota"}>Hambantota</MenuItem>
+                    <MenuItem value={"Jaffna"}>Jaffna</MenuItem>
+                    <MenuItem value={"Kalutara"}>Kalutara</MenuItem>
+                    <MenuItem value={"Kandy"}>Kandy</MenuItem>
+                    <MenuItem value={"Kegalle"}>Kegalle</MenuItem>
+                    <MenuItem value={"Kilinochchi"}>Kilinochchi</MenuItem>
+                    <MenuItem value={"Kurunegala"}>Kurunegala</MenuItem>
+                    <MenuItem value={"Mannar"}>Mannar</MenuItem>
+                    <MenuItem value={"Matale"}>Matale</MenuItem>
+                    <MenuItem value={"Matara"}>Matara</MenuItem>
+                    <MenuItem value={"Monaragala"}>Monaragala</MenuItem>
+                    <MenuItem value={"Mullaitivu"}>Mullaitivu</MenuItem>
+                    <MenuItem value={"Nuwara Eliya"}>Nuwara Eliya</MenuItem>
+                    <MenuItem value={"Polonnaruwa"}>Polonnaruwa</MenuItem>
+                    <MenuItem value={"Puttalam"}>Puttalam</MenuItem>
+                    <MenuItem value={"Ratnapura"}>Ratnapura</MenuItem>
+                    <MenuItem value={"Trincomalee"}>Trincomalee</MenuItem>
+                    <MenuItem value={"Vavuniya"}>Vavuniya</MenuItem>                 
+                </Select>
+            </FormControl>
+</Box>
                                     <Box my={4} mx={4}>
                                         <Controls.Input
                                             label="address"

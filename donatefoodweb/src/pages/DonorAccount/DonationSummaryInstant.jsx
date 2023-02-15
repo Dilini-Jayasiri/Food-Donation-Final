@@ -15,7 +15,7 @@ const DonationSummaryInstant = () => {
 
    
     useEffect(() => {
-        const fetchInsDonation = async () => {
+        const fetchResDonation = async () => {
             const response = await fetch('/insLastDon', {
                 headers: {
                     'Authorization': `Bearer ${user.token}`
@@ -34,7 +34,7 @@ const DonationSummaryInstant = () => {
             }
         }
         if (user) {
-            fetchInsDonation()
+            fetchResDonation()
         }
       
       }, [dispatch, user])
@@ -52,7 +52,7 @@ const DonationSummaryInstant = () => {
     },[])
 
         console.log(insdonation)
-        const insDon = localStorage.setItem(insdonation,"redDon");
+        const insDon = localStorage.setItem(insdonation,"insDon");
 if(insdonation !== 0){ 
     return(
         <>

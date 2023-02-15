@@ -55,7 +55,7 @@ export default function OrgAccount() {
           </Box>
 
           <Box my={5}>
-            <NavLink style={navLinkStyles} to="/cal">
+            <NavLink style={navLinkStyles} to="/calendar2">
               <GradientButton style={{ backgroundImage: `linear-gradient(to right, #1abc9c 50%, #16a085 100%)`, }} >Update the Calendar</GradientButton>
             </NavLink>
 

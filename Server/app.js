@@ -31,6 +31,7 @@ const insLastRoute = require('./routes/InstantLastRoute');
 const reservedNewRoute = require('./routes/reservedDonNew');
 const donationStatusRoute = require('./routes/status');
 const userRoutes = require('./routes/users');
+const getAllIns = require('./controllers/GetAllInsDons');
 //const router = require('./routes/requests');
 //These method is used to get data and cookies from frontend
 app.use(express.json());
@@ -46,6 +47,7 @@ app.use('/api/instantDonations',instantRoute);
 app.use('/api/user',userRoutes);
 app.use('/api/resDonNew',reservedNewRoute);
 app.use('/api/status',donationStatusRoute);
+app.use(getAllIns);
 const User = require('./models/userSchema')
 //app.use()
 //middleware
@@ -171,7 +173,7 @@ app.post('/reservedDon',async(req,res) =>{
     //     const foodType = req.body.foodType;
       //  const user_id = req.body.user_id;
  //const user_id = req.user._id;
- const {donorName,phone,donEmail,address,orgName,date,foodName,quantity,mealType,foodType} = req.body
+ const {donorName,phone,donEmail,district,address,orgName,date,foodName,quantity,mealType,foodType} = req.body
 
         // const reservedDon= new ReservedDonation({
         // donorName:donorName ,
@@ -213,6 +215,9 @@ app.post('/reservedDon',async(req,res) =>{
     if(!donEmail){
         emptyFields.push('donEmail')
     }
+    if(!district){
+        emptyFields.push('district')
+    }
     if(!address){
         emptyFields.push('address')
     }
@@ -240,7 +245,7 @@ app.post('/reservedDon',async(req,res) =>{
     
     try {
         const user_id = req.user._id;
-       const reservedDonation = await ReservedDonation.create({donorName,phone,donEmail,address,orgName,date,foodName,quantity,mealType,foodType,user_id})
+       const reservedDonation = await ReservedDonation.create({donorName,phone,donEmail,district,address,orgName,date,foodName,quantity,mealType,foodType,user_id})
        res.status(200).json(reservedDonation)
     } catch (error){
         res.status(400).send(error);
@@ -261,6 +266,7 @@ app.post('/instantDon',async(req,res) =>{
         const mealType = req.body.mealType;
         const quantity = req.body.quantity;
         const oldFood = req.body.oldFood;
+        const district = req.body.district;
         const address = req.body.address;
         const area = req.body.area;
         const orgName = req.body.orgName;
@@ -277,6 +283,7 @@ app.post('/instantDon',async(req,res) =>{
         mealType:mealType,
         quantity: quantity,
         oldFood:oldFood,
+        district : district,
         address: address,
         area:area,
         orgName: orgName,

@@ -7,6 +7,8 @@ import * as orgType from '../organizations/orgType'
 import { Box, Grid } from '@mui/material';
 import GradientButton from 'react-linear-gradient-button'
 import { useForm, Form } from '../components/useForm';
+import Footer from '../components/Footer';
+import Nav from '../components/Navbar/Navbar'
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -18,6 +20,7 @@ import { NavLink } from 'react-router-dom';
 import { useDonationContext } from '../components/hoooks/useDonationContext';
 import { useAuthContext } from '../components/hoooks/useAuthContext'
 import { useNavigate } from 'react-router';
+
 
 const navLinkStyles = () => {
     return {
@@ -41,6 +44,7 @@ const initialValues = {
     donationType: '',
     phone: '',
     donEmail: '',
+    district:'',
     address: '',
     prefferedArea: '',
     date: '',
@@ -55,11 +59,12 @@ export default function ReservedDonationNew() {
     const { user } = useAuthContext()
     const [isSubmit, setIsSubmit] = useState(false);
     const [formErrors, setFormErrors] = useState({});
+    const [district,setDistrict] = useState('');
 
 
     useEffect(() => {
         const fetchDonations = async () => {
-            const response = await fetch('/api/requests', {
+            const response = await fetch('/requests/all', {
                 headers: {
                     'Authorization': `Bearer ${user.token}`
                 }
@@ -88,6 +93,8 @@ export default function ReservedDonationNew() {
             temp.phone = fieldValues.phone.length > 9 ? "" : "Minimum 10 numbers required."
         if ('donEmail' in fieldValues)
             temp.donEmail = (/$^|.+@.+..+/).test(values.donEmail) ? "" : "Email is not valid."
+        if ('district' in fieldValues)
+            temp.district = fieldValues.district ? "" : "This field is required."
         if ('address' in fieldValues)
             temp.address = fieldValues.address ? "" : "This field is required."
         if ('prefferedArea' in fieldValues)
@@ -143,9 +150,9 @@ export default function ReservedDonationNew() {
         // },error => {
         //     console.log('Failed...',error)
         // })
-        const { donorName, phone, donEmail, address, prefferedArea, date, foodName, quantity, mealType, foodType } = values;
+        const { donorName, phone, donEmail, district,address, prefferedArea, date, foodName, quantity, mealType, foodType } = values;
 
-        const donation = { donorName, phone, donEmail, address, prefferedArea, date, foodName, quantity, mealType, foodType }
+        const donation = { donorName, phone, donEmail,district, address, prefferedArea, date, foodName, quantity, mealType, foodType }
 
         const res = await fetch('/api/resDonNew', {
             method: "POST",
@@ -170,6 +177,7 @@ export default function ReservedDonationNew() {
                 donationType: '',
                 phone: '',
                 donEmail: '',
+                district:'',
                 address: '',
                 prefferedArea: '',
                 date: '',
@@ -193,7 +201,8 @@ export default function ReservedDonationNew() {
     }, [formErrors])
 
     return (
-
+<>
+<Nav/>
         <div className='donation'>
             <MainContainer>
                 <DonationText>
@@ -251,7 +260,49 @@ export default function ReservedDonationNew() {
 
                                 />
                             </Box>
-
+                            <Box my={0} mx={4}>
+<FormControl sx={{ width: '100%' }}>
+                <InputLabel id="demo-simple-select-autowidth-label">District</InputLabel>
+                <Select
+                    name="district"
+                    labelId="demo-select-small"
+                    id="demo-select-small"
+                    value={values.district}
+                    label="Organization Type"
+                    onChange={handleChange}
+                    error={errors.district}
+                >
+                    <MenuItem value={district}>
+                        <em>None</em>
+                    </MenuItem>
+                    <MenuItem value={"Ampara"}>Ampara</MenuItem>
+                    <MenuItem value={"Anuradhapura"}>Anuradhapura</MenuItem>
+                    <MenuItem value={"Badulla"}>Badulla</MenuItem>
+                    <MenuItem value={"Batticaloa"}>Batticaloa</MenuItem>
+                    <MenuItem value={"Colombo"}>Colombo</MenuItem>
+                    <MenuItem value={"Galle"}>Galle</MenuItem>
+                    <MenuItem value={"Gampaha"}>Gampaha</MenuItem>
+                    <MenuItem value={"Hambantota"}>Hambantota</MenuItem>
+                    <MenuItem value={"Jaffna"}>Jaffna</MenuItem>
+                    <MenuItem value={"Kalutara"}>Kalutara</MenuItem>
+                    <MenuItem value={"Kandy"}>Kandy</MenuItem>
+                    <MenuItem value={"Kegalle"}>Kegalle</MenuItem>
+                    <MenuItem value={"Kilinochchi"}>Kilinochchi</MenuItem>
+                    <MenuItem value={"Kurunegala"}>Kurunegala</MenuItem>
+                    <MenuItem value={"Mannar"}>Mannar</MenuItem>
+                    <MenuItem value={"Matale"}>Matale</MenuItem>
+                    <MenuItem value={"Matara"}>Matara</MenuItem>
+                    <MenuItem value={"Monaragala"}>Monaragala</MenuItem>
+                    <MenuItem value={"Mullaitivu"}>Mullaitivu</MenuItem>
+                    <MenuItem value={"Nuwara Eliya"}>Nuwara Eliya</MenuItem>
+                    <MenuItem value={"Polonnaruwa"}>Polonnaruwa</MenuItem>
+                    <MenuItem value={"Puttalam"}>Puttalam</MenuItem>
+                    <MenuItem value={"Ratnapura"}>Ratnapura</MenuItem>
+                    <MenuItem value={"Trincomalee"}>Trincomalee</MenuItem>
+                    <MenuItem value={"Vavuniya"}>Vavuniya</MenuItem>                 
+                </Select>
+            </FormControl>
+</Box>
                             <Box my={4} mx={4}>
                                 <Controls.TextArea
                                     name="address"
@@ -261,28 +312,16 @@ export default function ReservedDonationNew() {
                                     error={errors.address}
                                 />
                             </Box>
-                            <Box my={2} mx={4}>
-                                <FormControl sx={{ width: 400 }}>
-                                    <InputLabel id="demo-simple-select-autowidth-label">Preffered Area</InputLabel>
-                                    <Select
-                                        name="prefferedArea"
-                                        labelId="demo-select-small"
-                                        id="demo-select-small"
-                                        value={values.city}
-                                        label="Preffered Area"
-                                        onChange={handleChange}
-                                    >
-                                        <MenuItem value="">
-                                            <em>None</em>
-                                        </MenuItem>
-                                        {donations && donations.map((org) => (
-                                            <MenuItem value={org.city} key={org._id}>{org.city}</MenuItem>
-                                        ))}
-
-
-                                    </Select>
-                                </FormControl>
+                            <Box my={4} mx={4}>
+                                <Controls.TextArea
+                                    name="prefferedArea"
+                                    label="Preffered Area"
+                                    value={values.prefferedArea}
+                                    onChange={handleChange}
+                                    error={errors.prefferedArea}
+                                />
                             </Box>
+                           
                         </Grid>
 
                         <Grid item xs={6}>
@@ -337,12 +376,13 @@ export default function ReservedDonationNew() {
                                 </Box>
                             </div>
                             <Box my={1.5} mx={5}>
-                                <FormControl sx={{ width: 350 }}>
+                                <FormControl sx={{ width: '100%' }}>
                                     <Controls.DatePicker1
                                         name="date"
                                         label="Date"
                                         value={values.date}
                                         onChange={handleChange}
+
                                     />
                                 </FormControl>
                             </Box>
@@ -362,6 +402,8 @@ export default function ReservedDonationNew() {
                 </form>
             </MainContainer>
         </div>
+        <Footer/>
+        </>
     )
 }
 

@@ -5,10 +5,9 @@ const mongoose = require('mongoose')
 
 //post donation
 const createResDonation = async (req,res) => {
-    const {donorName,phone,donEmail,address,orgName,date,foodName,quantity,mealType,foodType} = req.body
+    const {donorName,phone,donEmail,district,address,orgName,date,foodName,quantity,mealType,foodType} = req.body
 
     let emptyFields = []
-
     if(!donorName){
         emptyFields.push('donorName')
     }
@@ -17,6 +16,9 @@ const createResDonation = async (req,res) => {
     }
     if(!donEmail){
         emptyFields.push('donEmail')
+    }
+    if(!district){
+        emptyFields.push('district')
     }
     if(!address){
         emptyFields.push('address')
@@ -45,16 +47,13 @@ const createResDonation = async (req,res) => {
 
     try {
         const user_id = req.user._id;
-       const reservedDonation = await ReservedDonation.create({donorName,phone,donEmail,address,orgName,date,foodName,quantity,mealType,foodType,user_id})
+       const reservedDonation = await ReservedDonation.create({donorName,phone,donEmail,district,address,orgName,date,foodName,quantity,mealType,foodType,user_id})
        res.status(200).json(reservedDonation)
     } catch (error){
         res.status(400).json({error:error.message});
        //res.status(400).json({error : error.message})
     }
 } 
-
-
-
 //get all donations
 const getDonations = async (req,res) => {
     const user_id = req.user._id
@@ -63,7 +62,6 @@ const getDonations = async (req,res) => {
 
     res.status(200).json(reservedDonations)
 }
-
 //get a single donation
 const getReservedDonation = async (req,res) =>{
     const {id} = req.params

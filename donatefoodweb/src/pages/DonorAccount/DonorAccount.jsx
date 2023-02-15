@@ -55,14 +55,14 @@ export default function DonorAccount() {
             </NavLink>
           </Box>
 
-          <Box my={5}>
-            <NavLink style={navLinkStyles} to="/calForDon">
+          {/* <Box my={5}>
+            <NavLink style={navLinkStyles} to="/calendar2">
               <GradientButton style={{ backgroundImage: `linear-gradient(to right, #1abc9c 50%, #16a085 100%)`, }} >View the Calendar</GradientButton>
             </NavLink>
 
 
 
-          </Box>
+          </Box> */}
         </center>
       </Col>
       {/* </center> */}

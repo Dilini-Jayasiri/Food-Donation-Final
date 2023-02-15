@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 
 //post a donation
 const createInsDonation = async (req,res) => {
-    const {donorName,phone,donEmail,address,orgName,date,quantity,oldFood,mealType,area,foodType,foodName} = req.body
+    const {donorName,phone,donEmail,district,address,orgName,date,quantity,oldFood,mealType,area,foodType,foodName} = req.body
 
     let emptyFields = []
 
@@ -15,6 +15,9 @@ const createInsDonation = async (req,res) => {
     }
     if(!donEmail){
         emptyFields.push('donEmail')
+    }
+    if(!district){
+        emptyFields.push('district')
     }
     if(!address){
         emptyFields.push('address')
@@ -49,7 +52,7 @@ const createInsDonation = async (req,res) => {
 
     try {
         const user_id = req.user._id;
-       const instantDonation = await InstantDonation.create({donorName,phone,donEmail,address,orgName,date,quantity,oldFood,mealType,area,foodType,foodName,user_id})
+       const instantDonation = await InstantDonation.create({donorName,phone,donEmail,district,address,orgName,date,quantity,oldFood,mealType,area,foodType,foodName,user_id})
        res.status(200).json(instantDonation)
     } catch (error){
         res.status(400).json({error:error.message});

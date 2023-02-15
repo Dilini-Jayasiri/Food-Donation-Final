@@ -13,8 +13,11 @@ const reservedDonationSchema = new mongoose.Schema({
     },
     donEmail : {
         type : String,
-        required : true,
-        
+        required : true,       
+    },
+    district : {
+        type : String,
+        required : true,       
     },
     address : {
         type : String,

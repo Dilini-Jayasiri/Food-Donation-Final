@@ -4,6 +4,19 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import AddEventModel from "./AddEventModel";
 import axios from "axios";
 import moment from "moment";
+import Nav from '../components/Navbar/Navbar';
+import Footer from '../components/Footer';
+import { createTheme, styled, ThemeProvider } from '@mui/material/styles';
+import {
+    Box,
+    Toolbar,
+    CssBaseline,
+    Typography,
+    IconButton,
+    Tooltip,
+  } from '@mui/material';
+  import MuiAppBar from '@mui/material/AppBar';
+  import { Brightness4, Brightness7, Home, Menu } from '@mui/icons-material';
 
 export default function () {
     const [modelOpen,setModalOpen]= useState(false);
@@ -28,10 +41,17 @@ export default function () {
     }
 //calendarRef = React.createRef()
     return (
-        <section>
-            <button onClick={() => setModalOpen(true)}>Add Event</button>
-
+        <>
+        <Nav/>
+        <center>
+        {/* <ThemeProvider> */}
+      <Box sx={{ display: 'flex' }} marginTop={5} marginBottom={5} marginLeft={70}>
+        <div mt={10} ml={10}>
+        {/* <section> */}
+            <button onClick={() => setModalOpen(true)} marginBottom={5}>Add Event</button>
+<Box marginTop={3}>
             <div style={{position:"relative",zIndex:0}}>
+                <center>
             <FullCalendar
                 ref = {calendarRef}
                 events={events}
@@ -40,9 +60,17 @@ export default function () {
                 eventAdd={event => handleEventAdd(event)}
                 datesSet={(date) => handleDateSet(date._d)}  
              />
+             </center>
             </div>
+            </Box>
          <AddEventModel isOpen={modelOpen} onClose={() => setModalOpen(false)} onEventAdded={event => onEventAdded(event)}/>
-        </section>
+        {/* </section> */}
+        </div>
+        </Box>
+        {/* </ThemeProvider> */}
+        </center>
+        <Footer/>
+        </>
     )
 }
 

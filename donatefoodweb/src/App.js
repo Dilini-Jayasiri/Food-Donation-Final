@@ -32,18 +32,18 @@ import DonorAccount from './pages/DonorAccount/DonorAccount';
 import TableNew from './pages/Requests/TableNew';
 import Inst from './pages/InstantDon';
 import AcceptPage from './AcceptPage';
-import Calendar from './Calendar/calendar';
+//import Calendar from './Calendar/calendar';
 import Modal from 'react-modal';
 import DonationRequestAccept from './components/DonationRequestAccept/donationRequestAccept';
 import RequestSummary from './components/DonationRequestAccept/RequestSummary';
 import Dashboard from './adminSide/pages/Dashboard/dashboard';
 import Dash2 from './adminSide/pages/Dashboard/dash2';
-import Calendar2 from './Calendar/cal';
+//import Calendar2 from './Calendar/cal';
 import requestActions from '../src/pages/Requests/RequestActions';
-import CalendarForDonor from '../src/pages/Requests/CalendarForDonor';
+//import CalendarForDonor from '../src/pages/Requests/CalendarForDonor';
 import OrgAccount from '../src/OrgProfile/OrgAccount';
 import TableNewDonor from '../src/pages/Requests/TableNewDonor';
-import Alart from '../src/components/DonationRequestAccept/alart';
+//import Alart from '../src/components/DonationRequestAccept/alart';
 import DonationSummaryDonor from '../src/OrgProfile/DonationSummaryDonor';
 import DonationHistory from '../src/Profile/DonationHistory';
 import { useAuthContext } from './components/hoooks/useAuthContext';
@@ -52,6 +52,10 @@ import PieDonationType from './adminSide/pages/Dashboard/main/PieDonationType';
 import AdminResDon from './adminSide/pages/Dashboard/ReservedDonors/ReservedDonors';
 import AdminInsDon from './adminSide/pages/Dashboard/instantdonors/InstantDonors';
 import Orgs from './adminSide/pages/Dashboard/Organizations/Organizations';
+import DateForm from './Calendar/DateForm';
+///import Calender from '../src/Calendar/calendar';
+import PopUp from '../src/pages/Requests/TableNewDonor';
+import CalendarNew from '../src/pages/Calendar/Calendar';
 Modal.setAppElement('#root');
 
 
@@ -106,6 +110,11 @@ function App() {
 //     }
 //     fetchUser()
 // },[])
+const [refresh,setRefresh] = useState(false);
+
+useEffect(()=>{
+  setRefresh(!refresh)
+},[refresh]);
 
   if (roleType === 'admin') {
     return (
@@ -121,13 +130,13 @@ function App() {
       {/* <Nav/> */}
       <Routes>
       <Route path="/login" element= {!user ? <Login/> : <Navigate to="/home"/>}/>
-     <Route path="/register" element={!user ?<Register /> :<Navigate to="/login"/> }/>
+     <Route path="/register" element={!user ?<Register/> :<Navigate to="/login"/> }/>
      </Routes>
       <Routes>
-        <Route path="/home" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/contact" element={<Contact />} />
+        <Route path="/home" element={<Home/>} />
+        <Route path="/about" element={<About/>} />
+        <Route path="/services" element={<Services/>} />
+        <Route path="/contact" element={<Contact/>} />
                 
         { /* <Route element={<ProtectedRoutes/>}>
             
@@ -146,30 +155,30 @@ function App() {
 
 
 
-        <Route path="/donateDash" element={<DonateDash />}/>
-        <Route path="/donationForm" element={<DonationForm />} />
-        <Route path="/instantDonation" element={user ? <InstantDonation />: <Navigate to="/login"/>}/>
-        <Route path="/reservedDonation" element={user ? <ReservedDonation /> : <Navigate to="/login"/>} />
+        <Route path="/donateDash" element={<DonateDash/>}/>
+        <Route path="/donationForm" element={<DonationForm/>} />
+        <Route path="/instantDonation" element={user ? <InstantDonation/>: <Navigate to="/login"/>}/>
+        <Route path="/reservedDonation" element={user ? <ReservedDonation/> : <Navigate to="/login"/>} />
         <Route path="/reservedDonationNew" element={<ReservedDonationNew/>}/>
-        <Route path="/donationType" element={<DonationType />}/>
-        <Route path="/tableNew" element={user ? <TableNew /> : <Navigate to="/login"/>}/>
-        <Route path="/requestForm" element={<RequestForm />}/>
-        <Route path="/donorAccount" element={<DonorAccount />}/>
+        <Route path="/donationType" element={<DonationType/>}/>
+        <Route path="/tableNew" element={user ? <TableNew/> : <Navigate to="/login"/>}/>
+        <Route path="/requestForm" element={<RequestForm/>}/>
+        <Route path="/donorAccount" element={<DonorAccount/>}/>
         <Route path="/logout" element={<Logout />}/>
         <Route path="/orgList" element={<OrgList />} />
         <Route path="/donationSummaryIns" element={<DonationSummaryInstant/>} />
-        <Route path="/donationSummaryRes" element={<DonationSummaryReserved />}/>
+        <Route path="/donationSummaryRes" element={<DonationSummaryReserved/>}/>
         <Route path="/donationSummaryComm" element={<DonationSummaryCommon/>}/>
         
         {/* <Route path="/donSum" element={<DonationSummary2/>} /> */}
-        <Route path="/inst" element={<Inst />} />
-        <Route path="/acceptPage" element={user ? <AcceptPage /> : <Navigate to="/login"/>} />
-        <Route path="/receiverAccount" element={user ? <ReceiverAccount /> : <Navigate to="/login"/>} />
+        <Route path="/inst" element={<Inst/>} />
+        <Route path="/acceptPage" element={user ? <AcceptPage/> : <Navigate to="/login"/>} />
+        <Route path="/receiverAccount" element={user ? <ReceiverAccount/> : <Navigate to="/login"/>} />
         {/* <Route path="/instantDonSummary/:id" element={<DonationSummaryInstant />} /> */}
-        <Route path="/calendar" element={user ? <Calendar /> : <Navigate to="/login"/>} />
-        <Route path="/cal" element={user ? <Calendar2/> : <Navigate to="/login"/>} />
-        <Route path="/calForDon" element={user ? <CalendarForDonor/>: <Navigate to="/login"/>}/>
-        <Route path="/donationReqAcc" element={user ? <DonationRequestAccept /> : <Navigate to="/login"/>} />
+        {/* <Route path="/calendar" element={user ? <Calendar /> : <Navigate to="/login"/>} /> */}
+        {/* <Route path="/cal" element={user ? <Calendar2/> : <Navigate to="/login"/>} />
+        <Route path="/calForDon" element={user ? <CalendarForDonor/>: <Navigate to="/login"/>}/> */}
+        <Route path="/donationReqAcc" element={user ? <DonationRequestAccept/> : <Navigate to="/login"/>} />
        
         <Route path="/dash2" element={<Dash2/>}/>
         <Route path="/orgAccount" element={<OrgAccount/>}/>
@@ -177,14 +186,24 @@ function App() {
         <Route path="/tableNewDonor" element={<TableNewDonor/>}/>
         <Route path="/donationSummaryDonor" element={user ? <DonationSummaryDonor/> : <Navigate to="/login"/>}/>
         <Route path="/donationHistory" element={user ? <DonationHistory/> : <Navigate to="/login"/>}/>
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard" element={<Dashboard/>} />
         {/* <Route path="/homeAdmin" element={<HomeAdmin />} /> */}
-        <Route path="/requestSummary" element={user ? <RequestSummary /> : <Navigate to="/login"/>} /> 
-        <Route path="/alart" element={<Alart/>}/>
+        <Route path="/requestSummary" element={user ? <RequestSummary/> : <Navigate to="/login"/>} /> 
         <Route path="/pieDonationType" element={<PieDonationType/>}/>
         <Route path="/adminResDon" element={<AdminResDon/>}/>
         <Route path="/adminInsDon" element={<AdminInsDon/>}/>
         <Route path="/orgs" element={<Orgs/>}/>
+        <Route path="/dateform" element={<DateForm/>}/>
+        {/* <Route path="/calendar2" element={<Calender/>}/> */}
+        <Route path="/popup" element={<PopUp/>}/>
+        {/* <Route path="/calendarNew" element={<CalendarNew  availableSessions={[
+            {
+              Id: 290149,
+              TimeStart: "2023-02-13T07:00:00",
+              TimeEnd: "2023-02-13T10:00:00",
+              Type: 2,
+            },]} setRefreshCalendar={setRefresh}/>}/>
+        CalendarNew  */}
         {/* <Route path="/homeAdmin" element={<HomeAdmin/>}/> */}
         
       </Routes>
