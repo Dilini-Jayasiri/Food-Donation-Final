@@ -397,6 +397,45 @@ app.get("/api/reservedDonation/last",async(req,res) => {
 //        res.send({"dons":"no record found"})
 //        }
 //        });
+app.get('/request/Org/:orgName', async (req, res) => {
+    const { orgName } = req.params;
+    let donarList = [];
+    // console.log(orgName);
+    try {
+        const instDonList = await InstantDonation.find({ orgName: orgName });
+        const resDonList = await ReservedDonation.find({ orgName: orgName });
+
+        
+
+        // Check Whether the Data is Available
+        if(instDonList.length != 0 && resDonList.length != 0){
+            instDonList.forEach(element => {
+                donarList.push(element);
+            });
+
+            resDonList.forEach(element => {
+                donarList.push(element);
+            });
+
+        } else if(resDonList != 0 ){
+            resDonList.forEach(element => {
+                donarList.push(element);
+            });
+        }else if(instDonList.length != 0){
+            instDonList.forEach(element => {
+                donarList.push(element);
+            });
+        }else if(instDonList.length == 0  && resDonList.length == 0){
+            return res.status(404).json({error:'No such donation'})
+        }else{
+            return res.status(404).json({error:'No such donation'})
+        }
+
+      res.status(200).json(donarList)
+    } catch (error) {
+        console.log(error)
+    }
+});
 
     app.get("/api/instantDonation/last",async(req,res) => {
         //   const {user_id} = req.params; 

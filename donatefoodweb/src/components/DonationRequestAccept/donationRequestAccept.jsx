@@ -278,18 +278,25 @@
 
 // export default DonationRequestAccept;
 
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import { useNavigate } from 'react-router'
 import '../../assets/partials/services.scss'
 import Nav from '../../components/Navbar/Navbar'
 import Footer from '../../components/Footer'
-import { Alert } from '@mui/material'
+import { useDonationContext } from '../../components/hoooks/useDonationContext'
+import { useAuthContext } from '../../components/hoooks/useAuthContext'
+//import { Alert } from '@mui/material'
 //import {alert} from '@mobiscroll/react';
 
 
 
-const DonationReqAcc = () => {
+const DonationReqAcc = (props) => {
+    const {orgName} = props;
+    const { donations, dispatch } = useDonationContext()
+    const { user } = useAuthContext()
     const navigate = useNavigate();
+    const [requests,setRequests] = useState([]); 
+    const [dons,setDons] = useState([]); 
 const handleClick = ()=>{
     // <Alert variant="filled" severity="success">
     //     This is a success alert — check it out!
@@ -304,7 +311,55 @@ const handleClick = ()=>{
 //     });
     
 // }
-navigate("/home")
+useEffect(() => {
+    const fetchRequest = async () => {
+        const response = await fetch('/api/lastRequest', {
+            headers: {
+                'Authorization': `Bearer ${user.token}`
+            }
+        })
+           // .then((data) => data.json())
+           .then((data) => data.json())
+           .then((data) => setRequests(data))
+           const json = await response.json()
+  
+        if (response.ok) {
+            dispatch({ type: 'SET_DONATIONS', payload: json })
+            console.log(requests)
+        }
+    }
+    if (user) {
+      fetchRequest()
+    }
+  
+  }, [dispatch, user])
+
+useEffect(() => {
+    const fetchDonations = async () => {
+        const response = await fetch(`/request/Org/:${requests[0].orgName}`, {
+            headers: {
+                'Authorization': `Bearer ${user.token}`
+            }
+        })
+        .then((data) => data.json())
+        .then((data) => setDons(data))
+        const json = await response.json()
+
+        if (response.ok) {
+            dispatch({ type: 'SET_DONATIONS', payload: json })
+        }
+    }
+
+    if (user) {
+        fetchDonations()
+        console.log()
+    }
+
+}, [dispatch, user])
+
+
+
+//navigate("/home")
 
     return (
         <>
@@ -324,13 +379,27 @@ navigate("/home")
 
                             <div class="card-body text-center">
                                 {/* <i className='fa fa-cogs fa-4x mb-4 text-primary'></i> */}
-                                <h2 class="card-title mb-3 fs-4 fw-bold">Samadhi Children's Home</h2>
+                                {/* <h2 class="card-title mb-3 fs-4 fw-bold">Samadhi Children's Home</h2>
                                 <h5>Donor Name : Dilini Jayasiri</h5>
                                 <h5>Donor Address : 115/1, Godella rd,Panadura
                                 </h5>
                                 <p class="card-text lead">If you are like to recive the food donation Please confirm here</p>
                                 <button type="button" class="btn btn-outline-primary btn-sm"><i className="fa fa-check-square" aria-hidden="true"></i> Confirm Request</button>
-                                
+                                 */}
+
+{dons.map(don => (
+   
+   <>
+   <p key={don._id}><strong>Organization Name : </strong>{don.orgName}</p>
+   {/* <p key={don._id}><strong>Organization Email : </strong>{don.orgEmail}</p>
+    <p key={don._id}><strong>Size of thee Organization : </strong>{don.orgSize}</p>
+    <p key={don._id}><strong>Contact : </strong>{don.phone}</p>
+    <p key={don._id}><strong>City : </strong>{don.city}</p>
+    <p key={don._id}><strong>Requested Quantity : </strong>{don.quantity}</p>
+    <p key={don._id}><strong>Organization Type : </strong>{don.orgType}</p>  
+    <p key={don._id}><strong>Meal Type : </strong>{don.mealType}</p> */}
+    </>
+   ))}
                                 
                             </div>
                             
