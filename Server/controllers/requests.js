@@ -1,5 +1,7 @@
 const Request = require('../models/requestSchema');
 const mongoose = require('mongoose')
+const InstDonSchema = require('../models/instantDonationSchema');
+const ResDonSchema = require('../models/reservedDonationSchema');
 
 const createRequest = async (req,res) => {
     const {orgName,orgEmail,orgSize,phone,city,quantity,orgType,reason,mealType,confirmedDate} = req.body
@@ -125,6 +127,35 @@ const updateRequest = async (req,res) => {
     res.status(200).json(request)
 }
 
+
+// Kumesh
+const getOrganizationDonationDetails = async (req, res) => {
+    const { orgName } = req.params
+    let donarList = [];
+    try {
+        const instDonList = await InstDonSchema.find({ orgName: orgName });
+        const resDonList = await ResDonSchema.find({ orgName: orgName });
+
+        // Check Whether the Data is Available
+        if(instDonList){
+            instDonList.forEach(element => {
+                donarList.push(element);
+            });
+        }else if(resDonList){
+            resDonList.forEach(element => {
+                donarList.push(element);
+            });
+        }else if(!instDonList && !resDonList){
+            return res.status(404).json({error:'No such donation'})
+        }else{
+            return res.status(404).json({error:'No such donation'})
+        }
+      res.status(200).json(dons)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 module.exports = {
     createRequest,
    // getRequest,
@@ -132,5 +163,6 @@ module.exports = {
    lastRequest,
     //getRequests,
     deleteRequest,
-    updateRequest
+    updateRequest,
+    getOrganizationDonationDetails
 }

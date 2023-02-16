@@ -178,7 +178,7 @@ useEffect(()=>{
         {/* <Route path="/calendar" element={user ? <Calendar /> : <Navigate to="/login"/>} /> */}
         {/* <Route path="/cal" element={user ? <Calendar2/> : <Navigate to="/login"/>} />
         <Route path="/calForDon" element={user ? <CalendarForDonor/>: <Navigate to="/login"/>}/> */}
-        <Route path="/donationReqAcc" element={user ? <DonationRequestAccept/> : <Navigate to="/login"/>} />
+        <Route path="/donationReqAcc" element={<DonationRequestAccept/>} />
        
         <Route path="/dash2" element={<Dash2/>}/>
         <Route path="/orgAccount" element={<OrgAccount/>}/>

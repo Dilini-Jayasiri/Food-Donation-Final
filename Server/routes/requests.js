@@ -7,7 +7,8 @@ const {
    lastRequest,
     //getRequests,
     deleteRequest,
-    updateRequest
+    updateRequest,
+    getOrganizationDonationDetails
 } = require('../controllers/requests.js');
 
 const router = express.Router();
@@ -32,6 +33,8 @@ router.delete('/:id',deleteRequest)
 
 // //Update a request
 router.patch('/:id',updateRequest)
+
+router.get('/findOrg/:orgName', getOrganizationDonationDetails);
 
 module.exports = router;
 
