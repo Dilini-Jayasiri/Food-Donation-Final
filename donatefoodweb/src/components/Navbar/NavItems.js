@@ -7,8 +7,8 @@ export const navItems1 = [
     },
     {
         id:2,
-        title:"Contact",
-        path:"/contact",
+        title:"Contribution",
+        path:"/contribution",
         cName:"nav-item",
     },
     {
@@ -35,8 +35,8 @@ export const navItems2 = [
     },
     {
         id:2,
-        title:"Contact",
-        path:"/contact",
+        title:"Contribution",
+        path:"/contribution",
         cName:"nav-item",
     },
     {
@@ -63,8 +63,8 @@ export const navItems3 = [
     },
     {
         id:2,
-        title:"Contact",
-        path:"/contact",
+        title:"Contribution",
+        path:"/contribution",
         cName:"nav-item",
     },
     // {

@@ -4,8 +4,8 @@ import NavBar from './components/NavBar';
 import Nav from './components/Navbar/Navbar'
 import Navbarmenu from './components/NavbarMenu';
 import Home from './components/Home';
+import Contribution from './pages/contribution/pages/Dashboard/dashboard';
 import About from './components/About';
-import Footer from './components/Footer';
 import Login from './components/Login';
 import Register from './components/Register';
 import DonateDash from './components/DonateDash';
@@ -37,7 +37,7 @@ import Modal from 'react-modal';
 import DonationRequestAccept from './components/DonationRequestAccept/donationRequestAccept';
 import RequestSummary from './components/DonationRequestAccept/RequestSummary';
 import Dashboard from './adminSide/pages/Dashboard/dashboard';
-import Dash2 from './adminSide/pages/Dashboard/dash2';
+//import Dash2 from './adminSide/pages/Dashboard/dash2';
 //import Calendar2 from './Calendar/cal';
 import requestActions from '../src/pages/Requests/RequestActions';
 //import CalendarForDonor from '../src/pages/Requests/CalendarForDonor';
@@ -136,10 +136,8 @@ useEffect(()=>{
         <Route path="/home" element={<Home/>} />
         <Route path="/about" element={<About/>} />
         <Route path="/services" element={<Services/>} />
-        <Route path="/contact" element={<Contact/>} />
-                
-        { /* <Route element={<ProtectedRoutes/>}>
-            
+        <Route path="/contact" element={<Contact/>} />            
+        { /* <Route element={<ProtectedRoutes/>}>          
             <Route  path="/donateDash" element={<DonateDash/>} auth={auth}/>
             <Route  path="/donationForm" element={<DonationForm/>} auth={auth}/>
             <Route  path="/instantDonation" element={<InstantDonation/>} auth={auth}/>
@@ -151,10 +149,6 @@ useEffect(()=>{
             <Route  path="/logout" element={<Logout/>} auth={auth}/>
             <Route path="/orgList" element={<OrgList/>} auth={auth}/>
             </Route>  */}
-
-
-
-
         <Route path="/donateDash" element={<DonateDash/>}/>
         <Route path="/donationForm" element={<DonationForm/>} />
         <Route path="/instantDonation" element={user ? <InstantDonation/>: <Navigate to="/login"/>}/>
@@ -169,7 +163,6 @@ useEffect(()=>{
         <Route path="/donationSummaryIns" element={<DonationSummaryInstant/>} />
         <Route path="/donationSummaryRes" element={<DonationSummaryReserved/>}/>
         <Route path="/donationSummaryComm" element={<DonationSummaryCommon/>}/>
-        
         {/* <Route path="/donSum" element={<DonationSummary2/>} /> */}
         <Route path="/inst" element={<Inst/>} />
         <Route path="/acceptPage" element={user ? <AcceptPage/> : <Navigate to="/login"/>} />
@@ -178,9 +171,9 @@ useEffect(()=>{
         {/* <Route path="/calendar" element={user ? <Calendar /> : <Navigate to="/login"/>} /> */}
         {/* <Route path="/cal" element={user ? <Calendar2/> : <Navigate to="/login"/>} />
         <Route path="/calForDon" element={user ? <CalendarForDonor/>: <Navigate to="/login"/>}/> */}
-        <Route path="/donationReqAcc" element={user ? <DonationRequestAccept/> : <Navigate to="/login"/>} />
+        <Route path="/donationReqAcc" element={<DonationRequestAccept/>}/>
        
-        <Route path="/dash2" element={<Dash2/>}/>
+        {/* <Route path="/dash2" element={<Dash2/>}/> */}
         <Route path="/orgAccount" element={<OrgAccount/>}/>
         <Route path="" element={<Home/>}/>
         <Route path="/tableNewDonor" element={<TableNewDonor/>}/>
@@ -196,6 +189,7 @@ useEffect(()=>{
         <Route path="/dateform" element={<DateForm/>}/>
         {/* <Route path="/calendar2" element={<Calender/>}/> */}
         <Route path="/popup" element={<PopUp/>}/>
+        <Route path="/contribution" element={<Contribution/>}/>
         {/* <Route path="/calendarNew" element={<CalendarNew  availableSessions={[
             {
               Id: 290149,
@@ -207,17 +201,10 @@ useEffect(()=>{
         {/* <Route path="/homeAdmin" element={<HomeAdmin/>}/> */}
         
       </Routes>
-
-
-
-
       {/* <ProtectedRoute> */}
       {/* <Route exact path='/' element={<ProtectedRoute/>}>
-      
      <Route  path="/donateDash" element={<DonateDash/>} auth={auth}/>
-
      </Route> */}
-
       {/* <Route exact path='/' element={<ProtectedRoute/>}> */}
       {/* <Route  path="/donationForm" element={<DonationForm/>} auth={auth}/>
      </Route>
@@ -245,10 +232,7 @@ useEffect(()=>{
      <Route exact path='/' element={<ProtectedRoute/>}>
      <Route path="/orgList" element={<OrgList/>} auth={auth}/> 
      </Route> */}
-
-
       {/* <ProtectedRoute  path="/register" element={<Register/>} auth={auth1}/> */}
-
       {/* <ProtectedRoute  path="/donateDash" element={<DonateDash/>} auth={auth}/>
      <ProtectedRoute  path="/donationForm" element={<DonationForm/>} auth={auth}/>
      <ProtectedRoute  path="/instantDonation" element={<InstantDonation/>} auth={auth}/>
@@ -260,8 +244,6 @@ useEffect(()=>{
      <ProtectedRoute  path="/logout" element={<Logout/>} auth={auth}/>
      <ProtectedRoute path="/orgList" element={<OrgList/>} auth={auth}/>
       */}
-
-
       {/* <Home/>
    <About/> */}
       {/* </ProtectedRoute> */}
