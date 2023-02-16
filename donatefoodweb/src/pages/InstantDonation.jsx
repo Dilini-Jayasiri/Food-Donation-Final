@@ -436,7 +436,7 @@ export default function InstantDonation(props) {
                                                     <em>None</em>
                                                 </MenuItem>
                                                 {donations && donations.map((org) => (
-                                                    <MenuItem value={org.orgName} key={org._id}>{org.orgName}</MenuItem>
+                                                    <MenuItem value={org.orgEmail} key={org._id}>{org.orgName}</MenuItem>
                                                 ))}
 
 

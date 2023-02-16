@@ -78,8 +78,7 @@ const requestSchema = new mongoose.Schema({
         foodType: {
             type: String
         }
-    }
- 
+    } 
 },{timestamps:true})
 
 
