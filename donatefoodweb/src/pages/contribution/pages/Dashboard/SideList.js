@@ -14,9 +14,9 @@ import { Route, Routes, useNavigate } from 'react-router';
 import { useMemo } from 'react';
 import { DashboardCustomize, FoodBank, NotificationAdd, People, PeopleAlt,ChevronLeft } from '@mui/icons-material';
 
-import InstantDonors from './instantdonors/InstantDonors';
-import ReservedDonors from './ReservedDonors/ReservedDonors';
-import Organizations from './Organizations/Organizations';
+// import InstantDonors from './instantdonors/InstantDonors';
+// import ReservedDonors from './ReservedDonors/ReservedDonors';
+// import Organizations from './Organizations/Organizations';
 import Main from './main/Main';
 const drawerWidth = 260;
 
@@ -72,9 +72,9 @@ const SideList = ({open,setOpen}) => {
 const {selectedLink,setSelectedLink} = useState('')
 const list = useMemo(()=>[
 {title:'Main',icon:<DashboardCustomize/>,link:'',component:<Main {...{setSelectedLink,link:''}}/>},
-{title:'Instant Donations',icon:<PeopleAlt/>,link:'',component:<InstantDonors {...{setSelectedLink,link:''}}/>},
-{title:'Reserved Donations',icon:<FoodBank/>,link:'',component:<ReservedDonors {...{setSelectedLink,link:''}}/>},
-{title:'Organizations',icon:<NotificationAdd/>,link:'',component:<Organizations {...{setSelectedLink,link:''}}/>},
+// {title:'Instant Donations',icon:<PeopleAlt/>,link:'',component:<InstantDonors {...{setSelectedLink,link:''}}/>},
+// {title:'Reserved Donations',icon:<FoodBank/>,link:'',component:<ReservedDonors {...{setSelectedLink,link:''}}/>},
+// {title:'Organizations',icon:<NotificationAdd/>,link:'',component:<Organizations {...{setSelectedLink,link:''}}/>},
 ],[]);
     const navigate = useNavigate()
   return (
