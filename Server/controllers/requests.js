@@ -130,27 +130,28 @@ const updateRequest = async (req,res) => {
 
 // Kumesh
 const getOrganizationDonationDetails = async (req, res) => {
-    const { orgName } = req.params
+    const { orgName } = req.params;
     let donarList = [];
+    console.log(orgName);
     try {
-        const instDonList = await InstDonSchema.find({ orgName: orgName });
-        const resDonList = await ResDonSchema.find({ orgName: orgName });
+        // const instDonList = await InstDonSchema.find({ orgName: orgName });
+        // const resDonList = await ResDonSchema.find({ orgName: orgName });
 
-        // Check Whether the Data is Available
-        if(instDonList){
-            instDonList.forEach(element => {
-                donarList.push(element);
-            });
-        }else if(resDonList){
-            resDonList.forEach(element => {
-                donarList.push(element);
-            });
-        }else if(!instDonList && !resDonList){
-            return res.status(404).json({error:'No such donation'})
-        }else{
-            return res.status(404).json({error:'No such donation'})
-        }
-      res.status(200).json(dons)
+        // // Check Whether the Data is Available
+        // if(instDonList){
+        //     instDonList.forEach(element => {
+        //         donarList.push(element);
+        //     });
+        // }else if(resDonList){
+        //     resDonList.forEach(element => {
+        //         donarList.push(element);
+        //     });
+        // }else if(!instDonList && !resDonList){
+        //     return res.status(404).json({error:'No such donation'})
+        // }else{
+        //     return res.status(404).json({error:'No such donation'})
+        // }
+      res.status(200).json(orgName)
     } catch (error) {
         console.log(error)
     }

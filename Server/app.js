@@ -18,6 +18,8 @@ const port = process.env.PORT;
 //Require Model
 const Users = require('./models/userSchema');
 const Message = require('./models/msgSchema');
+const InstDonSchema = require('./models/instantDonationSchema');
+const ResDonSchema = require('./models/reservedDonationSchema');
 
 const Request = require('./models/requestSchema');
 const ReservedDonation = require('./models/reservedDonationSchema');
@@ -493,6 +495,47 @@ app.get('/logout', (req,res) =>{
     res.clearCookie("jwt",{path : '/'})
     res.status(200).send("User Logged Out")
 })
+
+
+app.get('/request/Org/:orgName', async (req, res) => {
+    const { orgName } = req.params;
+    let donarList = [];
+    // console.log(orgName);
+    try {
+        const instDonList = await InstDonSchema.find({ orgName: orgName });
+        const resDonList = await ResDonSchema.find({ orgName: orgName });
+
+        
+
+        // Check Whether the Data is Available
+        if(instDonList.length != 0 && resDonList.length != 0){
+            instDonList.forEach(element => {
+                donarList.push(element);
+            });
+
+            resDonList.forEach(element => {
+                donarList.push(element);
+            });
+
+        } else if(resDonList != 0 ){
+            resDonList.forEach(element => {
+                donarList.push(element);
+            });
+        }else if(instDonList.length != 0){
+            instDonList.forEach(element => {
+                donarList.push(element);
+            });
+        }else if(instDonList.length == 0  && resDonList.length == 0){
+            return res.status(404).json({error:'No such donation'})
+        }else{
+            return res.status(404).json({error:'No such donation'})
+        }
+
+      res.status(200).json(donarList)
+    } catch (error) {
+        console.log(error)
+    }
+});
 
 //Authentication
 app.get('/auth', authenticate, (req,res) => {
