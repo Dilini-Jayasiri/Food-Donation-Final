@@ -291,12 +291,18 @@ import { useAuthContext } from '../../components/hoooks/useAuthContext'
 
 
 const DonationReqAcc = (props) => {
+
     const {orgName} = props;
     const { donations, dispatch } = useDonationContext()
     const { user } = useAuthContext()
     const navigate = useNavigate();
-    const [requests,setRequests] = useState([]); 
-    const [dons,setDons] = useState([]); 
+
+
+    // const [requests,setRequests] = useState([]); 
+    const [ requestData, setRequestData ] = useState([]);
+    const [ dons, setDons ] = useState([]);
+
+
 const handleClick = ()=>{
     // <Alert variant="filled" severity="success">
     //     This is a success alert — check it out!
@@ -311,51 +317,102 @@ const handleClick = ()=>{
 //     });
     
 // }
+
+const GetDonnerData = async () => {
+    let response  = await fetch(`request/Org/${requestData[0].orgEmail}`, {
+        headers : {
+            'Authorization': `Bearer ${user.token}`
+        }
+    })
+    .then((data) => data.json())
+    .then((data) => setDons(data))
+    .catch((error) => console.log(error))
+    const json = await response.json()
+    if (response.ok) {
+                        dispatch({ type: 'SET_DONATIONS', payload: json })
+                    }
+    
+    // const response = await fetch( `request/Org/${requestData[0].orgEmail}` , {
+    //                 headers: {
+    //                     'Authorization': `Bearer ${user.token}`
+    //                 }
+    //             })
+    //             .then((data) => data.json())
+    //             .then((data) => setDons(data))
+    //             .catch((error) => console.log(error) )
+    //             const json = await response.json()
+        
+    //             if (response.ok) {
+    //                 dispatch({ type: 'SET_DONATIONS', payload: json })
+    //             }
+    //         }
+}
+
+
+// Getting Last Details
 useEffect(() => {
     const fetchRequest = async () => {
         const response = await fetch('/api/lastRequest', {
             headers: {
-                'Authorization': `Bearer ${user.token}`
+                'Authorization' : `Bearer ${user.token}`
             }
         })
            // .then((data) => data.json())
            .then((data) => data.json())
-           .then((data) => setRequests(data))
-           const json = await response.json()
+           .then((data) => {
+              setRequestData(data, () => { console.log( "Set Data from API Requests",data) });
+            })
+           .catch((error) => console.log(error))
+        //    console.log("Request Data from API  -> ", requests)
+        //    const json = await response.json()
+       
+
   
-        if (response.ok) {
-            dispatch({ type: 'SET_DONATIONS', payload: json })
-            console.log(requests)
-        }
+        // if (response.ok) {
+        //     dispatch({ type: 'SET_DONATIONS', payload: json })
+        //     console.log("Request Data -> ",requests)
+        // }
     }
+
+
     if (user) {
       fetchRequest()
-    }
+    }  
+  }, []);
+
+
+  GetDonnerData();
+
   
-  }, [dispatch, user])
 
-useEffect(() => {
-    const fetchDonations = async () => {
-        const response = await fetch(`/request/Org/:${requests[0].orgName}`, {
-            headers: {
-                'Authorization': `Bearer ${user.token}`
-            }
-        })
-        .then((data) => data.json())
-        .then((data) => setDons(data))
-        const json = await response.json()
 
-        if (response.ok) {
-            dispatch({ type: 'SET_DONATIONS', payload: json })
-        }
-    }
+  // Donar Details
 
-    if (user) {
-        fetchDonations()
-        console.log()
-    }
 
-}, [dispatch, user])
+// useEffect(() => {
+//     const fetchDonations = async () => {
+//         // console.log(`request/Org/${requestData[0].orgName}`);
+//         const response = await fetch( `request/Org/${requestData[0].orgName}` , {
+//             headers: {
+//                 'Authorization': `Bearer ${user.token}`
+//             }
+//         })
+//         .then((data) => data.json())
+//         .then((data) => setDons(data))
+//         .catch((error) => console.log(error) )
+//         const json = await response.json()
+
+//         if (response.ok) {
+//             dispatch({ type: 'SET_DONATIONS', payload: json })
+//         }
+//     }
+
+//     if (user) {
+//         fetchDonations()
+//         console.log()
+//     }
+
+// }, [dispatch, user])
 
 
 
@@ -375,31 +432,24 @@ useEffect(() => {
                 </div>
                 <div className='row mt-5'>
                     <div className="col-md-6">
-                        <div class="card p-3">
+                        <div>
 
-                            <div class="card-body text-center">
-                                {/* <i className='fa fa-cogs fa-4x mb-4 text-primary'></i> */}
-                                {/* <h2 class="card-title mb-3 fs-4 fw-bold">Samadhi Children's Home</h2>
-                                <h5>Donor Name : Dilini Jayasiri</h5>
-                                <h5>Donor Address : 115/1, Godella rd,Panadura
-                                </h5>
-                                <p class="card-text lead">If you are like to recive the food donation Please confirm here</p>
-                                <button type="button" class="btn btn-outline-primary btn-sm"><i className="fa fa-check-square" aria-hidden="true"></i> Confirm Request</button>
-                                 */}
+                            <div>
 
-{dons.map(don => (
-   
-   <>
-   <p key={don._id}><strong>Organization Name : </strong>{don.orgName}</p>
-   {/* <p key={don._id}><strong>Organization Email : </strong>{don.orgEmail}</p>
-    <p key={don._id}><strong>Size of thee Organization : </strong>{don.orgSize}</p>
-    <p key={don._id}><strong>Contact : </strong>{don.phone}</p>
-    <p key={don._id}><strong>City : </strong>{don.city}</p>
-    <p key={don._id}><strong>Requested Quantity : </strong>{don.quantity}</p>
-    <p key={don._id}><strong>Organization Type : </strong>{don.orgType}</p>  
-    <p key={don._id}><strong>Meal Type : </strong>{don.mealType}</p> */}
-    </>
-   ))}
+                                {dons.map((don, index) => (
+                                    <div class="card p-3 m-2">
+                                        <div class="card-body text-center">
+                                                <p key={index}><strong>Organization Name : </strong>{don.donorName}</p>
+                                                <p key={don._id}><strong>Organization Email : </strong>{don.orgEmail}</p>
+                                                <p key={don._id}><strong>Size of thee Organization : </strong>{don.orgSize}</p>
+                                                <p key={don._id}><strong>Contact : </strong>{don.phone}</p>
+                                                <p key={don._id}><strong>City : </strong>{don.area? don.area : don.district}</p>
+                                                <p key={don._id}><strong>Requested Quantity : </strong>{don.quantity}</p>
+                                                <p key={don._id}><strong>Organization Type : </strong>{don.orgType}</p>  
+                                                <p key={don._id}><strong>Meal Type : </strong>{don.mealType}</p>
+                                        </div>
+                                    </div>
+                                ))}
                                 
                             </div>
                             
