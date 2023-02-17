@@ -336,7 +336,7 @@ useEffect(() => {
 
 useEffect(() => {
     const fetchDonations = async () => {
-        const response = await fetch(`/request/Org/:${requests[0].orgName}`, {
+        const response = await fetch(`/request/Org/${requests[0].orgName}`, {
             headers: {
                 'Authorization': `Bearer ${user.token}`
             }
@@ -387,17 +387,17 @@ useEffect(() => {
                                 <button type="button" class="btn btn-outline-primary btn-sm"><i className="fa fa-check-square" aria-hidden="true"></i> Confirm Request</button>
                                  */}
 
-{dons.map(don => (
+{(dons) && dons.map(don => (
    
    <>
-   <p key={don._id}><strong>Organization Name : </strong>{don.orgName}</p>
-   {/* <p key={don._id}><strong>Organization Email : </strong>{don.orgEmail}</p>
-    <p key={don._id}><strong>Size of thee Organization : </strong>{don.orgSize}</p>
+   {/* <p key={don._id}><strong>Organization Name : </strong>{don.orgName}</p> */}
+    <p key={don._id}><strong>Organization Email : </strong>{don.orgEmail}</p> 
+    {/* <p key={don._id}><strong>Size of thee Organization : </strong>{don.orgSize}</p>
     <p key={don._id}><strong>Contact : </strong>{don.phone}</p>
     <p key={don._id}><strong>City : </strong>{don.city}</p>
     <p key={don._id}><strong>Requested Quantity : </strong>{don.quantity}</p>
     <p key={don._id}><strong>Organization Type : </strong>{don.orgType}</p>  
-    <p key={don._id}><strong>Meal Type : </strong>{don.mealType}</p> */}
+    <p key={don._id}><strong>Meal Type : </strong>{don.mealType}</p> */} 
     </>
    ))}
                                 
