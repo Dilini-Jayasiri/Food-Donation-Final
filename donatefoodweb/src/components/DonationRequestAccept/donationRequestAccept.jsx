@@ -285,10 +285,19 @@ import Nav from '../../components/Navbar/Navbar'
 import Footer from '../../components/Footer'
 import { useDonationContext } from '../../components/hoooks/useDonationContext'
 import { useAuthContext } from '../../components/hoooks/useAuthContext'
+import emailjs from '@emailjs/browser';
+import { Box } from '@mui/material';
+import { NavLink } from 'react-router-dom';
+import GradientButton from 'react-linear-gradient-button'
 //import { Alert } from '@mui/material'
 //import {alert} from '@mobiscroll/react';
 
-
+const navLinkStyles = () => {
+    return {
+        textDecoration: 'none',
+        width: '50%'
+    }
+}
 
 const DonationReqAcc = (props) => {
 
@@ -303,11 +312,20 @@ const DonationReqAcc = (props) => {
     const [ dons, setDons ] = useState([]);
 
 
-const handleClick = ()=>{
+const handleSubmit = async(event)=>{
+    event.preventDefault();
     // <Alert variant="filled" severity="success">
     //     This is a success alert — check it out!
     //   </Alert>
     //navigate("/alart")
+     emailjs.send('service_4myyg6h', 'template_xge57pr', dons, 'AGKmDLzp5SojZrssC')
+        .then(response => {
+            console.log('Success',response);
+            console.log("Message sent")
+        },error => {
+            console.log('Failed...',error)
+            console.log("message not sent")
+        })
 }
 
 // const showAlert = () => {
@@ -439,14 +457,25 @@ useEffect(() => {
                                 {dons.map((don, index) => (
                                     <div class="card p-3 m-2">
                                         <div class="card-body text-center">
-                                                <p key={index}><strong>Organization Name : </strong>{don.donorName}</p>
-                                                <p key={don._id}><strong>Organization Email : </strong>{don.orgEmail}</p>
-                                                <p key={don._id}><strong>Size of thee Organization : </strong>{don.orgSize}</p>
-                                                <p key={don._id}><strong>Contact : </strong>{don.phone}</p>
-                                                <p key={don._id}><strong>City : </strong>{don.area? don.area : don.district}</p>
-                                                <p key={don._id}><strong>Requested Quantity : </strong>{don.quantity}</p>
-                                                <p key={don._id}><strong>Organization Type : </strong>{don.orgType}</p>  
-                                                <p key={don._id}><strong>Meal Type : </strong>{don.mealType}</p>
+                                                <p key={index}><strong>Donor Name : </strong>{don.donorName}</p>
+                                                <p key={index}><strong>Donor Email : </strong>{don.donEmail}</p>  
+                                                <p key={index}><strong>Contact : </strong>{don.phone}</p>
+                                                <p key={index}><strong>City : </strong>{don.area? don.area : don.district}</p>
+                                                <p key={index}><strong>Requested Quantity : </strong>{don.quantity}</p>
+                                                <p key={index}><strong>Donor Address : </strong>{don.address}</p>  
+                                                <p key={index}><strong>Time passed after preparing meal(Instant Donation) or Date(Reserved Donation): </strong>{don.oldFood? don.oldFood: don.date}</p>
+                                                <p class="card-text lead">If you are like to recive the food donation Please confirm here</p>
+                                                <div>
+                                <Box my={5} mx={12}>
+                                    <NavLink style={navLinkStyles} to="/donationSummaryRes">
+                                        <GradientButton style={{ width:'100%', backgroundImage: `linear-gradient(to right, #1abc9c 50%, #16a085 100%)`, }}
+                                            onClick={handleSubmit}
+                                            type="submit"
+                                            text="Submit"
+                                        > Submit <i className="fa fa-paper-plane ms-2"></i></GradientButton>
+                                    </NavLink>
+                                </Box>
+                            </div>
                                         </div>
                                     </div>
                                 ))}

@@ -4,12 +4,20 @@ import React, { useEffect } from 'react'
 import Box from '@mui/material/Box';
 import PieDonationType from './PieDonationType';
 import AreaSummary from './AreaSummary';
+import Button from '../../../../../components/controls/Button';
+import ActionButton from '../../../../../components/controls/ActionButton';
+import { useNavigate } from 'react-router';
 // import TableNewDonor from '../../../../pages/Requests/TableNewDonor'
 // import ReservedDonors from '../ReservedDonors/ReservedDonors'
 // import InstantDonors from '../instantdonors/InstantDonors'
 // import Organizations from '../Organizations/Organizations';
 
+
 const Main = ({setSelectedLink,link}) => {
+    const navigate = useNavigate();
+    const handleSubmit = () => {
+      navigate('/commDonList');
+    }
     // useEffect(()=>{
     //     setSelectedLink(link);
     // },[]);
@@ -54,6 +62,17 @@ const Main = ({setSelectedLink,link}) => {
 
        </Paper>
        <Paper elevation={3} sx={{p:2,gridColumn:3,gridRow:'1/4',width:'90%'}}>
+       <Box>
+       <Typography variant='h6'>Pending Donation Requests</Typography>
+             <Button // variant="contained"
+                              // color="primary"
+                             // size="large"
+                            onClick={handleSubmit}
+                            type="submit"
+                            text="See More"/>
+                            </Box>
+        <Divider sx={{mt:3,mb:3,opacity:0.7}}/>
+        
         <Box>
             <Typography variant='h6'>Most Popular Donation Type</Typography>
             <h9>Reserved Donation</h9>

@@ -12,26 +12,28 @@ import { Brightness4, Brightness7, Home, Menu } from '@mui/icons-material';
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SideList from './SideList';
+import Nav from '../../../../components/Navbar/Navbar';
+import Footer from '../../../../components/Footer';
 // import NavBar from '../../components/NavBar';
 const drawerWidth = 260;
 
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(['width', 'margin'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
+// const AppBar = styled(MuiAppBar, {
+//   shouldForwardProp: (prop) => prop !== 'open',
+// })(({ theme, open }) => ({
+//   zIndex: theme.zIndex.drawer + 1,
+//   transition: theme.transitions.create(['width', 'margin'], {
+//     easing: theme.transitions.easing.sharp,
+//     duration: theme.transitions.duration.leavingScreen,
+//   }),
+//   ...(open && {
+//     marginLeft: drawerWidth,
+//     width: `calc(100% - ${drawerWidth}px)`,
+//     transition: theme.transitions.create(['width', 'margin'], {
+//       easing: theme.transitions.easing.sharp,
+//       duration: theme.transitions.duration.enteringScreen,
+//     }),
+//   }),
+// }));
 
 export default function Dashboard() {
   const [open, setOpen] = useState(false);
@@ -41,58 +43,61 @@ export default function Dashboard() {
     () =>
       createTheme({
         palette: {
-          mode: dark ? 'dark' : 'light',
+          mode: dark ? 'light' : 'light',
         },
       }),
     [dark]
   );
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
+  // const handleDrawerOpen = () => {
+  //   setOpen(true);
+  // };
 
   const navigate = useNavigate();
   return (
     <>
     {/* <NavBar/> */}
+    
     <ThemeProvider theme={darkTheme}>
+      <Nav/>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <AppBar open={open}>
+        {/* <AppBar open={open}> */}
           <Toolbar>
             <IconButton
               color="inherit"
               aria-label="open drawer"
-              onClick={handleDrawerOpen}
+              // onClick={handleDrawerOpen}
               edge="start"
               sx={{
                 marginRight: 5,
                 ...(open && { display: 'none' }),
               }}
             >
-              <Menu />
+              {/* <Menu /> */}
             </IconButton>
-            <Tooltip title="Go back to home page">
+            {/* <Tooltip title="Go back to home page">
               <IconButton sx={{ mr: 1 }} onClick={() => navigate('/')}>
                 <Home />
               </IconButton>
-            </Tooltip>
-            <Typography
+            </Tooltip> */}
+            {/* <Typography
               variant="h6"
               noWrap
               component="div"
               sx={{ flexGrow: 1 }}
             >
               Dashboard
-            </Typography>
-            <IconButton onClick={() => setDark(!dark)}>
+            </Typography> */}
+            {/* <IconButton onClick={() => setDark(!dark)}>
               {dark ? <Brightness7 /> : <Brightness4 />}
-            </IconButton>
+            </IconButton> */}
           </Toolbar>
-        </AppBar>
+        {/* </AppBar> */}
         <SideList {...{ open, setOpen }} />
       </Box>
     </ThemeProvider>
+    <Footer/>
     </>
   );
 }

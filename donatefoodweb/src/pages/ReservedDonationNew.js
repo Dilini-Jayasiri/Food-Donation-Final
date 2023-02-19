@@ -123,7 +123,6 @@ export default function ReservedDonationNew() {
     }
     const handleSubmit = async (event) => {
         event.preventDefault();
-
         if (!user) {
             setFormErrors('You must be logged in')
             return
@@ -131,8 +130,8 @@ export default function ReservedDonationNew() {
         setFormErrors(validate(values));
         if (validate()) {
             setIsSubmit(true)
-            navigate('/donationSummary')
-        }
+            navigate('/commDonList')
+        } 
         // emailjs.send('service_4myyg6h', 'template_ms3zy5j', values, 'AGKmDLzp5SojZrssC')
         // .then(response => {
         //     console.log('Success',response);
@@ -180,7 +179,7 @@ export default function ReservedDonationNew() {
         if (Object.keys(formErrors).length === 0 && isSubmit) {
             console.log(values)
         }
-    }, [formErrors])
+    },[formErrors])
 
     return (
         <>

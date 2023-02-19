@@ -26,7 +26,7 @@ const Main = ({setSelectedLink,link}) => {
     }} >
        <Paper elevation={3} sx={{p:4,width:'90%'}}>
         <Typography variant='h4'>Total Organizations</Typography>
-        <Box 
+        {/* <Box 
          sx={{
             display:'flex',
             alignItems:'center',
@@ -35,7 +35,7 @@ const Main = ({setSelectedLink,link}) => {
             <Group sx={{height:100,width:100,opacity:0.3,mr:2}}/>
             <Typography variant='h4'>10</Typography>
 
-        </Box>
+        </Box> */}
 
        </Paper>
 

@@ -1,5 +1,7 @@
 
 import './App.css';
+import { useEffect, useState } from 'react';
+import Modal from 'react-modal';
 import NavBar from './components/NavBar';
 import Nav from './components/Navbar/Navbar'
 import Navbarmenu from './components/NavbarMenu';
@@ -17,14 +19,10 @@ import Contact from './components/Contact';
 import Logout from './components/Logout';
 import OrgList from './pages/OrgList';
 import DonationSummaryReserved from './pages/DonorAccount/DonationSummaryReserved';
-import DonationSummaryInstant from './pages/DonorAccount/DonationSummaryReserved';
+import DonationSummaryInstant from './pages/DonorAccount/DonationSummaryInstant';
 import DonationSummaryCommon from './pages/DonorAccount/DonationSummaryCommon';
 import ReceiverAccount from '../src/pages/ReciverAccount';
-// import DonationSummaryInstant from './Profile/DonationSummaryInstant';
-import ProtectedRoutes from './ProtectedRoutes';
-import Requests from './pages/Requests/TableNew';
 import RequestForm from './pages/Requests/RequestForm';
-import { useEffect, useState } from 'react';
 import InstantDonation from './pages/InstantDonation';
 import ReservedDonation from './pages/ReservedDonation';
 import ReservedDonationNew from './pages/ReservedDonationNew';
@@ -32,8 +30,8 @@ import DonorAccount from './pages/DonorAccount/DonorAccount';
 import TableNew from './pages/Requests/TableNew';
 import Inst from './pages/InstantDon';
 import AcceptPage from './AcceptPage';
+import CommonDonationList from './pages/CommonDonationList';
 //import Calendar from './Calendar/calendar';
-import Modal from 'react-modal';
 import DonationRequestAccept from './components/DonationRequestAccept/donationRequestAccept';
 import RequestSummary from './components/DonationRequestAccept/RequestSummary';
 import Dashboard from './adminSide/pages/Dashboard/dashboard';
@@ -112,17 +110,9 @@ function App() {
 // },[])
 const [refresh,setRefresh] = useState(false);
 
-useEffect(()=>{
-  setRefresh(!refresh)
-},[refresh]);
-
-  if (roleType === 'admin') {
-    return (
-      <div>
-        
-      </div>
-    );
-  }else{
+// useEffect(()=>{
+//   setRefresh(!refresh)
+// },[refresh]);
   return (
     <>
     
@@ -190,6 +180,8 @@ useEffect(()=>{
         {/* <Route path="/calendar2" element={<Calender/>}/> */}
         <Route path="/popup" element={<PopUp/>}/>
         <Route path="/contribution" element={<Contribution/>}/>
+        <Route path="/commDonList" element={<CommonDonationList/>}/>
+        
         {/* <Route path="/calendarNew" element={<CalendarNew  availableSessions={[
             {
               Id: 290149,
@@ -250,7 +242,7 @@ useEffect(()=>{
       {/* <Footer/>  */}
     </>
   );
-  }
+  
 }
 
 export default App;

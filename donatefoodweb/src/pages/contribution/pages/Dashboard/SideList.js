@@ -80,14 +80,14 @@ const list = useMemo(()=>[
   return (
    <>
    
-     <Drawer variant="permanent" open={open}>
-        <DrawerHeader>
+     {/* <Drawer variant="permanent" open={open}> */}
+        {/* <DrawerHeader>
           <IconButton onClick={()=>setOpen(false)}>
            <ChevronLeft /> 
           </IconButton>
         </DrawerHeader>
-        <Divider />
-        <List>
+        <Divider /> */}
+        {/* <List>
           {list.map((item) => (
             <ListItem key={item.title} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
@@ -99,7 +99,7 @@ const list = useMemo(()=>[
                 onClick={()=>navigate(item.link)}
                 selected={selectedLink===item.link}
               >
-                <ListItemIcon
+                {/* <ListItemIcon
                   sx={{
                     minWidth: 0,
                     mr: open ? 3 : 'auto',
@@ -107,13 +107,13 @@ const list = useMemo(()=>[
                   }}
                 >
                   {item.icon}
-                </ListItemIcon>
-                <ListItemText primary={item.title} sx={{ opacity: open ? 1 : 0 }} />
+                </ListItemIcon> */}
+                {/* <ListItemText primary={item.title} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
           ))}
-        </List>
-        <Divider />
+        </List> */} 
+        {/* <Divider /> */}
         {/* <Box sx={{mx:'auto',mt:3,mb:1}}>
             <Tooltip title={orgs?.orgName || ''}></Tooltip>
             
@@ -123,9 +123,9 @@ const list = useMemo(()=>[
             <Typography variant='body2'>{orgs?.orgEmail}</Typography>
 
         </Box> */}
-      </Drawer>
+      {/* </Drawer> */}
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <DrawerHeader />
+        {/* <DrawerHeader /> */}
         <Routes>
             {list.map(item=>(
                 <Route key={item.title} path={item.link} element={item.component}/>

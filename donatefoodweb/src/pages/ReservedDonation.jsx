@@ -41,34 +41,6 @@ const foodTypeItems = [
     { id: 'both', title: 'Both' }
 ]
 
-// const districs = [
-//     { id : 'Ampara',title:'Ampara'},
-//     { id : 'Anuradhapura',title:'Anuradhapura'},
-//     { id : 'Badulla',title:'Badulla'},
-//     { id : 'Batticaloa',title:'Batticaloa'},
-//     { id : 'Colombo',title:'Colombo'},
-//     { id : 'Galle',title:'Galle'},
-//     { id : 'Gampaha',title:'Gampaha'},
-//     { id : 'Hambantota',title:'Hambantota'},
-//     { id : 'Jaffna',title:'Jaffna'},
-//     { id : 'Kalutara',title:'Kalutara'},
-//     { id : 'Kandy',title:'Kandy'},
-//     { id : 'Kegalle',title:'Kegalle'},
-//     { id : 'Kilinochchi',title:'Kilinochchi'},
-//     { id : 'Kurunegala',title:'Kurunegala'},
-//     { id : 'Mannar',title:'Mannar'},
-//     { id : 'Matale',title:'Matale'},
-//     { id : 'Matara',title:'Matara'},
-//     { id : 'Monaragala',title:'Monaragala'},
-//     { id : 'Mullaitivu',title:'Mullaitivu'},
-//     { id : 'Nuwara Eliya',title:'Nuwara Eliya'},
-//     { id : 'Polonnaruwa',title:'Polonnaruwa'},
-//     { id : 'Puttalam',title:'Puttalam'},
-//     { id : 'Ratnapura',title:'Ratnapura'},
-//     { id : 'Trincomalee',title:'Trincomalee'},
-//     { id : 'Vavuniya',title:'Vavuniya'}
-// ]
-
 const initialValues = {
 
     donorName: '',
@@ -79,7 +51,6 @@ const initialValues = {
     address: '', 
     orgName: '',
     orgEmail:'',
-    //donorTypeId: '',
     date: '',
     foodName: '',
     quantity: '',
@@ -91,7 +62,6 @@ export default function ReservedDonation(props) {
     const { donations, dispatch } = useDonationContext()
     const { user } = useAuthContext()
     const [district,setDistrict] = useState('');
-    // const { addOrEdit } = props
     const [organizationName, setOrganizationName] = useState("");
     const [orgs, setOrgs] = React.useState([{ 'orgName': '', '_id': '' }]);
     const [isSubmit, setIsSubmit] = useState(false);
@@ -468,17 +438,6 @@ export default function ReservedDonation(props) {
                                             text="Submit"
                                         > Submit <i className="fa fa-paper-plane ms-2"></i></GradientButton>
                                     </NavLink>
-
-                                    {/* <link to="/donationSummary/10">Summary</link> */}
-
-                                    {/* <Controls.Button
-    // variant="contained"
-    // color="primary"
-    // size="large"
-    onClick={handleSubmit}
-    type="submit"
-    text="Submit" */
-                                    }
                                 </Box>
                             </div>
                         </Grid>
