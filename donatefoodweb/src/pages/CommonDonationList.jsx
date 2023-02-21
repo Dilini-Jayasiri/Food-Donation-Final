@@ -58,39 +58,70 @@ const CommonDonationList = () => {
   }, [dispatch, user])
 
 
-    const handleSubmit = async(e) => {
-      e.preventDefault()
+  //   const handleSubmit = async(e) => {
+  //     e.preventDefault()
+  //     try {
+  //       const res = await fetch(`/api/resDonNew/${tableData[0]._id}`, {
+  //           method :"POST",
+  //           headers: {
+  //               "Content-Type" : "application/json"
+  //           },
+  //           body : JSON.stringify({
+  //               status
+  //           })
+  //       });
+  
+  //       if(res.status === 400 || !res){
+  //           window.alert("Invalid Credentials");
+            
+  //       }else{
+  //           console.log(tableData[0]._id)
+  //       }
+  
+  //   } catch (error) {
+  //       console.log(error);
+  //   }
+  // }
+
+
+  const onUpdateHandle = async (RowData,optionData) => {
+      console.log("Row Data->",RowData, "Option Data ->", optionData)
+      // console.log( "Baba -> ",`/api/resDonNew/${RowData._id}`)
       try {
-        const res = await fetch(`/api/resDonNew/${tableData[0]._id}`, {
+        const res = await fetch(`/api/resDonNew/${RowData._id}`, {
             method :"POST",
             headers: {
-                "Content-Type" : "application/json"
+              'Authorization': `Bearer ${user.token}`
             },
-            body : JSON.stringify({
-                status
-            })
+            body : {
+              "_id": RowData._id,
+              "donorName": RowData.donorName,
+              "phone": RowData.phone,
+              "donEmail": RowData.donEmail,
+              "district": RowData.district,
+              "address": RowData.address,
+              "prefferedArea": RowData.prefferedArea,
+              "date": RowData.date,
+              "foodName": RowData.foodName,
+              "quantity": RowData.quantity,
+              "mealType": RowData.mealType,
+              "foodType": RowData.foodType,
+              "user_id": RowData.user_id,
+              "status": optionData
+          }
         });
   
         if(res.status === 400 || !res){
             window.alert("Invalid Credentials");
             
         }else{
-           // window.alert("Login Successfull");
-            console.log(tableData[0]._id)
+            console.log("Response Data -> ",res)
         }
   
     } catch (error) {
         console.log(error);
     }
-    
-   // setStatus("Confirmed")
-    //confirmation popup
-    //if yes
-    //update the status
-    
-    //disable the button and discard from tbl
   }
-
 
 
   const theme = useTheme();
@@ -120,64 +151,20 @@ const CommonDonationList = () => {
     { field: 'date', headerName: 'Date', sort: true, width: 200, editable: true },
     { field: 'quantity', headerName: 'Needed Food Parcels', sort: true, width: 200, editable: true },
     { field: '_id', headerName: 'Donation ID', sort: true, width: 200 },
-    // {
-    //   field: 'status', headerName: 'Accept',editComponent: (props)=>(
-    //     <Input
-    //       defaultValue={props.value || 'Not Accepted'}
-    //       onChange={(e)=> props.onChange(e.target.value)}
-    //       type="string"
-    //     />
-    //   ),
-      // type: 'actions', renderCell: ({ }) => (<div>
-      /* <Button variant="contained" 
-                color="success" 
-                disabled={isDisabled}
-                onClick={handleClickOpen}
-                style = {isDisabled ? styles.buttonDisabled : styles.button}>
-                Accept
-        </Button>  */
-        /* <Popup>
-          <ToastContainer
-            position="top-right"
-            autoClose={3000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick={false}
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-          />
-        </Popup> */
-
-      // </div>), width: 150
- // },
     { field: 'status', headerName: 'Action', width: 200, renderCell: (cellValues) => {
-      return <div className=' grid grid-cols-2 gap-1'>
-                {/* <Button variant="contained" sx={{ bgcolor: "green" }} onClick={""}>{cellValues.row.deliveryStatus}</Button>  */}
-                {/* <Input variant="contained" color="success" value={status} */}
-                 {/* // dispatch(openModel());
-                  // console.log("Cell data ->",cellValues.row);
-                  //dispatch(addModelData(cellValues.row));
-                  //  console.log("Model data to send Model ->",applicationdata.modalData[0]) */}
-                  {/* /> */}
-                  
-                                                <Select
-                                                    name="Accept"
-                                                    labelId="demo-select-medium"
-                                                    id="demo-select-small"
-                                                    value={status}
-                                                    onChange={(e) => setStatus(e.target.value)}
-                                                    
-                                                >
-                                                    <MenuItem value={status}>
-                                                        <em>Action</em>
-                                                    </MenuItem>
-                                                    <MenuItem value={"Accept"}>Accept</MenuItem>
-                                                    {/* <MenuItem value={"Reject"}>Not Accept</MenuItem> */}
-                                                   
-                                                </Select>
+      return <div className=' grid grid-cols-2 gap-1'>  
+                <Select
+                    name="Accept"
+                    labelId="demo-select-medium"
+                    id="demo-select-small"
+                    value={status}
+                    onChange={(e) => onUpdateHandle(cellValues.row, e.target.value)}  
+                  >
+                    <MenuItem value={status}>
+                        <em>Action</em>
+                    </MenuItem>
+                    <MenuItem value={"Accept"}>Accept</MenuItem>
+                </Select>
               </div>
 } }
 
@@ -240,7 +227,7 @@ const CommonDonationList = () => {
 
               value={filterVal}
               onInput={(e) => handleFilter(e)} />
-              <div >
+              {/* <div >
                                             <Box my={4} mx={'42%'}>
 
                                                 <Controls.Button
@@ -252,7 +239,7 @@ const CommonDonationList = () => {
                                                     text="Submit"
                                                 />
                                                 </Box>
-                                                </div>
+                                                </div> */}
           </Toolbar>
           <DataGrid
             columns={columns}
