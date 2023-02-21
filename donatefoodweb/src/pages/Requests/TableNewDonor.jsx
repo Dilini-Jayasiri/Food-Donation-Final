@@ -1,5 +1,5 @@
 import { useEffect,useState } from "react";
-import {Box} from '@mui/material';
+import {Box, InputAdornment, Paper, Toolbar} from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { DataGrid, getGridNumericOperators } from "@mui/x-data-grid";
 import { useMemo } from 'react';
@@ -14,6 +14,9 @@ import OrganizationDetails from '../../components/OrganizationDetails'
 import Nav from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer";
 import PopUp from "./PopUp";
+import Controls from "../../components/controls/Controls";
+import { Search } from "@mui/icons-material";
+
 
 const TableNewDonor = () => {
  const {donations,dispatch} = useDonationContext()
@@ -21,7 +24,8 @@ const TableNewDonor = () => {
   const {user} = useAuthContext()
     const [orgs,setOrgs] = useState([]);
     const [rowId,setRowId] = useState();
-
+    const [filterVal,setFilterVal] = useState('');
+    const [searchData,setsearchData] = useState([]);
     const [popup,setPopup] = useState('close');
 
     const open = () => {
@@ -61,7 +65,7 @@ const TableNewDonor = () => {
 
         if(response.ok){
             dispatch({type: 'SET_DONATIONS', payload : json})
-            
+           // tableData.orgName
         }
       }
       if(user){
@@ -99,7 +103,25 @@ const TableNewDonor = () => {
     ], [rowId]);
     
    
-      
+    const handleFilter = (e) => {
+      let target = e.target;
+      // setFilterVal({
+      //   fn: items => {
+      //     if(e.target.value == ''){
+      //       return items;
+      //     }else {
+      //       return items.filterVal(x=>x.donorName.includes(target.value))
+      //     }
+      //   }
+      // })
+      if(target.value == ''){
+        setTableData(searchData)
+      }else {
+       const filterResult = searchData.filter(item => item.orgName.toLowerCase().includes(e.target.value.toLowerCase()))
+      setTableData(filterResult)
+      }
+      setFilterVal(target.value)
+    }   
   
     return(
       <>
@@ -116,7 +138,20 @@ const TableNewDonor = () => {
               sx={{textAlign:'center',mt:3,mb:3}}>
                  <h3>Organization Details Table</h3>
               </Typography>
-            
+              <Toolbar>
+              <Controls.Input
+                 label="Search"
+                 
+                 InputProps={{
+                    startAdornment:(<InputAdornment position="start">
+                      <Search/>
+                    </InputAdornment>)
+                  }}
+                 
+                //  value={filterVal}
+                //  onInput={(e) => handleFilter(e)}
+                /> 
+               </Toolbar>     
               {/* <Box marginLeft={170}>  <Button variant="contained" color="success" onClick={(e) => open(true)}>Sheduler</Button></Box> */}
               <DataGrid
                 columns={columns}

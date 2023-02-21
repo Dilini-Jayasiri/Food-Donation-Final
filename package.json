@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@emailjs/browser": "^3.10.0",
+    "material-ui-search-bar": "^1.0.0"
+  }
+}

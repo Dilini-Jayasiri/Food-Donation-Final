@@ -1,26 +1,19 @@
 //Import all dependencies
-
 const dotenv =require('dotenv');
 const express=require('express');
-const bcryptjs=require('bcryptjs');
-const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
-
-
 const app=express();
-
 //Config env file and require connection file
 dotenv.config({path: './config.env'});
 require('./db/conn');
 const port = process.env.PORT;
-
 
 //Require Model
 const Users = require('./models/userSchema');
 const Message = require('./models/msgSchema');
 const InstDonSchema = require('./models/instantDonationSchema');
 const ResDonSchema = require('./models/reservedDonationSchema');
-
+const ResDonNew = require('./models/reservedDonNew');
 const Request = require('./models/requestSchema');
 const ReservedDonation = require('./models/reservedDonationSchema');
 const InstantDonation = require('./models/instantDonationSchema');
@@ -34,6 +27,7 @@ const reservedNewRoute = require('./routes/reservedDonNew');
 const donationStatusRoute = require('./routes/status');
 const userRoutes = require('./routes/users');
 const getAllIns = require('./controllers/GetAllInsDons');
+//const getAllResNew = require('./controllers/GetAllResNewDons');
 //const router = require('./routes/requests');
 //These method is used to get data and cookies from frontend
 app.use(express.json());
@@ -41,7 +35,6 @@ app.use(express.urlencoded({extended : false}));
 app.use(cookieParser());
 app.use('/requests',requestRoute);
 app.use('/api/lastRequest',requestRoute);
-
 app.use('/reservedDonations',reservedRoute);
 app.use('/lastDon',reservedLastRoute);
 app.use('/insLastDon',insLastRoute)
@@ -50,6 +43,7 @@ app.use('/api/user',userRoutes);
 app.use('/api/resDonNew',reservedNewRoute);
 app.use('/api/status',donationStatusRoute);
 app.use(getAllIns);
+//app.use(getAllResNew);
 const User = require('./models/userSchema')
 //app.use()
 //middleware
@@ -62,74 +56,6 @@ app.use((req,res,next)=>{
 app.get('/',(req,res) =>{
     res.send("Hello world");
 })
-
-//const requireAuth = require('./middleware/requireAuth')
-
-// app.use(requireAuth);
-// Registration
-// app.post('/register',async(req,res) =>{
-//     try{
-//         //Get body or data
-//         const username = req.body.username;
-//         const email = req.body.email;
-//         const password = req.body.password;
-//        // const role = req.body.role;
-
-//         const createUser = new Users({
-//             username : username,
-//             email : email,
-//             password : password
-//          //   role:role
-//         });
-        
-        
-
-//         //Save method is used to create user
-//         //But before saving or inserting, password will hash.
-//         //Because of hashing.After hash, it will save to DB
-//         const created = await createUser.save();
-//         console.log(created);
-//         //const token = createToken(_id)
-//       //  res.status(200).send("Registered");
-//         res.status(200).json({email,password})
-//     }catch(error){
-//         res.status(400).send(error);
-//     }
-// })
-
-//Login User
-// app.post('/login',async (req,res) =>{
-//     try {
-//         const email = req.body.email;
-//         const password = req.body.password;
-        
-
-//         //Find User if Exist
-//         const user = await Users.findOne( {email : email});
-//         if(user){
-//             //Verify Password
-//             const isMatch = await bcryptjs.compare(password, user.password);
-
-//             if(isMatch){
-//                 //Generate Token Which is Define in user schema
-//                 const token = await user.generateToken();
-//                 res.cookie("jwt",token,{
-//                     //Expires Token in 24 hours
-//                     expires : new Date(Date.now() + 86400000),
-//                     httpOnly : true
-//                 })
-//                 res.status(200).send("LoggedIn")
-
-//             }else{
-//                 res.status(400).send("Invalid Credentials");
-//             }
-//         }else{
-//             res.status(400).send("Invalid Credentials");
-//         }
-//     } catch (error) {
-//         res.status(400).send(error);
-//     }
-// })
 
 // Messages
 app.post('/message',async(req,res) =>{
@@ -157,55 +83,7 @@ app.post('/message',async(req,res) =>{
     }
 })
 app.post('/reservedDon',async(req,res) =>{
-   
-    //     req.user = await User.findOne({ _id }).select('_id')
-    //    // const user_id = req.user._id
-    //     //Get body or data
-    //     const donorName = req.body.donorName;
-    //     //const donationType = req.body.donationType;
-    //     const phone = req.body.phone;
-    //     const donEmail = req.body.donEmail;
-    //     const address = req.body.address;
-    //     const orgName = req.body.orgName;
-    //     //const donorTypeId = req.body.donorTypeId;
-    //     const date = req.body.date;
-    //     const foodName = req.body.foodName;
-    //     const quantity = req.body.quantity;
-    //     const mealType = req.body.mealType;
-    //     const foodType = req.body.foodType;
-      //  const user_id = req.body.user_id;
- //const user_id = req.user._id;
  const {donorName,phone,donEmail,district,address,orgName,date,foodName,quantity,mealType,foodType} = req.body
-
-        // const reservedDon= new ReservedDonation({
-        // donorName:donorName ,
-        // //donationType: donationType,
-        // phone: phone,
-        // donEmail:donEmail,
-        // address: address,
-        // orgName: orgName,
-        // //donorTypeId:donorTypeId,
-        // date: date,
-        // foodName: foodName,
-        // quantity: quantity,
-        // mealType: mealType,
-        // foodType: foodType,
-      //  user_id : _id
-        
-            
-    //     }); 
-
-    //     //Save method is used to create user
-    //     //But before saving or inserting, password will hash.
-    //     //Because of hashing.After hash, it will save to DB
-    //    // const user_id = req.user.user_id;
-    //     const created = await reservedDon.save();
-    //     console.log(created);
-    //     res.status(200).send("Donation Details Sent");
-
-    // }catch(error){
-    //     res.status(400).send(error);
-    // }
     let emptyFields = []
 
     if(!donorName){
@@ -251,16 +129,11 @@ app.post('/reservedDon',async(req,res) =>{
        res.status(200).json(reservedDonation)
     } catch (error){
         res.status(400).send(error);
-       //res.status(400).json({error : error.message})
     }
 })
 
 app.post('/instantDon',async(req,res) =>{
     try{
-      
-                   
-        //Get body or data
-        //const donorType = req.body.donorType;
         const nic = req.body.nic;
         const donorName = req.body.donorName;
         const phone = req.body.phone;
@@ -312,8 +185,16 @@ app.get('/reservedDon',(req,res) =>{
     ReservedDonation.find((err,data)=>{
         if(err){
             res.status(500).send(err)
-        
+        }else{
+            res.status(200).send(data);
+        }
+    })
+})
 
+app.get('/resNewDon',(req,res) =>{
+    ResDonNew.find((err,data)=>{
+        if(err){
+            res.status(500).send(err)
         }else{
             res.status(200).send(data);
         }
@@ -331,8 +212,6 @@ app.get('/instantDon',(req,res) =>{
         }
     })
 })
-
-
 
 app.get('/reservedDon/get',(req,res) =>{
     try{
@@ -382,23 +261,6 @@ app.get("/api/reservedDonation/last",async(req,res) => {
     }
     });
 
-// app.get("/api/request/org",async (req,res) => {
-//     const user_id = req.user._id
-//     const reservedDonations = await Request.find({user_id}).sort({createdAt:-1})
-    
-//     res.status(200).json(reservedDonations)
-// })
-
-// app.get("/requests/last",async(req,res) => {
-//         //   const {user_id} = req.params; 
-//            const dons = await Request.findOne().sort({_id:-1}).limit(1);
-//            console.log(dons);
-//            if(dons){
-//                res.send(dons)
-//            }else {
-//        res.send({"dons":"no record found"})
-//        }
-//        });
 app.get('/request/Org/:orgName', async (req, res) => {
     const { orgName } = req.params;
     let donarList = [];
@@ -406,9 +268,6 @@ app.get('/request/Org/:orgName', async (req, res) => {
     try {
         const instDonList = await InstantDonation.find({ orgName: orgName });
         const resDonList = await ReservedDonation.find({ orgName: orgName });
-
-        
-
         // Check Whether the Data is Available
         if(instDonList.length != 0 && resDonList.length != 0){
             instDonList.forEach(element => {
@@ -449,23 +308,6 @@ app.get('/request/Org/:orgName', async (req, res) => {
        res.send({"dons":"no record found"})
        }
        });
-
-       
-    // app.get("/api/reservedDonation/lastDon",async(req,res) => {
-    //     const user_id = req.user._id
-    //     const dons = await ReservedDonation.find().sort({user_id:-1}).limit(1);
-    //     console.log(dons);
-    //     if(dons){
-    //         res.send(dons)
-    //     }else {
-    // res.send({"dons":"no record found"})
-    // }
-    // });
-
-//getDon();
-   
-
-
 app.post('/requests',async(req,res) =>{
     try{
         //Get body or data
@@ -505,21 +347,6 @@ app.post('/requests',async(req,res) =>{
         res.status(400).send(error);
     }
 })
-
-// app.get(async (req,res) => {
-//     const {id} = req.params
-
-//     if(!mongoose.Types.ObjectId.isValid(id)){
-//         return res.status(404).json({error:"No such request"})
-//     }
-
-//     const request = await Request.findById(id)
-
-//     if(!request){
-//         return res.status(404).json({error:"No such request"})
-//     }
-//     res.status(200).json(request)
-// }
 app.get('/requests/all',(req,res) =>{
     Request.find((err,data)=>{
         if(err){

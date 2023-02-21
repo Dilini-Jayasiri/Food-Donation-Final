@@ -72,7 +72,20 @@ const Main = ({setSelectedLink,link}) => {
                             text="See More"/>
                             </Box>
         <Divider sx={{mt:3,mb:3,opacity:0.7}}/>
-        
+        <Box>
+            <Typography variant='h6'>Top Donors For This Month</Typography>
+            <ol>
+            <li>Dilini Jayasiri</li>
+            <li>Sadani Perera</li>
+            <li>Nimal Fernando</li>
+            <li>Kalani Ahangama</li>
+            <li>Thamara Anomani</li>
+            </ol>
+            {/* <List>
+
+            </List> */}
+        </Box>
+        <Divider sx={{mt:3,mb:3,opacity:0.7}}/>
         <Box>
             <Typography variant='h6'>Most Popular Donation Type</Typography>
             <h9>Reserved Donation</h9>

@@ -18,7 +18,9 @@ body {
     /* display: flex;
     flex-direction: column; */
 }
-
+.ree{
+    width: 75%;
+}
 *{
     margin: 5rem;
     padding: 5rem;

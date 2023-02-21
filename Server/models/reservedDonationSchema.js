@@ -49,6 +49,9 @@ const reservedDonationSchema = new mongoose.Schema({
         type : String,
         required : true
     },
+    status : {
+        type : String
+    },
     user_id:{
         type:String,
        required:true
