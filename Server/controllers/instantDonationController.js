@@ -114,7 +114,7 @@ const updatenstantDonation = async (req,res)=>{
     if(!instantDonation){
         return res.status(404).json({error:'No such donation'})
     }
-    res.status(200).json(instantDons)
+    res.status(200).json(instantDonation)
 }
 
 module.exports= {

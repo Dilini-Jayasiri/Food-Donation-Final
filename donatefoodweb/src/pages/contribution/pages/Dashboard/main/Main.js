@@ -15,9 +15,12 @@ import { useNavigate } from 'react-router';
 
 const Main = ({setSelectedLink,link}) => {
     const navigate = useNavigate();
-    const handleSubmit = () => {
+    const handleSubmitList = () => {
       navigate('/commDonList');
     }
+    const handleSubmitForm = () => {
+        navigate('/reservedDonationNew');
+      }
     // useEffect(()=>{
     //     setSelectedLink(link);
     // },[]);
@@ -67,9 +70,16 @@ const Main = ({setSelectedLink,link}) => {
              <Button // variant="contained"
                               // color="primary"
                              // size="large"
-                            onClick={handleSubmit}
+                            onClick={handleSubmitForm}
                             type="submit"
-                            text="See More"/>
+                            text="Donate"/>
+
+<Button // variant="contained"
+                              // color="primary"
+                             // size="large"
+                            onClick={handleSubmitList}
+                            type="submit"
+                            text="Donation List"/>
                             </Box>
         <Divider sx={{mt:3,mb:3,opacity:0.7}}/>
         <Box>

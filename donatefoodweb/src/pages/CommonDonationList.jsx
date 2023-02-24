@@ -6,7 +6,7 @@ import { useMemo } from 'react';
 import { gridClasses } from "@material-ui/core";
 import { grey } from 'material-ui-colors';
 import Button from '@mui/material/Button';
-import { json, useNavigate } from "react-router";
+import { json, Navigate, useNavigate } from "react-router";
 import { useDonationContext } from "../components/hoooks/useDonationContext"
 import { useAuthContext } from '../components/hoooks/useAuthContext'
 import Nav from "../components/Navbar/Navbar";
@@ -35,10 +35,12 @@ const CommonDonationList = () => {
   const [searchData, setsearchData] = useState([]);
   const [open, setOpen] = useState(false);
   const [status,setStatus] = useState();
+const navigate = useNavigate();
 
+//fetch record
  useEffect(() => {
     const fetchDonations = async () => {
-      const response = await fetch('/resNewDon', {
+      const response = await fetch('/resNewDonStatus', {
         headers: {
           'Authorization': `Bearer ${user.token}`
         }
@@ -57,33 +59,7 @@ const CommonDonationList = () => {
     }
   }, [dispatch, user])
 
-
-  //   const handleSubmit = async(e) => {
-  //     e.preventDefault()
-  //     try {
-  //       const res = await fetch(`/api/resDonNew/${tableData[0]._id}`, {
-  //           method :"POST",
-  //           headers: {
-  //               "Content-Type" : "application/json"
-  //           },
-  //           body : JSON.stringify({
-  //               status
-  //           })
-  //       });
-  
-  //       if(res.status === 400 || !res){
-  //           window.alert("Invalid Credentials");
-            
-  //       }else{
-  //           console.log(tableData[0]._id)
-  //       }
-  
-  //   } catch (error) {
-  //       console.log(error);
-  //   }
-  // }
-
-
+//update status
   const onUpdateHandle = async (RowData,optionData) => {
       console.log("Row Data->",RowData, "Option Data ->", optionData)
       // console.log( "Baba -> ",`/api/resDonNew/${RowData._id}`)
@@ -91,9 +67,10 @@ const CommonDonationList = () => {
         const res = await fetch(`/api/resDonNew/${RowData._id}`, {
             method :"POST",
             headers: {
-              'Authorization': `Bearer ${user.token}`
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${user.token}`
             },
-            body : {
+            body :JSON.stringify({
               "_id": RowData._id,
               "donorName": RowData.donorName,
               "phone": RowData.phone,
@@ -108,14 +85,17 @@ const CommonDonationList = () => {
               "foodType": RowData.foodType,
               "user_id": RowData.user_id,
               "status": optionData
-          }
+          })
         });
   
         if(res.status === 400 || !res){
             window.alert("Invalid Credentials");
             
         }else{
-            console.log("Response Data -> ",res)
+            console.log("Response Data -> ",res);
+            dispatch({ type: 'CREATE_DONATIONS', payload: JSON });
+            alert("Your Request Sent to the Donor")
+            navigate('/home');
         }
   
     } catch (error) {
@@ -155,8 +135,10 @@ const CommonDonationList = () => {
       return <div className=' grid grid-cols-2 gap-1'>  
                 <Select
                     name="Accept"
+                    style={{width:'300%'}}
                     labelId="demo-select-medium"
-                    id="demo-select-small"
+                   // id="demo-select-small"
+                   placeholder="Action"
                     value={status}
                     onChange={(e) => onUpdateHandle(cellValues.row, e.target.value)}  
                   >
@@ -166,8 +148,7 @@ const CommonDonationList = () => {
                     <MenuItem value={"Accept"}>Accept</MenuItem>
                 </Select>
               </div>
-} }
-
+}}
     // {field:'_id',headerName:'ID',width:200},
   ], [rowId]);
   const notify = event => {
@@ -197,6 +178,8 @@ const CommonDonationList = () => {
     setFilterVal(target.value)
   }
 
+  if(tableData.status != "Accept"){
+
   return (
     <>
       <Nav />
@@ -215,6 +198,8 @@ const CommonDonationList = () => {
             sx={{ textAlign: 'center', mt: 3, mb: 3 }}>
             <h3>Pending Donation Requests</h3>
           </Typography>
+
+          
           <Toolbar>
             <Controls.Input
               label="Search"
@@ -274,6 +259,7 @@ const CommonDonationList = () => {
       <Footer />
     </>
   )
+          }
 };
 
 export default CommonDonationList;

@@ -201,6 +201,17 @@ app.get('/resNewDon',(req,res) =>{
     })
 })
 
+app.get('/resNewDonStatus', (req, res) => {
+    ResDonNew.find({ status: null }, (err, data) => {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.status(200).send(data);
+      }
+    });
+  });
+  
+
 app.get('/instantDon',(req,res) =>{
     InstantDonation.find((err,data)=>{
         if(err){
@@ -261,6 +272,43 @@ app.get("/api/reservedDonation/last",async(req,res) => {
     }
     });
 
+// app.get('/request/Org/:orgName', async (req, res) => {
+//     const { orgName } = req.params;
+//     let donarList = [];
+//     // console.log(orgName);
+//     try {
+//         const instDonList = await InstantDonation.find({ orgName: orgNam });
+//         const resDonList = await ReservedDonation.find({ orgName: orgName });
+//         // Check Whether the Data is Available
+//         if(instDonList.length != 0 && resDonList.length != 0){
+//             instDonList.forEach(element => {
+//                 donarList.push(element);
+//             });
+
+//             resDonList.forEach(element => {
+//                 donarList.push(element);
+//             });
+
+//         } else if(resDonList != 0 ){
+//             resDonList.forEach(element => {
+//                 donarList.push(element);
+//             });
+//         }else if(instDonList.length != 0){
+//             instDonList.forEach(element => {
+//                 donarList.push(element);
+//             });
+//         }else if(instDonList.length == 0  && resDonList.length == 0){
+//             return res.status(404).json({error:'No such donation'})
+//         }else{
+//             return res.status(404).json({error:'No such donation'})
+//         }
+
+//       res.status(200).json(donarList)
+//     } catch (error) {
+//         console.log(error)
+//     }
+// });
+
 app.get('/request/Org/:orgName', async (req, res) => {
     const { orgName } = req.params;
     let donarList = [];
@@ -297,6 +345,7 @@ app.get('/request/Org/:orgName', async (req, res) => {
         console.log(error)
     }
 });
+
 
     app.get("/api/instantDonation/last",async(req,res) => {
         //   const {user_id} = req.params; 
@@ -363,45 +412,45 @@ app.get('/logout', (req,res) =>{
 })
 
 
-app.get('/request/Org/:orgName', async (req, res) => {
-    const { orgName } = req.params;
-    let donarList = [];
-    // console.log(orgName);
-    try {
-        const instDonList = await InstDonSchema.find({ orgName: orgName });
-        const resDonList = await ResDonSchema.find({ orgName: orgName });
+// app.get('/request/Org/:orgName', async (req, res) => {
+//     const { orgName } = req.params;
+//     let donarList = [];
+//     // console.log(orgName);
+//     try {
+//         const instDonList = await InstDonSchema.find({ orgName: orgName });
+//         const resDonList = await ResDonSchema.find({ orgName: orgName });
 
         
 
-        // Check Whether the Data is Available
-        if(instDonList.length != 0 && resDonList.length != 0){
-            instDonList.forEach(element => {
-                donarList.push(element);
-            });
+//         // Check Whether the Data is Available
+//         if(instDonList.length != 0 && resDonList.length != 0){
+//             instDonList.forEach(element => {
+//                 donarList.push(element);
+//             });
 
-            resDonList.forEach(element => {
-                donarList.push(element);
-            });
+//             resDonList.forEach(element => {
+//                 donarList.push(element);
+//             });
 
-        } else if(resDonList != 0 ){
-            resDonList.forEach(element => {
-                donarList.push(element);
-            });
-        }else if(instDonList.length != 0){
-            instDonList.forEach(element => {
-                donarList.push(element);
-            });
-        }else if(instDonList.length == 0  && resDonList.length == 0){
-            return res.status(404).json({error:'No such donation'})
-        }else{
-            return res.status(404).json({error:'No such donation'})
-        }
+//         } else if(resDonList != 0 ){
+//             resDonList.forEach(element => {
+//                 donarList.push(element);
+//             });
+//         }else if(instDonList.length != 0){
+//             instDonList.forEach(element => {
+//                 donarList.push(element);
+//             });
+//         }else if(instDonList.length == 0  && resDonList.length == 0){
+//             return res.status(404).json({error:'No such donation'})
+//         }else{
+//             return res.status(404).json({error:'No such donation'})
+//         }
 
-      res.status(200).json(donarList)
-    } catch (error) {
-        console.log(error)
-    }
-});
+//       res.status(200).json(donarList)
+//     } catch (error) {
+//         console.log(error)
+//     }
+// });
 
 //Authentication
 app.get('/auth', authenticate, (req,res) => {
