@@ -115,7 +115,7 @@ const CommonDonationList = () => {
             window.alert("Invalid Credentials");
             
         }else{
-            console.log("Response Data -> ",res)
+            console.log("Response Data -> ",res.body)
         }
   
     } catch (error) {
