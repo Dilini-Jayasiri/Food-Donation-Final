@@ -457,6 +457,103 @@ app.get('/auth', authenticate, (req,res) => {
 
 })
 
+
+// function to find top doners
+function findTopDonors(donorArr) {
+    const donorMap = new Map();
+
+    for (const donor of donorArr) {
+      if (donorMap.has(donor.donorName)) {
+        donorMap.set(donor.donorName, donorMap.get(donor.donorName) + 1);
+      } else {
+        donorMap.set(donor.donorName, 1);
+      }
+    }
+    
+    const topDonors = [];
+    for (const [donorName, donationCount] of donorMap) {
+      topDonors.push({ donorName, donationCount });
+    }
+    
+    topDonors.sort((a, b) => b.donationCount - a.donationCount);
+    return topDonors.slice(0, 5);
+  }
+
+// function findTopDonors(donorArr) {
+//         const donorMap = new Map();
+    
+//         for (const donor of donorArr) {
+//           if (donorMap.has(donor.donEmail)) {
+//             donorMap.set(donor.donEmail, donorMap.get(donor.donEmail) + 1);
+//           } else {
+//             donorMap.set(donor.donEmail, 1);
+//           }
+//         }
+        
+//         const topDonors = [];
+//         const top5Donors = new Map();
+//         for (const [donEmail, donationCount] of donorMap) {
+//           topDonors.push({ donEmail, donationCount });
+//         }
+        
+//         topDonors.sort((a, b) => b.donationCount - a.donationCount).slice(0, 5);
+//         donorArr.forEach(element => {
+//             topDonors.forEach(don => {
+//                 if(element.donEmail === don.donEmail){
+//                     top5Donors.set(element, don.donationCount);
+//                 }
+//             });
+//         });
+//         return top5Donors;
+//       }
+
+
+
+// You can get All donar data from here
+app.get('/getDons', async (req, res) => {
+
+    let DonList = [];
+    try {
+        const insList = await InstDonSchema.find({});
+        const ResList = await ResDonSchema.find({});
+        if(insList != null && ResList != null){
+            DonList = [ ...DonList, ...insList ];
+            DonList = [ ...DonList, ...ResList];
+        }else if(insList == null){
+            DonList = [ ...DonList, ...ResList];
+        }else{
+            DonList = [ ...DonList, ...insList ];
+        }
+        // console.log(insList, ResList)
+        DonList = [ ...findTopDonors(DonList)];
+        res.status(200).json(DonList)
+    } catch (error) {
+        res.status(400).send(error);
+    }
+})
+
+// You can get Donar Area Information for the Dashboard Pie Chart
+app.get('/getPieChartData', async (req, res) => {
+    let DonList = [];
+    let DemographyList = [];
+    try {
+        const insList = await InstDonSchema.find({});
+        const ResList = await ResDonSchema.find({});
+        if(insList != null && ResList != null){
+            DonList = [ ...DonList, ...insList ];
+            DonList = [ ...DonList, ...ResList];
+        }else if(insList == null){
+            DonList = [ ...DonList, ...ResList];
+        }else{
+            DonList = [ ...DonList, ...insList ];
+        }
+        // console.log(insList, ResList)
+        res.status(200).json(DonList);
+    } catch (error) {
+        res.status(400).send(error);
+    }
+})
+
 app.use("/api/calendar",require("./controllers/Calendar"));
 
 //Run Server
