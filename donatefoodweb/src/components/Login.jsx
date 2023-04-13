@@ -62,8 +62,10 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
+import Footer from "./Footer";
 import { Box, Grid } from '@mui/material';
 import Controls from '../components/controls/Controls'
+import Input from '../components/controls/Input'
 //import { useHistory } from 'react-router-dom';
 
 const Login = () => {
@@ -135,8 +137,9 @@ const Login = () => {
                        <h1 className="topic2 display-6 fw-bolder mb-5">LOGIN</h1>
                        <form onSubmit={handleSubmit}>
                             <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Email address</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1"
+                                {/* <label for="exampleInputEmail1" class="form-label">Email address</label> */}
+                                <Input type="email" id="exampleInputEmail1" 
+                                       label="Email Address"
                                        name="email"
                                        value={email}
                                        onChange={(e) => setEmail(e.target.value)} aria-describedby="emailHelp"/>
@@ -162,8 +165,9 @@ const Login = () => {
                                             />
                                         </Box> */}
                             <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="exampleInputPassword1"
+                                {/* <label for="exampleInputPassword1" class="form-label">Password</label> */}
+                                <Input type="password"  id="exampleInputPassword1"
+                                  label="Password"
                                   name="password"
                                   value={password}
                                   onChange={(e) => setPassword(e.target.value)}/>
@@ -191,17 +195,15 @@ const Login = () => {
                                             </FormControl>
                                         
                                         </Box>
-                           
-                      <div><button disabled={isLoading} type="submit" navigate class="btn btn-primary w-100 mt-4 rounded-pill">Login</button>
-                      
-                            </div>
+                                        <button disabled={isLoading} type="submit" class="btn btn-outline-primary w-100 mt-4 rounded-pill">Login</button>
+                    {error && <div className="error">{error}</div>}
                             {error && <div className="error">{error}</div>}
                         </form>
                    </div>
                </div>
            </div>
         </div>
-
+<Footer/>
         </>
   )
 }

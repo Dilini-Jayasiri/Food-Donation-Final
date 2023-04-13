@@ -1,4 +1,5 @@
 const InstantDonation = require('../models/instantDonationSchema')
+const ReservedDonation = require('../models/reservedDonationSchema')
 const mongoose = require('mongoose')
 
 //post a donation
@@ -107,10 +108,23 @@ const updatenstantDonation = async (req,res)=>{
         return res.status(404).json({error:'No such donation'})
     }
 
-    const instantDonation = await InstantDonation.findOneAndUpdate({_id:id},{
+    const instantDonation = await InstantDonation.findOneAndUpdate({
+        _id:id,
+        status:null
+    
+    },{
         ...req.body
+        
     })
-
+    if(instantDonation == null){
+        const reservedDonations = await ReservedDonation.findOneAndUpdate({
+            _id:id,
+            status:null
+        }, {
+            ...req.body
+        })
+    }
+   // console.log(instantDonation);
     if(!instantDonation){
         return res.status(404).json({error:'No such donation'})
     }

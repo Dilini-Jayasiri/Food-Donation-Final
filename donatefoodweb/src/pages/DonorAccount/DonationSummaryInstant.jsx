@@ -3,7 +3,7 @@ import DonationDetails from '../../components/DonationDetails';
 import { useDonationContext } from '../../components/hoooks/useDonationContext';
 import { useAuthContext } from '../../components/hoooks/useAuthContext';
 import Footer from '../../components/Footer';
-//import Nav from "./Navbar/Navbar";
+import Nav from '../../components/Navbar/Navbar';
 import { NavLink } from "react-router-dom";
 
 const DonationSummaryInstant = () => {
@@ -56,7 +56,7 @@ const DonationSummaryInstant = () => {
 if(insdonation !== 0){ 
     return(
         <>
-        {/* <Nav/> */}
+        <Nav/>
         <center>
             <div className="container py-5">
             <div className="col-md-5">
@@ -96,7 +96,7 @@ if(insdonation !== 0){
     
         return(
             <>
-             {/* <Nav/> */}
+             <Nav/>
              <center>
              <div className="container py-5">
                 <div className="col-lg-5">

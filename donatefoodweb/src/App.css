@@ -21,6 +21,19 @@ body {
 .ree{
     width: 75%;
 }
+.textField__label{
+    color: aliceblue !important;
+    border-color:aliceblue !important;
+}
+.textField__select{
+    color: aliceblue !important;
+}
+/* .MuiOutlinedInput-notchedOutline{
+    
+ } */
+ /* .MuiInputLabel-root {
+    color:aliceblue !important;
+  }  */
 *{
     margin: 5rem;
     padding: 5rem;

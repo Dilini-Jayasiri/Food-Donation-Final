@@ -7,6 +7,9 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
+import Nav from './Navbar/Navbar';
+import Footer from './Footer';
+
 // import { useSignup } from './hoooks/useSignup';
 // import { useAuthContext } from "./hoooks/useAuthContext";
 
@@ -87,6 +90,7 @@ import { useState } from "react"
 import { useSignup } from "./hoooks/useSignup"
 import { Box, Grid } from '@mui/material';
 import {useNavigate} from 'react-router';
+import Input from '../components/controls/Input';
 
 const Signup = () => {
   const [email, setEmail] = useState('')
@@ -111,7 +115,7 @@ const Signup = () => {
             })
         });
         if(res.status === 400 || !res){
-            window.alert("Invalid Credentials");
+            //window.alert("Invalid Credentials");
         }else{
             window.alert("Registered Successfull");
             //window.location.reload();
@@ -127,6 +131,8 @@ const Signup = () => {
 
 
   return (
+    <>
+    <Nav/>
     <div>
     <div className="container shadow my-5">
         <div className="row justify-content-end">
@@ -141,9 +147,9 @@ const Signup = () => {
                 <form onSubmit={handleSubmit} method={'POST'}>
                   
                     <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        
+                       
+                        <Input type="email" id="exampleInputEmail1" aria-describedby="emailHelp"
+                            label="Email Address"
                             name="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)} />
@@ -151,8 +157,9 @@ const Signup = () => {
                     </div>
                   
                     <div class="mb-3">
-                        <label for="exampleInputPassword1" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1"
+                       
+                        <Input type="password" id="exampleInputPassword1"
+                            label="Password"
                             name="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)} />
@@ -191,7 +198,7 @@ const Signup = () => {
 </Box>
                     <div class="mb-3 form-check">
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                        <label class="form-check-label" for="exampleCheck1">I Agree Terms and Condditions</label>
+                        <label class="form-check-label" for="exampleCheck1">I Agree Terms and Conditions</label>
                     </div>
                     <button disabled={isLoading} type="submit" class="btn btn-outline-primary w-100 mt-4 rounded-pill">Register</button>
                     {error && <div className="error">{error}</div>}
@@ -202,6 +209,8 @@ const Signup = () => {
         </div>
     </div>
 </div>
+<Footer/>
+</>
   )
 }
 

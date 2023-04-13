@@ -2,6 +2,7 @@ import React from 'react'
 import { NavLink } from 'react-router-dom';
 import {Col,Button} from 'react-bootstrap';
 import 'animate.css';
+import '../assets/partials/home.scss'
 import GradientButton from 'react-linear-gradient-button'
 import Nav from './Navbar/Navbar';
 import Footer from './Footer';
@@ -29,7 +30,7 @@ const navLinkStyles = () =>{
                <div className="row justify-content-center"> 
                    <div className="col-md-5 d-flex flex-column">
                        <h5 className="topic display-4 fw-bolder">We Accept</h5>
-                         <ul>
+                         <ul className="list-class">
                                 <li> Short coded product</li>
                                   <li> Excess product</li>
                                   <li> Product not meeting retailer specification</li>
@@ -48,7 +49,7 @@ const navLinkStyles = () =>{
                <div className="row justify-content-center"> 
                    <div className="col-md-5 d-flex flex-column">
                    <h5 className="topic display-4 fw-bolder">We Don't Accept</h5>
-                         <ul>
+                         <ul className='list-class'>
                               <li>Regulated products such as alcohol, tobacco or drugs of dependence</li>
                               <li>Product past its use by date</li>
                               <li>Product more than 6 months past its best before date</li>

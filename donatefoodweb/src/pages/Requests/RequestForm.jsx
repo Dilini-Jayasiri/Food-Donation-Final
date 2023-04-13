@@ -14,6 +14,8 @@ import { useDonationContext } from '../../components/hoooks/useDonationContext';
 import { useAuthContext } from '../../components/hoooks/useAuthContext'
 import Nav from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const mealTypeItems = [
     { id: 'breakfast', title: 'Breakfast' },
@@ -136,6 +138,7 @@ export default function RequestForm(props) {
                 window.alert("Message Not Sent. Try Again Later")
             } else {
                 window.alert("Message Sent Successfully");
+                
                 setValues({
                     orgName: '',
                     orgEmail: '',
@@ -161,6 +164,7 @@ export default function RequestForm(props) {
         } catch (error) {
             console.log(error);
         }
+        toast("Your Food Requirement Added!");
     }
     useEffect(() => {
         console.log(formErrors)
@@ -278,7 +282,7 @@ export default function RequestForm(props) {
                                             />
                                         </Box> */}
                                         <Box my={4} mx={4}>
-                                            <FormControl sx={{ width: 400 }}>
+                                            <FormControl sx={{ width: '100%' }}>
                                                 <InputLabel id="demo-simple-select-autowidth-label">Organization Type</InputLabel>
                                                 <Select
                                                     name="orgType"
@@ -335,7 +339,7 @@ export default function RequestForm(props) {
 
                                         {/* <Box my={4} mx={4}> */}
                                         <Box my={2} mx={4}>
-                                            <FormControl sx={{ width: 400 }}>
+                                            <FormControl sx={{ width: '100%' }}>
                                                 <Controls.DatePicker1
                                                     name="confirmedDate"
                                                     label="Confirmed Date"
@@ -353,12 +357,24 @@ export default function RequestForm(props) {
                                                     // color="primary"
                                                     // size="large"
                                                     onClick={handleSubmit}
+
                                                     type="submit"
                                                     text="Submit"
 
 
                                                 />
-
+                                                    <ToastContainer
+position="top-center"
+autoClose={3000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="light"
+/>
 
                                                 {/* <ThemeProvider theme={theme}>
                                <Controls.Button color="neutral" variant="contained" onClick={resetForm}>
