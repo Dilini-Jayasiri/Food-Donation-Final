@@ -556,6 +556,22 @@ app.get('/auth', authenticate, (req,res) => {
 
 })
 
+app.get('/findDonorByEmail', async (req, res) => {
+    const orgEmail = req.body.orgEmail;
+    let list = [];
+    try {
+        const instDonList = await InstDonSchema.find({ donEmail: orgEmail });
+        const resDonList = await ResDonSchema.find({ donEmail: orgEmail });
+        list.push({ "Instant" : instDonList}, { "Reserved" : resDonList});
+        console.log(instDonList, resDonList)
+        res.status(200).json(list);
+    } catch (error) {
+        console.log(error)
+        res.status(400).send(error);
+    }
+   
+});
+
 app.use("/api/calendar",require("./controllers/Calendar"));
 
 //Run Server

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import Card from 'react-bootstrap/Card';
-import Nav from '../components/Navbar/Navbar'
-import Footer from '../components/Footer'
-import { useDonationContext } from '../components/hoooks/useDonationContext'
-import { useAuthContext } from '../components/hoooks/useAuthContext'
+import Nav from '../../components/Navbar/Navbar'
+import Footer from '../../components/Footer'
+import { useDonationContext } from '../../components/hoooks/useDonationContext'
+import { useAuthContext } from '../../components/hoooks/useAuthContext'
 import { margin } from '@mui/system';
 import { Box } from '@mui/material';
 import { NavLink } from 'react-router-dom';
