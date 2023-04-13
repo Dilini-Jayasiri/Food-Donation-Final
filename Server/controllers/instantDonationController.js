@@ -1,4 +1,5 @@
 const InstantDonation = require('../models/instantDonationSchema')
+const ReservedDonations = require('../models/reservedDonationSchema')
 const mongoose = require('mongoose')
 
 //post a donation
@@ -107,9 +108,21 @@ const updatenstantDonation = async (req,res)=>{
         return res.status(404).json({error:'No such donation'})
     }
 
+
+    // This Method is Getting Ids for the Instant Donations & Reserved Donations Aa well, It is Required to Find Relevant Both Donations &
+    // Update Both Instances
+
     const instantDonation = await InstantDonation.findOneAndUpdate({_id:id},{
         ...req.body
     })
+
+    console.log("Instance Donation Response -> ", instantDonation);
+    if(instantDonation._id){
+        const reservedDonations = await ReservedDonations.findOneAndUpdate({_id:id}, {
+            ...req.body
+        })
+    }
+
 
     if(!instantDonation){
         return res.status(404).json({error:'No such donation'})
