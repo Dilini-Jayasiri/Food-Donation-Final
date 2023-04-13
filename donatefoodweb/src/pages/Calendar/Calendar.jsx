@@ -9,6 +9,8 @@ import React, { useEffect, useState } from "react";
 import Dot from "./Dot";
 import SessionInfo from "./SessionInfo";
 import "./Calendar.css";
+import Nav from "../../components/Navbar/Navbar";
+import Footer from "../../components/Footer";
 
 const COLOR_VIRTUAL_SESSIONS = "#56508c";
 const COLOR_PHYSICAL_SESSIONS = "#fe6464";
@@ -153,6 +155,8 @@ const Calendar = ({
   const today = new Date().toLocaleDateString(); //used to mark today
 
   return (
+    <>
+    <Nav/>
     <div
       style={{
         display: "flex",
@@ -420,7 +424,10 @@ const Calendar = ({
         <Typography>Physical Sessions</Typography>
       </Box>
     </div>
+    <Footer/>
+    </>
   );
+  
 };
 
 export default Calendar;

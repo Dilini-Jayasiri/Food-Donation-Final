@@ -187,7 +187,7 @@ export default function ReservedDonationNew() {
             <div className='donation'>
                 <MainContainer>
                     <DonationText>
-                        Reserved Donation (Not Selected Organization)
+                        Public Donation
                     </DonationText>
 
                     <form onSubmit={handleSubmit} method={'POST'}>
@@ -196,6 +196,9 @@ export default function ReservedDonationNew() {
                             <Grid item xs={6}>
                                 <Box my={4} mx={4}>
                                     <Controls.Input
+                                    InputLabelProps={{ className: 'textField__label' }}
+                                    inputProps={{ style: { color: 'white' } }}
+                                    labelProps={{ style: { color: 'white' } }}
                                         name="donorName"
                                         label="Donor Name"
                                         value={values.donorName}
@@ -205,6 +208,9 @@ export default function ReservedDonationNew() {
                                 </Box>
                                 <Box my={4} mx={4}>
                                     <Controls.Selects
+InputLabelProps={{ className: 'textField__label' }}
+inputProps={{ style: { color: 'white' } }}
+labelProps={{ style: { color: 'white' } }}
                                         name="donorTypeId"
                                         label="Donor Type"
                                         placeholder="Donor Type"
@@ -215,6 +221,9 @@ export default function ReservedDonationNew() {
                                 </Box>
                                 <Box my={4} mx={4}>
                                     <Controls.Input
+                                    InputLabelProps={{ className: 'textField__label' }}
+                                    inputProps={{ style: { color: 'white' } }}
+                                    labelProps={{ style: { color: 'white' } }}
                                         name="phone"
                                         label="Contact Number"
                                         value={values.phone}
@@ -224,6 +233,9 @@ export default function ReservedDonationNew() {
                                 </Box>
                                 <Box my={4} mx={4}>
                                     <Controls.Input
+                                    InputLabelProps={{ className: 'textField__label' }}
+                                    inputProps={{ style: { color: 'white' } }}
+                                    labelProps={{ style: { color: 'white' } }}
                                         label="Email Address"
                                         name="donEmail"
                                         value={values.donEmail}
@@ -235,6 +247,9 @@ export default function ReservedDonationNew() {
                                     <FormControl sx={{ width: '100%' }}>
                                         <InputLabel id="demo-simple-select-autowidth-label">District</InputLabel>
                                         <Select
+                                        InputLabelProps={{ className: 'textField__label' }}
+                                        inputProps={{ style: { color: 'white' } }}
+                                        labelProps={{ style: { color: 'white' } }}
                                             name="district"
                                             labelId="demo-select-small"
                                             id="demo-select-small"
@@ -276,6 +291,9 @@ export default function ReservedDonationNew() {
                                 </Box>
                                 <Box my={4} mx={4}>
                                     <Controls.TextArea
+                                    InputLabelProps={{ className: 'textField__label' }}
+                                    inputProps={{ style: { color: 'white' } }}
+                                    labelProps={{ style: { color: 'white' } }}
                                         name="address"
                                         label="address"
                                         value={values.address}
@@ -285,6 +303,9 @@ export default function ReservedDonationNew() {
                                 </Box>
                                 <Box my={4} mx={4}>
                                     <Controls.TextArea
+                                    InputLabelProps={{ className: 'textField__label' }}
+                                    inputProps={{ style: { color: 'white' } }}
+                                    labelProps={{ style: { color: 'white' } }}
                                         name="prefferedArea"
                                         label="Preffered Area"
                                         value={values.prefferedArea}
@@ -296,6 +317,9 @@ export default function ReservedDonationNew() {
                             <Grid item xs={6}>
                                 <Box my={4} mx={6}>
                                     <Controls.Input
+                                    InputLabelProps={{ className: 'textField__label' }}
+                                    inputProps={{ style: { color: 'white' } }}
+                                    labelProps={{ style: { color: 'white' } }}
                                         name="foodName"
                                         label="Food Name"
                                         value={values.foodName}
@@ -305,6 +329,9 @@ export default function ReservedDonationNew() {
                                 </Box>
                                 <Box my={4} mx={6}>
                                     <Controls.Input
+                                    InputLabelProps={{ className: 'textField__label' }}
+                                    inputProps={{ style: { color: 'white' } }}
+                                    labelProps={{ style: { color: 'white' } }}
                                         name="quantity"
                                         label="Quantity"
                                         value={values.quantity}
@@ -315,6 +342,9 @@ export default function ReservedDonationNew() {
                                 <div class="form-check form-check-inline">
                                     <Box my={0} mx={4}>
                                         <Controls.RadioGroups
+                                        InputLabelProps={{ className: 'textField__label' }}
+                                        inputProps={{ style: { color: 'white' } }}
+                                        labelProps={{ style: { color: 'white' } }}
                                             row
                                             name="mealType"
                                             label="Meal Type"
@@ -341,6 +371,9 @@ export default function ReservedDonationNew() {
                                 <Box my={1.5} mx={5}>
                                     <FormControl sx={{ width: '100%' }}>
                                         <Controls.DatePicker1
+                                        InputLabelProps={{ className: 'textField__label' }}
+                                        inputProps={{ style: { color: 'white' } }}
+                                        labelProps={{ style: { color: 'white' } }}
                                             name="date"
                                             label="Date"
                                             value={values.date}

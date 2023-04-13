@@ -19,6 +19,7 @@ const navLinkStyles = () => {
         width: '50%'
     }
 }
+
 const DonationReqAcc = (props) => {
 
     const { orgName } = props;
@@ -29,17 +30,17 @@ const DonationReqAcc = (props) => {
     const [requestData, setRequestData] = useState([]);
     const [dons, setDons] = useState([]);
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        emailjs.send('service_4myyg6h', 'template_xge57pr', dons, 'AGKmDLzp5SojZrssC')
-            .then(response => {
-                console.log('Success', response);
-                console.log("Message sent")
-            }, error => {
-                console.log('Failed...', error)
-                console.log("message not sent")
-            })
-    }
+    // const handleSubmit = async (event) => {
+    //     event.preventDefault();
+    //     emailjs.send('service_4myyg6h', 'template_xge57pr', dons, 'AGKmDLzp5SojZrssC')
+    //         .then(response => {
+    //             console.log('Success', response);
+    //             console.log("Message sent")
+    //         }, error => {
+    //             console.log('Failed...', error)
+    //             console.log("message not sent")
+    //         })
+    // }
 
 
 
@@ -93,22 +94,6 @@ const onUpdateHandle = async (id,optionData) => {
             "Authorization": `Bearer ${user.token}`
           },
           body :JSON.stringify({
-            // "_id": index._id,
-            // "donorName": index.donorName,
-            // "phone": index.phone,
-            // "donEmail": index.donEmail,
-            // "district": index.district,
-            // "address": index.address,
-            // "orgName":index.orgName,
-            // "date": index.date,
-            // "quantity": index.quantity,
-            // "oldFood":index.oldFood,
-            // "mealType": index.mealType,
-            // "area":index.area,
-            // "prefferedArea": index.prefferedArea,
-            // "foodType": index.foodType,
-            // "foodName": index.foodName,
-            // "user_id": index.user_id,
             "status": optionData
         })
       });
@@ -125,6 +110,43 @@ const onUpdateHandle = async (id,optionData) => {
       console.log(error);
   }
  }
+ console.log(dons);
+
+    if (dons.length === 0) {
+        return (
+            <>
+        <Nav/>
+        <section id="service">
+                <div className="container py-5">
+                    <div className="row">
+                        <center>
+                            <div className="col-12">
+                        <h1>There are Currently No Pending Donations !!!</h1>
+                        <p>We Will Contact You When We Got Donation</p>
+                            <hr className='w-25 mx-auto' />
+                        </div>
+                        <center>
+                            <div class>
+                                <img src={require('../../assets/vol.jpg')} class="card-img-top" alt="oldagehome" width={'100px'} height={'400px'} />
+
+                            </div>
+                            </center>
+                        </center>
+                        <div className='row mt-5'>
+                        <div className="col-md-6">
+                                <div className="col-md-6">
+                                
+                        </div> 
+                                </div>
+                    </div>
+                    </div>
+                    </div>
+                    </section>
+           
+           <Footer/>
+    </>
+        )
+      }
     return (
         <>
             <Nav />
@@ -186,16 +208,13 @@ const onUpdateHandle = async (id,optionData) => {
                         <div className="col-md-6">
                             <div class="p-3">
                                 <img src={require('../../assets/vol.jpg')} class="card-img-top" alt="oldagehome" height={'300px'} />
-
                             </div>
                         </div>
                     </div>
                 </div>
-
             </section>
             <Footer />
         </>
     )
 }
-
 export default DonationReqAcc;

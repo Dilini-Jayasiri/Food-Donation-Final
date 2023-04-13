@@ -1,19 +1,22 @@
 const mongoose = require('mongoose');
 
 const calendarSchema = new mongoose.Schema({
-    orgEmail : {
-        type : String
-    },
-    orgName : {
-        type : String
-    },
     donorName : {
+        type : String
+    },
+    donorEmail : {
+        type : String
+    },
+    mealType : {
         type : String       
     },
-    date : {
+    phone : {
+        type : String       
+    },
+    confirmedDate : {
         type : Date
     },
-    user_Id : {
+    user_id : {
         type : String
     }
    

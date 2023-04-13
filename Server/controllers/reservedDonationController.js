@@ -127,7 +127,7 @@ const updateReservedDonation = async (req,res)=>{
         return res.status(404).json({error:'No such donation'})
     }
 
-    const reservedDonation = await ReservedDonation.findOneAndUpdate({_id:id},{
+    const reservedDonation = await ReservedDonation.findOneAndUpdate({_id:id,status:null},{
         ...req.body
     })
 

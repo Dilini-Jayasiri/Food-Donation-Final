@@ -4,6 +4,7 @@ import { FaSeedling } from 'react-icons/fa';
 import "./Navbar.css";
 import {navItems1, navItems3} from "./NavItems";
 import {navItems2} from "./NavItems";
+import { Box, Grid, requirePropFactory } from '@mui/material';
 import Button from "./Button";
 import "./Button.css";
 import Dropdown from "./Dropdown";
@@ -53,17 +54,20 @@ if(role ==="Donor"){
             </ul>
             {/* <Button/> */}
             <>
-             
+             <Box my={3} mx={4}>
              {!user && (<div> <Link to="/login" className="btn1 btn-outline-primary ms-auto px-4 rounded-pill">
                   <i className='fa fa-sign-in me-2'></i> Login</Link>
                 {/* <NavLink to="/register" className="btn btn-outline-primary ms-2 px-4 rounded-pill">
                   <i className='fa fa-user-plus me-2'></i> Register</NavLink> */}
               
                   </div>)}
+                  </Box>
+                  <Box>
                {user && (   <div><Link to="/logout" onClick={handleClick} className="btn1 btn-outline-primary ms-2 px-4 rounded-pill">
                   <i className='fa fa-sign-out me-2'></i> Log out</Link>
                   <span>           {   user.email}   </span></div>
                )}
+               </Box>
               </>
               
               

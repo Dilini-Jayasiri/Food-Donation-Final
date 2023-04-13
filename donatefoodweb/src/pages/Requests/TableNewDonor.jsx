@@ -1,4 +1,5 @@
 import { useEffect,useState } from "react";
+import { useHistory } from 'react-router-dom';
 import {Box, InputAdornment, Paper, Toolbar} from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { DataGrid, getGridNumericOperators } from "@mui/x-data-grid";
@@ -40,17 +41,7 @@ const TableNewDonor = () => {
           return;
       }
     }
-    // useEffect(() => {
-    //   const fetchOrgs = async () => {
-    //     const response = await fetch('/api/requests/');
-    //     const json = await response.json()
-  
-    //     if (response.ok) {
-    //         setOrgs(json)
-    //     }
-    //   }
-    //   fetchOrgs()
-    // }, [])
+ 
 
     useEffect(() => {
       const fetchDonations = async () => {
@@ -65,7 +56,7 @@ const TableNewDonor = () => {
 
         if(response.ok){
             dispatch({type: 'SET_DONATIONS', payload : json})
-           // tableData.orgName
+           
         }
       }
       if(user){
@@ -77,7 +68,7 @@ const TableNewDonor = () => {
     
     const navigate = useNavigate();
           const handleButtonClick = () => {
-             navigate('/calForDon')
+             navigate('/dataCards')
       }
     const [pageSize,setPageSize] = useState(5);
     const columns = useMemo( () => [
@@ -97,23 +88,29 @@ const TableNewDonor = () => {
       editable:true},
         {field:'quantity',headerName:'Needed Food Parcels',sort:true,width:200,editable:true},
         // {field:'_id',headerName:'ID',width:200},
-        {field:'calendar',headerName:'View Calendar',
-        type:'actions',renderCell: ({}) => (<Button variant="contained" color="success" onClick={handleButtonClick}>Calendar</Button>),width:150},
-
-    ], [rowId]);
+        {
+          field: "calendar",
+          headerName: "View Calendar",
+          type: "actions",
+          renderCell: (params) => (
+            <Button
+              variant="contained"
+              color="success"
+              onClick={() =>
+                navigate(`/dataCards?orgEmail=${params.orgEmail}`)
+              }
+            >
+              Donation Schedule
+            </Button>
+          ),
+          width: 200,
+        },
+      ], []);
     
    
     const handleFilter = (e) => {
       let target = e.target;
-      // setFilterVal({
-      //   fn: items => {
-      //     if(e.target.value == ''){
-      //       return items;
-      //     }else {
-      //       return items.filterVal(x=>x.donorName.includes(target.value))
-      //     }
-      //   }
-      // })
+
       if(target.value == ''){
         setTableData(searchData)
       }else {
@@ -148,11 +145,10 @@ const TableNewDonor = () => {
                     </InputAdornment>)
                   }}
                  
-                //  value={filterVal}
-                //  onInput={(e) => handleFilter(e)}
+                       
                 /> 
                </Toolbar>     
-              {/* <Box marginLeft={170}>  <Button variant="contained" color="success" onClick={(e) => open(true)}>Sheduler</Button></Box> */}
+             
               <DataGrid
                 columns={columns}
                 rows={tableData}
@@ -186,16 +182,6 @@ const TableNewDonor = () => {
       onCellEditCommit={params=>setRowId(params.id)}/>
 
             </Box>
-      {/* // <div className='home'>
-      // <h2>Donation History</h2>
-      // <div className="donations">
-      //     {donations && donations.map((donation)=>( */}
-      {/* //        <OrganizationDetails key={donation._id} donation={donation}/>
-               
-            
-      //     ))}
-      // </div> */}
-  {/* // </div> */}
   <Footer/>
   </>
     )

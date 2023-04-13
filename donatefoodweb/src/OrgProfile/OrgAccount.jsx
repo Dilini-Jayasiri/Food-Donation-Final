@@ -44,7 +44,7 @@ export default function OrgAccount() {
           </Box>
           <Box my={5}>
             <NavLink style={navLinkStyles} to="/donationReqAcc">
-              <GradientButton style={{ backgroundImage: `linear-gradient(to right, #1abc9c 50%, #16a085 100%)`, }} > Donation Status</GradientButton>
+              <GradientButton style={{ backgroundImage: `linear-gradient(to right, #1abc9c 50%, #16a085 100%)`, }} > Donation Requests</GradientButton>
             </NavLink>
           </Box>
 
@@ -55,13 +55,11 @@ export default function OrgAccount() {
           </Box>
 
           <Box my={5}>
-            <NavLink style={navLinkStyles} to="/calendar2">
-              <GradientButton style={{ backgroundImage: `linear-gradient(to right, #1abc9c 50%, #16a085 100%)`, }} >Update the Calendar</GradientButton>
+            <NavLink style={navLinkStyles} to="/dataCards">
+              <GradientButton style={{ backgroundImage: `linear-gradient(to right, #1abc9c 50%, #16a085 100%)`, }} >View Donation Shedule</GradientButton>
             </NavLink>
-
-
-
           </Box>
+          
         </center>
       </Col>
       {/* </center> */}

@@ -7,6 +7,7 @@ import AreaSummary from './AreaSummary';
 import Button from '../../../../../components/controls/Button';
 import ActionButton from '../../../../../components/controls/ActionButton';
 import { useNavigate } from 'react-router';
+import { margin } from '@mui/system';
 // import TableNewDonor from '../../../../pages/Requests/TableNewDonor'
 // import ReservedDonors from '../ReservedDonors/ReservedDonors'
 // import InstantDonors from '../instantdonors/InstantDonors'
@@ -67,19 +68,15 @@ const Main = ({setSelectedLink,link}) => {
        <Paper elevation={3} sx={{p:2,gridColumn:3,gridRow:'1/4',width:'90%'}}>
        <Box>
        <Typography variant='h6'>Pending Donation Requests</Typography>
-             <Button // variant="contained"
-                              // color="primary"
-                             // size="large"
-                            onClick={handleSubmitForm}
+       <Box my={4} mx={4}>
+             <Button       onClick={handleSubmitForm}
                             type="submit"
                             text="Donate"/>
 
-<Button // variant="contained"
-                              // color="primary"
-                             // size="large"
-                            onClick={handleSubmitList}
+             <Button onClick={handleSubmitList}
                             type="submit"
                             text="Donation List"/>
+                            </Box>
                             </Box>
         <Divider sx={{mt:3,mb:3,opacity:0.7}}/>
         <Box>

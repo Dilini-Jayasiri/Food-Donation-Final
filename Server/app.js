@@ -1,4 +1,3 @@
-//Import all dependencies
 const dotenv =require('dotenv');
 const express=require('express');
 const cookieParser = require('cookie-parser');
@@ -13,16 +12,20 @@ const Users = require('./models/userSchema');
 const Message = require('./models/msgSchema');
 const InstDonSchema = require('./models/instantDonationSchema');
 const ResDonSchema = require('./models/reservedDonationSchema');
+const CalendarSchema = require('./models/Calendar');
 const ResDonNew = require('./models/reservedDonNew');
 const Request = require('./models/requestSchema');
 const ReservedDonation = require('./models/reservedDonationSchema');
 const InstantDonation = require('./models/instantDonationSchema');
+const CommonDonation = require('./models/reservedDonNew');
 const authenticate = require('./middleware/authenticate');
 const requestRoute = require('./routes/requests');
 const instantRoute = require('./routes/instantDonation');
 const reservedRoute = require('./routes/reservedDonation');
+const calendarRoute = require('./routes/calendarRoute');
 const reservedLastRoute = require('./routes/ReservedLastRoute');
 const insLastRoute = require('./routes/InstantLastRoute');
+//const commLastRoute = require('./routes/commonLastRoutr');
 const reservedNewRoute = require('./routes/reservedDonNew');
 const donationStatusRoute = require('./routes/status');
 const userRoutes = require('./routes/users');
@@ -38,10 +41,12 @@ app.use('/api/lastRequest',requestRoute);
 app.use('/reservedDonations',reservedRoute);
 app.use('/lastDon',reservedLastRoute);
 app.use('/insLastDon',insLastRoute)
+//app.use('/commLastRec',commLastRoute);
 app.use('/api/instantDonations',instantRoute);
 app.use('/api/user',userRoutes);
 app.use('/api/resDonNew',reservedNewRoute);
 app.use('/api/status',donationStatusRoute);
+app.use('/api/calendarView',calendarRoute);
 app.use(getAllIns);
 //app.use(getAllResNew);
 const User = require('./models/userSchema')
@@ -49,13 +54,53 @@ const User = require('./models/userSchema')
 //middleware
 app.use(express.json());
 app.use((req,res,next)=>{
-//    console.log(req.path,req.method)
+//console.log(req.path,req.method)
     next()
 })
 
 app.get('/',(req,res) =>{
     res.send("Hello world");
 })
+
+// app.post('/calendarNew',async(req,res) =>{
+//     try{
+//         //Get body or data
+//         const orgName = req.body.orgName;
+//         const orgEmail = req.body.orgEmail;
+//         const donorName = req.body.donorName;
+//         const date = req.body.date;
+
+//         const sendCalendar= new CalendarSchema({
+//             orgName : orgName,
+//             orgEmail : orgEmail,
+//             donorName : donorName,
+//             date : date
+//         });
+
+//         //Save method is used to create user
+//         //But before saving or inserting, password will hash.
+//         //Because of hashing.After hash, it will save to DB
+//         const created = await sendCalendar.save();
+//         console.log(created);
+//         res.status(200).send("cal Sent");
+
+//     }catch(error){
+//         res.status(400).send(error);
+//     }
+// })
+
+// //Get all date
+// app.get('/calendarNew',(req,res) =>{
+//     CalendarSchema.find((err,data)=>{
+//         if(err){
+//             res.status(500).send(err)
+//         }else{
+//             res.status(200).send(data);
+//         }
+//     })
+// })
+
+
 
 // Messages
 app.post('/message',async(req,res) =>{
@@ -234,6 +279,8 @@ console.log(error.message);
 }
 });
 
+
+
 // app.get("/reservedDon/:id",async (req,res) => {
 //     let result  = await ReservedDonation.findOne({_id:req.params.id})
 //     if(result){
@@ -271,6 +318,16 @@ app.get("/api/reservedDonation/last",async(req,res) => {
     res.send({"dons":"no record found"})
     }
     });
+
+// app.get('/api/commonDon/last',async(req,res) => {
+//         const user_id = req.user._id;
+//                   const dons = await CommonDonation.find({user_id}).sort({_id:-1}).limit(1);
+//                   if(!dons){
+//                     return res.status(404).json({error:'No such donation'})
+//                 }
+//                 res.status(200).json(dons)
+//     }
+// );
 
 // app.get('/request/Org/:orgName', async (req, res) => {
 //     const { orgName } = req.params;
@@ -314,8 +371,8 @@ app.get('/request/Org/:orgName', async (req, res) => {
     let donarList = [];
     // console.log(orgName);
     try {
-        const instDonList = await InstantDonation.find({ orgName: orgName });
-        const resDonList = await ReservedDonation.find({ orgName: orgName });
+        const instDonList = await InstantDonation.find({ orgName: orgName,status:null });
+        const resDonList = await ReservedDonation.find({ orgName: orgName,status:null });
         // Check Whether the Data is Available
         if(instDonList.length != 0 && resDonList.length != 0){
             instDonList.forEach(element => {
@@ -340,11 +397,53 @@ app.get('/request/Org/:orgName', async (req, res) => {
             return res.status(404).json({error:'No such donation'})
         }
 
+       // donarList.sort((a, b) => new Date(b.date) - new Date(a.date)); // Sort the array by donationDate field in descending order
       res.status(200).json(donarList)
     } catch (error) {
         console.log(error)
     }
 });
+
+app.get('/api/request/Org/:orgName', async (req, res) => {
+    const { orgName } = req.params;
+    let donarList = [];
+    // console.log(orgName);
+    try {
+        const instDonList = await InstantDonation.find({ orgName: orgName,status:null });
+        const resDonList = await ReservedDonation.find({ orgName: orgName,status:null });
+        // Check Whether the Data is Available
+        if(instDonList.length != 0 && resDonList.length != 0){
+            instDonList.forEach(element => {
+                donarList.push(element);
+            });
+
+            resDonList.forEach(element => {
+                donarList.push(element);
+            });
+
+        } else if(resDonList != 0 ){
+            resDonList.forEach(element => {
+                donarList.push(element);
+            });
+        }else if(instDonList.length != 0){
+            instDonList.forEach(element => {
+                donarList.push(element);
+            });
+        }else if(instDonList.length == 0  && resDonList.length == 0){
+            return res.status(404).json({error:'No such donation'})
+        }else{
+            return res.status(404).json({error:'No such donation'})
+        }
+
+       // donarList.sort((a, b) => new Date(b.date) - new Date(a.date)); // Sort the array by donationDate field in descending order
+
+
+      res.status(200).json(donarList)
+    } catch (error) {
+        console.log(error)
+    }
+  });
+  
 
 
     app.get("/api/instantDonation/last",async(req,res) => {

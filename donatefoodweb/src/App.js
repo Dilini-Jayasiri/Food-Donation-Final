@@ -54,6 +54,8 @@ import DateForm from './Calendar/DateForm';
 ///import Calender from '../src/Calendar/calendar';
 import PopUp from '../src/pages/Requests/TableNewDonor';
 import CalendarNew from '../src/pages/Calendar/Calendar';
+import CalendarForm from '../src/OrgProfile/UpdateCalendar';
+import DateCards from './OrgProfile/DateCards';
 Modal.setAppElement('#root');
 
 
@@ -181,17 +183,17 @@ const [refresh,setRefresh] = useState(false);
         <Route path="/popup" element={<PopUp/>}/>
         <Route path="/contribution" element={<Contribution/>}/>
         <Route path="/commDonList" element={<CommonDonationList/>}/>
-        
-        {/* <Route path="/calendarNew" element={<CalendarNew  availableSessions={[
+        <Route path="/calendarForm" element={<CalendarForm/>}/> 
+        <Route path="/calendarNew" element={<CalendarNew  availableSessions={[
             {
               Id: 290149,
               TimeStart: "2023-02-13T07:00:00",
               TimeEnd: "2023-02-13T10:00:00",
               Type: 2,
             },]} setRefreshCalendar={setRefresh}/>}/>
-        CalendarNew  */}
+        CalendarNew  
         {/* <Route path="/homeAdmin" element={<HomeAdmin/>}/> */}
-        
+        <Route path="/dataCards" element={<DateCards/>}/>  
       </Routes>
       {/* <ProtectedRoute> */}
       {/* <Route exact path='/' element={<ProtectedRoute/>}>

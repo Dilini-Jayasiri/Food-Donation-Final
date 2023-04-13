@@ -70,7 +70,7 @@ const createRequest = async (req,res) => {
 const lastRequest = async (req,res) => {
 
     const user_id = req.user._id;
-              const dons = await Request.find({user_id}).sort({_id:-1}).limit(1);
+              const dons = await Request.find({user_id,status:null}).sort({_id:-1}).limit(1);
               if(!dons){
                 return res.status(404).json({error:'No such donation'})
             }

@@ -18,7 +18,14 @@ import { useDonationContext } from '../components/hoooks/useDonationContext'
 import { useAuthContext } from '../components/hoooks/useAuthContext'
 import Nav from '../components/Navbar/Navbar';
 import Footer from '../components/Footer';
+import { makeStyles } from '@material-ui/styles';
 
+
+const useStyles = makeStyles({
+    inputLabel: {
+        color: 'white', // change the color to any desired value
+    },
+});
 
 
 const navLinkStyles = () => {
@@ -44,7 +51,7 @@ const initialValues = {
     donorName: '',
     phone: '',
     donEmail: '',
-    district:'',
+    district: '',
     address: '',
     orgName: '',
     date: '',
@@ -60,6 +67,7 @@ const initialValues = {
 //const inst = localStorage.setItem("donorname",values.donorName);
 
 export default function InstantDonation(props) {
+    //const { classes } = props;
     // const { addOrEdit } = props
     const { donations, dispatch } = useDonationContext()
     const { user } = useAuthContext()
@@ -69,17 +77,10 @@ export default function InstantDonation(props) {
     const [isSubmit, setIsSubmit] = useState(false);
     const [formErrors, setFormErrors] = useState({});
     const navigate = useNavigate();
-    const [district,setDistrict] = useState('');
+    const [district, setDistrict] = useState('');
 
-    // useEffect(() => {
-    //   const fetchData = async () => {
-    //     const response = await fetch('/api/requests');
-    //     const newData = await response.json();
-    //     setOrgs(newData);
-    //     //console.log(newData);
-    //   };
-    //   fetchData();
-    // },[]);
+    const classes = useStyles();
+
 
     useEffect(() => {
         const fetchDonations = async () => {
@@ -100,7 +101,6 @@ export default function InstantDonation(props) {
         }
 
     }, [dispatch, user])
-
 
 
 
@@ -160,21 +160,7 @@ export default function InstantDonation(props) {
         let value = event.target.value;
 
         setValues({ ...values, [name]: value });
-        // console.log(values);
-        // localStorage.setItem('Name',);
-        //   var insertDocument = function(db, callback) {
-        //     db.collection('instantdonations').insertOne( {
-        //           "donorName" : values.donorName,
-        //           "phone" : values.phone,
-        //           "donEmail" :  values.donEmail,
-        //           "address" :  values.address,
-        //        }, function(err, result) {
-        //            console.log("Record added as "+result.insertedId);
-        //             assert.equal(err, null);
-        //             callback();
-        //       });
-        // };
-        // console.log("record inserted >>"+JSON.stringify(result.ops[0]));
+
     }
     //Handle Submit
     const handleSubmit = async (event) => {
@@ -190,12 +176,12 @@ export default function InstantDonation(props) {
             setIsSubmit(true)
             navigate('/donationSummaryIns')
         }
-        // emailjs.send('service_4myyg6h', 'template_ms3zy5j', values, 'AGKmDLzp5SojZrssC')
-        // .then(response => {
-        //     console.log('Success',response);
-        // },error => {
-        //     console.log('Failed...',error)
-        // })
+        emailjs.send('service_4myyg6h', 'template_ms3zy5j', values, 'AGKmDLzp5SojZrssC')
+            .then(response => {
+                console.log('Success', response);
+            }, error => {
+                console.log('Failed...', error)
+            })
         //Object Destructuring
         //Store object data into variables
         // if(validate()){
@@ -203,9 +189,9 @@ export default function InstantDonation(props) {
         // }
         //Object Destructuring
         //Store object data into variables
-        const { donorName, phone, donEmail, district,address, orgName, date, quantity, oldFood, mealType, area, foodType, foodName } = values;
+        const { donorName, phone, donEmail, district, address, orgName, date, quantity, oldFood, mealType, area, foodType, foodName } = values;
 
-        const donation = { donorName, phone, donEmail, district,address, orgName, date, quantity, oldFood, mealType, area, foodType, foodName }
+        const donation = { donorName, phone, donEmail, district, address, orgName, date, quantity, oldFood, mealType, area, foodType, foodName }
 
         const res = await fetch('/api/instantDonations', {
             method: "POST",
@@ -229,7 +215,7 @@ export default function InstantDonation(props) {
                 donorName: '',
                 phone: '',
                 donEmail: '',
-                district:'',
+                district: '',
                 address: '',
                 orgName: '',
                 date: '',
@@ -245,61 +231,7 @@ export default function InstantDonation(props) {
         }
 
 
-        // try {
-        //     //It is submitted on port 3000 by default 
-        //     //which is front end but we need to submit it on
-        //     //backend which is on port 3001. so we need proxy
-        //     const res = await fetch('/instantDon', {
-        //         method: "POST",
-        //         headers: {
-        //             "Content-Type": "application/json"
-        //         },
-        //         body: JSON.stringify({
-        //             nic,donorName, phone,donEmail,address,orgName,date,quantity,oldFood,mealType,area,foodType,foodName
-        //         })
-        //     })
-        //     if (res.status === 400 || !res) {
-        //         window.alert("Message Not Sent. Try Again Later")
-        //     } else {
-        //         window.alert("Message Sent Successfully");
-        //         setValues({
 
-        //            // donorType: '',
-        //            nic:'',
-        //             donorName: '',
-        //             phone: '',
-        //             donEmail:'',
-        //             address: '',
-        //             orgName: '',
-        //             date: '',
-        //             quantity: '',
-        //             oldFood: '',
-        //             mealType: '',
-        //             area: '',
-        //             foodType:'',
-        //             foodName:''
-
-
-
-        //         })
-        // localStorage.setItem("donorId",res.values.nic);
-        // localStorage.setItem("donorname",res.values.donorName);
-        // localStorage.setItem("email",res.values.donEmail);
-        //     navigate("/donationSummary");
-        //    // console.log(localStorage.getItem("donorname"))
-        //    if (typeof window !== 'undefined') {
-        //     localStorage.setItem("newAddress",values.donEmail);
-        //     var email = localStorage.getItem("newAddress");
-        //    console.log(email);
-        //    }else{
-        //     console.log('we are running on the server');
-        //    }
-
-
-
-        // } catch (error) {
-        //     console.log(error);
-        // }
 
     }
     useEffect(() => {
@@ -310,260 +242,271 @@ export default function InstantDonation(props) {
 
         }
     }, [formErrors])
-    //     const MainContainer = styled.div`
 
-    //   align-items:center;
-    //   flex-direction:column;
-    //   width:60vw;
-    //   background:rgba(255,255,255,0.15);
-    //   backdrop-filter:blur(8.5px);
-    //   margin-bottom:4%;
-    //   `;
 
     return (
-<>
- <Nav/>
-        <div className='donation'>
-            {/* <div className='donDiv'> */}
-            {/* <Col> <center><img src={require("../assets/donationform.jpg")} alt="image" /></center></Col>  */}
-            {/* <center> */}
-            <MainContainer>
-                <DonationText>
-                    Instant Donation
-                </DonationText>
+        <>
+            <Nav />
+            <div className='donation'>
 
-                <form onSubmit={handleSubmit} method={'POST'}>
-                    <div>
-                        <Grid container className='donationCon'>
-                            <Grid item xs={12}>
-                                <center>
+                <MainContainer>
+                    <DonationText>
+                        Instant Donation
+                    </DonationText>
 
-                                    <Box my={4} mx={4}>
-                                        <Controls.Input
-                                            name="donorName"
-                                            label="Donor Name"
-                                            value={values.donorName}
-                                            onChange={handleChange}
-                                            error={errors.donorName}
-                                        />
-                                    </Box>
+                    <form onSubmit={handleSubmit} method={'POST'}>
+                        <div>
+                            <Grid container className=''>
+                                <Grid item xs={12}>
+                                    <center>
 
-                                    <Box my={4} mx={4}>
-                                        <Controls.Input
-                                            label="Contact Number"
-                                            name="phone"
-                                            value={values.phone}
-                                            onChange={handleChange}
-                                            error={errors.phone}
-                                        />
-                                    </Box>
-
-                                    <Box my={4} mx={4}>
-                                        <Controls.Input
-
-                                            label="Email Address"
-                                            name="donEmail"
-                                            value={values.donEmail}
-                                            onChange={handleChange}
-                                            error={errors.donEmail}
-                                        />
-                                    </Box>
-                                    <Box my={0} mx={4}>
-<FormControl sx={{ width: '100%' }}>
-                <InputLabel id="demo-simple-select-autowidth-label">District</InputLabel>
-                <Select
-                    name="district"
-                    labelId="demo-select-small"
-                    id="demo-select-small"
-                    value={values.district}
-                    label="Organization Type"
-                    onChange={handleChange}
-                    error={errors.district}
-                >
-                    <MenuItem value={district}>
-                        <em>None</em>
-                    </MenuItem>
-                    <MenuItem value={"Ampara"}>Ampara</MenuItem>
-                    <MenuItem value={"Anuradhapura"}>Anuradhapura</MenuItem>
-                    <MenuItem value={"Badulla"}>Badulla</MenuItem>
-                    <MenuItem value={"Batticaloa"}>Batticaloa</MenuItem>
-                    <MenuItem value={"Colombo"}>Colombo</MenuItem>
-                    <MenuItem value={"Galle"}>Galle</MenuItem>
-                    <MenuItem value={"Gampaha"}>Gampaha</MenuItem>
-                    <MenuItem value={"Hambantota"}>Hambantota</MenuItem>
-                    <MenuItem value={"Jaffna"}>Jaffna</MenuItem>
-                    <MenuItem value={"Kalutara"}>Kalutara</MenuItem>
-                    <MenuItem value={"Kandy"}>Kandy</MenuItem>
-                    <MenuItem value={"Kegalle"}>Kegalle</MenuItem>
-                    <MenuItem value={"Kilinochchi"}>Kilinochchi</MenuItem>
-                    <MenuItem value={"Kurunegala"}>Kurunegala</MenuItem>
-                    <MenuItem value={"Mannar"}>Mannar</MenuItem>
-                    <MenuItem value={"Matale"}>Matale</MenuItem>
-                    <MenuItem value={"Matara"}>Matara</MenuItem>
-                    <MenuItem value={"Monaragala"}>Monaragala</MenuItem>
-                    <MenuItem value={"Mullaitivu"}>Mullaitivu</MenuItem>
-                    <MenuItem value={"Nuwara Eliya"}>Nuwara Eliya</MenuItem>
-                    <MenuItem value={"Polonnaruwa"}>Polonnaruwa</MenuItem>
-                    <MenuItem value={"Puttalam"}>Puttalam</MenuItem>
-                    <MenuItem value={"Ratnapura"}>Ratnapura</MenuItem>
-                    <MenuItem value={"Trincomalee"}>Trincomalee</MenuItem>
-                    <MenuItem value={"Vavuniya"}>Vavuniya</MenuItem>                 
-                </Select>
-            </FormControl>
-</Box>
-                                    <Box my={4} mx={4}>
-                                        <Controls.Input
-                                            label="address"
-                                            name="address"
-                                            value={values.address}
-                                            onChange={handleChange}
-                                            error={errors.address}
-                                        />
-                                    </Box>
-
-                                    <Box my={2} mx={4}>
-                                        <FormControl sx={{ width: '100%' }}>
-                                            <InputLabel id="demo-simple-select-autowidth-label">Organization Type</InputLabel>
-                                            <Select
-                                                name="orgName"
-                                                labelId="demo-select-small"
-                                                id="demo-select-small"
-                                                value={values.orgName}
-                                                label="Organization Name"
-                                                onChange={handleChange}
-                                            >
-                                                <MenuItem value="">
-                                                    <em>None</em>
-                                                </MenuItem>
-                                                {donations && donations.map((org) => (
-                                                    <MenuItem value={org.orgEmail} key={org._id}>{org.orgName}</MenuItem>
-                                                ))}
-
-
-                                            </Select>
-                                        </FormControl>
-                                    </Box>
-
-                                    <Box my={4} mx={4}>
-                                        <Controls.Input
-                                            label="Quantity"
-                                            name="quantity"
-                                            value={values.quantity}
-                                            onChange={handleChange}
-                                            error={errors.quantity}
-                                        />
-                                    </Box>
-
-                                    <Box my={4} mx={4}>
-                                        <Controls.Input
-
-                                            label="How much time passes after prepare food"
-                                            name="oldFood"
-                                            value={values.oldFood}
-                                            onChange={handleChange}
-                                            error={errors.oldFood}
-                                        />
-                                    </Box>
-
-                                    <Box my={4} mx={4}>
-                                        <label>Meal Type</label>
-                                        <Controls.RadioGroups
-                                            name="mealType"
-                                            value={values.mealType}
-                                            onChange={handleChange}
-                                            items={mealType}
-                                        />
-                                    </Box>
-
-                                    <Box my={4} mx={4}>
-                                        <Controls.Input
-                                            label="Preffered Area"
-                                            name="area"
-                                            value={values.area}
-                                            onChange={handleChange}
-                                            error={errors.area}
-                                        />
-                                    </Box>
-
-                                    <Box my={4} mx={4}>
-                                        <label>Food Type</label>
-                                        <Controls.RadioGroups
-                                            name="foodType"
-                                            value={values.foodType}
-                                            onChange={handleChange}
-                                            items={foodType}
-                                        />
-                                    </Box>
-
-                                    <Box my={4} mx={4}>
-                                        <Controls.Input
-                                            label="Food Name"
-                                            name="foodName"
-                                            value={values.foodName}
-                                            onChange={handleChange}
-                                            error={errors.foodName}
-                                        />
-                                    </Box>
-
-
-
-                                    <Box my={4} mx={4}>
-                                        <FormControl sx={{ width: '100%' }}>
-                                            <Controls.DatePicker1
-                                                name="date"
-                                                label="Date"
-                                                value={values.date}
-                                                onChange={handleChange}
-
-                                            />
-                                        </FormControl>
-
-
-                                        {/* <LocalizationProvider dateAdapter={AdapterDateFns}>
-                                                    <DateTimePicker
-                                                        style={{ width: '50%' }}
-                                                        renderInput={(props) => <TextField {...props} />}
-                                                        label="Confirm Date and Time"
-                                                        value={values.date}
-                                                        onChange={(handleChange) => {
-                                                            setValues(handleChange);
-                                                        }}
-                                                    />
-                                                </LocalizationProvider> */}
-                                    </Box>
-
-
-
-
-                                    <div >
                                         <Box my={4} mx={4}>
-                                            <Box my={4} mx={4}>
-                                                <NavLink style={navLinkStyles} to="/donationSummaryIns">
-                                                    <GradientButton style={{ backgroundImage: `linear-gradient(to right, #1abc9c 50%, #16a085 100%)`, }}
-                                                        onClick={handleSubmit}
-                                                        type="submit"
-                                                        text="Submit"
-                                                    > Submit <i className="fa fa-paper-plane ms-2"></i></GradientButton>
-                                                </NavLink>
-                                            </Box>
+
+                                            <Controls.Input
+                                                className={classes.inputLabel}
+                                                inputProps={{ style: { color: 'white' } }}
+                                                labelProps={{ style: { color: 'white' } }}
+                                                InputLabelProps={{ className: 'textField__label' }}
+                                                name="donorName"
+                                                label="Donor Name"
+                                                value={values.donorName}
+                                                onChange={handleChange}
+                                                error={errors.donorName}
+                                            />
                                         </Box>
-                                    </div>
-                                </center>
+
+                                        <Box my={4} mx={4}>
+                                            <Controls.Input
+                                                InputLabelProps={{ className: 'textField__label' }}
+                                                inputProps={{ style: { color: 'white' } }}
+                                                labelProps={{ style: { color: 'white' } }}
+                                                label="Contact Number"
+                                                name="phone"
+                                                value={values.phone}
+                                                onChange={handleChange}
+                                                error={errors.phone}
+                                            />
+                                        </Box>
+
+                                        <Box my={4} mx={4}>
+                                            <Controls.Input
+                                                InputLabelProps={{ className: 'textField__label' }}
+                                                inputProps={{ style: { color: 'white' } }}
+                                                labelProps={{ style: { color: 'white' } }}
+                                                label="Email Address"
+                                                name="donEmail"
+                                                value={values.donEmail}
+                                                onChange={handleChange}
+                                                error={errors.donEmail}
+                                            />
+                                        </Box>
+                                        <Box my={0} mx={4}>
+                                            <FormControl sx={{ width: '100%' }}>
+                                                <InputLabel id="demo-simple-select-autowidth-label" InputLabelProps={{ className: 'textField__label' }}>District</InputLabel>
+                                                <Select
+                                                    InputLabelProps={{ className: 'textField__label' }}
+                                                    name="district"
+                                                    labelId="demo-select-small"
+                                                    id="demo-select-small"
+                                                    value={values.district}
+                                                    label="Organization Type"
+                                                    onChange={handleChange}
+                                                    error={errors.district}
+                                                >
+                                                    <MenuItem value={district}>
+                                                        <em>None</em>
+                                                    </MenuItem>
+                                                    <MenuItem value={"Ampara"}>Ampara</MenuItem>
+                                                    <MenuItem value={"Anuradhapura"}>Anuradhapura</MenuItem>
+                                                    <MenuItem value={"Badulla"}>Badulla</MenuItem>
+                                                    <MenuItem value={"Batticaloa"}>Batticaloa</MenuItem>
+                                                    <MenuItem value={"Colombo"}>Colombo</MenuItem>
+                                                    <MenuItem value={"Galle"}>Galle</MenuItem>
+                                                    <MenuItem value={"Gampaha"}>Gampaha</MenuItem>
+                                                    <MenuItem value={"Hambantota"}>Hambantota</MenuItem>
+                                                    <MenuItem value={"Jaffna"}>Jaffna</MenuItem>
+                                                    <MenuItem value={"Kalutara"}>Kalutara</MenuItem>
+                                                    <MenuItem value={"Kandy"}>Kandy</MenuItem>
+                                                    <MenuItem value={"Kegalle"}>Kegalle</MenuItem>
+                                                    <MenuItem value={"Kilinochchi"}>Kilinochchi</MenuItem>
+                                                    <MenuItem value={"Kurunegala"}>Kurunegala</MenuItem>
+                                                    <MenuItem value={"Mannar"}>Mannar</MenuItem>
+                                                    <MenuItem value={"Matale"}>Matale</MenuItem>
+                                                    <MenuItem value={"Matara"}>Matara</MenuItem>
+                                                    <MenuItem value={"Monaragala"}>Monaragala</MenuItem>
+                                                    <MenuItem value={"Mullaitivu"}>Mullaitivu</MenuItem>
+                                                    <MenuItem value={"Nuwara Eliya"}>Nuwara Eliya</MenuItem>
+                                                    <MenuItem value={"Polonnaruwa"}>Polonnaruwa</MenuItem>
+                                                    <MenuItem value={"Puttalam"}>Puttalam</MenuItem>
+                                                    <MenuItem value={"Ratnapura"}>Ratnapura</MenuItem>
+                                                    <MenuItem value={"Trincomalee"}>Trincomalee</MenuItem>
+                                                    <MenuItem value={"Vavuniya"}>Vavuniya</MenuItem>
+                                                </Select>
+                                            </FormControl>
+                                        </Box>
+                                        <Box my={4} mx={4}>
+                                            <Controls.Input
+                                                InputLabelProps={{ className: 'textField__label' }}
+                                                inputProps={{ style: { color: 'white' } }}
+                                                labelProps={{ style: { color: 'white' } }}
+                                                label="address"
+                                                name="address"
+                                                value={values.address}
+                                                onChange={handleChange}
+                                                error={errors.address}
+                                            />
+                                        </Box>
+
+                                        <Box my={2} mx={4}>
+                                            <FormControl sx={{ width: '100%' }}>
+                                                <InputLabel id="demo-simple-select-autowidth-label" InputLabelProps={{ className: 'textField__label' }}>Organization Type</InputLabel>
+                                                <Select
+                                                    InputLabelProps={{ className: 'textField__label' }}
+                                                    name="orgName"
+                                                    labelId="demo-select-small"
+                                                    id="demo-select-small"
+                                                    value={values.orgName}
+                                                    label="Organization Name"
+                                                    onChange={handleChange}
+                                                >
+                                                    <MenuItem value="">
+                                                        <em>None</em>
+                                                    </MenuItem>
+                                                    {donations && donations.map((org) => (
+                                                        <MenuItem value={org.orgEmail} key={org._id}>{org.orgName}</MenuItem>
+                                                    ))}
+
+
+                                                </Select>
+                                            </FormControl>
+                                        </Box>
+
+                                        <Box my={4} mx={4}>
+                                            <Controls.Input
+                                                InputLabelProps={{ className: 'textField__label' }}
+                                                inputProps={{ style: { color: 'white' } }}
+                                                labelProps={{ style: { color: 'white' } }}
+                                                label="Quantity"
+                                                name="quantity"
+                                                value={values.quantity}
+                                                onChange={handleChange}
+                                                error={errors.quantity}
+                                            />
+                                        </Box>
+
+                                        <Box my={4} mx={4}>
+                                            <Controls.Input
+                                                InputLabelProps={{ className: 'textField__label' }}
+                                                inputProps={{ style: { color: 'white' } }}
+                                                labelProps={{ style: { color: 'white' } }}
+                                                label="How much time passes after prepare food"
+                                                name="oldFood"
+                                                value={values.oldFood}
+                                                onChange={handleChange}
+                                                error={errors.oldFood}
+                                            />
+                                        </Box>
+
+                                        <Box my={4} mx={4}>
+                                            <label>Meal Type</label>
+                                            <Controls.RadioGroups
+                                                InputLabelProps={{ className: 'textField__label' }}
+                                                name="mealType"
+                                                value={values.mealType}
+                                                onChange={handleChange}
+                                                items={mealType}
+                                            />
+                                        </Box>
+
+                                        <Box my={4} mx={4}>
+                                            <Controls.Input
+                                                InputLabelProps={{ className: 'textField__label' }}
+                                                inputProps={{ style: { color: 'white' } }}
+                                                labelProps={{ style: { color: 'white' } }}
+                                                label="Preffered Area"
+                                                name="area"
+                                                value={values.area}
+                                                onChange={handleChange}
+                                                error={errors.area}
+                                            />
+                                        </Box>
+
+                                        <Box my={4} mx={4}>
+                                            <label>Food Type</label>
+                                            <Controls.RadioGroups
+                                                InputLabelProps={{ className: 'textField__label' }}
+                                                inputProps={{ style: { color: 'white' } }}
+                                                labelProps={{ style: { color: 'white' } }}
+                                                name="foodType"
+                                                value={values.foodType}
+                                                onChange={handleChange}
+                                                items={foodType}
+                                            />
+                                        </Box>
+
+                                        <Box my={4} mx={4}>
+                                            <Controls.Input
+                                            InputProps={{
+                                                style: { borderColor: 'red' }
+                                              }}
+                                                InputLabelProps={{ className: 'textField__label' }}
+                                                inputProps={{ style: { color: 'white' } }}
+                                                labelProps={{ style: { color: 'white' } }}
+                                                label="Food Name"
+                                                name="foodName"
+                                                value={values.foodName}
+                                                onChange={handleChange}
+                                                error={errors.foodName}
+                                            />
+                                        </Box>
+
+
+
+                                        <Box my={4} mx={4}>
+                                            <FormControl sx={{ width: '100%' }}>
+                                                <Controls.DatePicker1
+                                                    InputLabelProps={{ className: 'textField__label' }}
+                                                    inputProps={{ style: { color: 'white' } }}
+                                                    labelProps={{ style: { color: 'white' } }}
+                                                    name="date"
+                                                    label="Date"
+                                                    value={values.date}
+                                                    onChange={handleChange}
+
+                                                />
+                                            </FormControl>
+
+
+
+                                        </Box>
+
+
+
+
+                                        <div >
+                                            <Box my={4} mx={4}>
+                                                <Box my={4} mx={4}>
+                                                    <NavLink style={navLinkStyles} to="/donationSummaryIns">
+                                                        <GradientButton style={{ backgroundImage: `linear-gradient(to right, #1abc9c 50%, #16a085 100%)`, }}
+                                                            onClick={handleSubmit}
+                                                            type="submit"
+                                                            text="Submit"
+                                                        > Submit <i className="fa fa-paper-plane ms-2"></i></GradientButton>
+                                                    </NavLink>
+                                                </Box>
+                                            </Box>
+                                        </div>
+                                    </center>
+                                </Grid>
                             </Grid>
-                        </Grid>
-                    </div>
-                </form>
-            </MainContainer>
-            {/* </center> */}
-            {/* </center>
-                </Col>
+                        </div>
+                    </form>
+                </MainContainer>
 
-            {/* </div> */}
-            {/* </Row> */}
 
-        </div>
-<Footer/>
-</>
+            </div>
+            <Footer />
+        </>
 
     )
 
@@ -575,11 +518,11 @@ align-items:center;
 flex-direction:column;
 height:50%;
 width:60%;
-opacity:2.8;
+font-color:white;
 font-weight:bold;
- background:rgba(255,255,255,0.4);
- box-shadow:0 8px 32px 0 rgba(31,38,135,0.37);
-backdrop-filter:blur(8.5px)
+background:rgba(255,255,255,0.4);
+box-shadow:0 8px 32px 0 rgba(31,38,135,0.37);
+// backdrop-filter:blur(4px)
 border-radius:10px;
 color:#ffffff;
 // text-transform:uppercase;
@@ -597,5 +540,7 @@ align-items:center;
 `
 const DonationText = styled.h2`
 margin:3rem 0 2rem 0;
+color:"#fff";
+font-weight:600;
 `
 

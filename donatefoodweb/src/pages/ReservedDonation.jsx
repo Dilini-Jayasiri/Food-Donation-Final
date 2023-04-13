@@ -161,12 +161,12 @@ export default function ReservedDonation(props) {
             setIsSubmit(true)
             navigate('/donationSummaryRes')
         }
-        // emailjs.send('service_4myyg6h', 'template_ms3zy5j', values, 'AGKmDLzp5SojZrssC')
-        // .then(response => {
-        //     console.log('Success',response);
-        // },error => {
-        //     console.log('Failed...',error)
-        // })
+        emailjs.send('service_4myyg6h', 'template_ms3zy5j', values, 'AGKmDLzp5SojZrssC')
+        .then(response => {
+            console.log('Success',response);
+        },error => {
+            console.log('Failed...',error)
+        })
         const { donorName, phone, donEmail,district, address, orgName, orgEmail,date, foodName, quantity, mealType, foodType } = values;
 
         const donation = { donorName, phone, donEmail,district, address, orgName,orgEmail, date, foodName, quantity, mealType, foodType }
@@ -235,6 +235,9 @@ export default function ReservedDonation(props) {
 
                             <Box my={4} mx={4}>
                                 <Controls.Input
+                                InputLabelProps={{ className: 'textField__label' }}
+                                inputProps={{ style: { color: 'white' } }}
+                                labelProps={{ style: { color: 'white' } }}
                                     name="donorName"
                                     label="Donor Name"
                                     value={values.donorName}
@@ -263,6 +266,9 @@ export default function ReservedDonation(props) {
                             <Box my={4} mx={4}>
 
                                 <Controls.Input
+                                InputLabelProps={{ className: 'textField__label' }}
+                                inputProps={{ style: { color: 'white' } }}
+                                labelProps={{ style: { color: 'white' } }}
                                     name="phone"
                                     label="Contact Number"
                                     value={values.phone}
@@ -273,7 +279,9 @@ export default function ReservedDonation(props) {
                             </Box>
                             <Box my={4} mx={4}>
                                 <Controls.Input
-
+InputLabelProps={{ className: 'textField__label' }}
+inputProps={{ style: { color: 'white' } }}
+labelProps={{ style: { color: 'white' } }}
                                     label="Email Address"
                                     name="donEmail"
                                     value={values.donEmail}
@@ -327,6 +335,9 @@ export default function ReservedDonation(props) {
 </Box>
                     <Box my={4} mx={4}>
                                 <Controls.TextArea
+                                InputLabelProps={{ className: 'textField__label' }}
+                                inputProps={{ style: { color: 'white' } }}
+                                labelProps={{ style: { color: 'white' } }}
                                     name="address"
                                     label="address"
                                     value={values.address}
@@ -366,6 +377,9 @@ export default function ReservedDonation(props) {
                         <Grid item xs={6}>
                             <Box my={4} mx={6}>
                                 <Controls.Input
+                                InputLabelProps={{ className: 'textField__label' }}
+                                inputProps={{ style: { color: 'white' } }}
+                                labelProps={{ style: { color: 'white' } }}
                                     name="foodName"
                                     label="Food Name"
                                     value={values.foodName}
@@ -379,6 +393,9 @@ export default function ReservedDonation(props) {
 
                             <Box my={4} mx={6}>
                                 <Controls.Input
+                                InputLabelProps={{ className: 'textField__label' }}
+                                inputProps={{ style: { color: 'white' } }}
+                                labelProps={{ style: { color: 'white' } }}
                                     name="quantity"
                                     label="Quantity"
                                     value={values.quantity}
