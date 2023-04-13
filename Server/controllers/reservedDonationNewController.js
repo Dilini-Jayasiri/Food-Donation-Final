@@ -98,6 +98,7 @@ const deleteReservedDonation = async (req,res)=>{
     res.status(200).json(reservedDonation)
 }
 
+
 //update a donation
 const updateReservedDonation = async (req,res)=>{
     const {id} = req.params
@@ -106,7 +107,11 @@ const updateReservedDonation = async (req,res)=>{
         return res.status(404).json({error:'No such donation'})
     }
 
-    const reservedDonation = await ReservedNewDonation.findOneAndUpdate({_id:id},{
+    const reservedDonation = await ReservedNewDonation.findOneAndUpdate({
+        _id:id,
+        status:null
+    
+    },{
         ...req.body
     })
 
@@ -121,5 +126,6 @@ module.exports= {
     getDonations,
     getReservedDonation,
     deleteReservedDonation,
-    updateReservedDonation
+    updateReservedDonation,
+    
 }

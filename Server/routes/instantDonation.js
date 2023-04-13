@@ -26,6 +26,6 @@ router.get('/:id',getInstantDonation)
 router.delete('/:id',deleteInstantDonation)
 
 //Update a donation
-router.patch('/:id',updatenstantDonation)
+router.post('/:id',updatenstantDonation)
 
 module.exports = router;
