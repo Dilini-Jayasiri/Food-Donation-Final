@@ -659,9 +659,9 @@ app.get('/findDonorByEmail', async (req, res) => {
     const orgEmail = req.body.orgEmail;
     let list = [];
     try {
-        const instDonList = await InstDonSchema.find({ donEmail: orgEmail });
-        const resDonList = await ResDonSchema.find({ donEmail: orgEmail });
-        list.push({ "Instant" : instDonList}, { "Reserved" : resDonList});
+        const instDonList = await InstDonSchema.find({ orgName: orgEmail });
+        const resDonList = await ResDonSchema.find({ orgName: orgEmail });
+        list.push({ "Instant" : instDonList , "Reserved" : resDonList});
         console.log(instDonList, resDonList)
         res.status(200).json(list);
     } catch (error) {
