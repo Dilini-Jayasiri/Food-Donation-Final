@@ -195,7 +195,7 @@ const [refresh,setRefresh] = useState(false);
         CalendarNew  
         {/* <Route path="/homeAdmin" element={<HomeAdmin/>}/> */}
         <Route path="/dataCards" element={<DateCards/>}/>  
-        <Route path="/donationShedule" element={<DonationShedule/>}/>  
+        <Route path="/donationShedule/:orgEmail" element={<DonationShedule/>}/>  
       </Routes>
       {/* <ProtectedRoute> */}
       {/* <Route exact path='/' element={<ProtectedRoute/>}>

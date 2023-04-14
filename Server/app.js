@@ -656,8 +656,8 @@ app.get('/findDonorByEmail', async (req, res) => {
     const orgEmail = req.body.orgEmail;
     let list = [];
     try {
-        const instDonList = await InstDonSchema.find({ donEmail: orgEmail });
-        const resDonList = await ResDonSchema.find({ donEmail: orgEmail });
+        const instDonList = await InstDonSchema.find({ orgName: orgEmail });
+        const resDonList = await ResDonSchema.find({ orgName: orgEmail });
         list.push({ "Instant" : instDonList}, { "Reserved" : resDonList});
         console.log(instDonList, resDonList)
         res.status(200).json(list);
@@ -672,8 +672,8 @@ app.use("/api/calendar",require("./controllers/Calendar"));
 
 
 
-app.get('/findDonorByEmail', async (req, res) => {
-    const orgEmail = req.body.orgEmail;
+app.get('/findDonorByEmail/:orgEmail', async (req, res) => {
+    const { orgEmail } = req.params;
     let list = [];
     try {
         const instDonList = await InstDonSchema.find({ orgName: orgEmail });
