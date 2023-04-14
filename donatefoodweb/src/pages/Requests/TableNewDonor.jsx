@@ -97,8 +97,7 @@ const TableNewDonor = () => {
               variant="contained"
               color="success"
               onClick={() =>
-                alert(params.row.orgEmail)
-                // navigate(`/dataCards?donEmail=${params.row.donEmail}`)
+                navigate(`/donationShedule?orgEmail=${params.row.orgEmail}`)
               }
             >
               Donation Schedule

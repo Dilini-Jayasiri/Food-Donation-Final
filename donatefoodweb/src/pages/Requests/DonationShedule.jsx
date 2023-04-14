@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import Card from 'react-bootstrap/Card';
-import Nav from '../components/Navbar/Navbar'
-import Footer from '../components/Footer'
-import { useDonationContext } from '../components/hoooks/useDonationContext'
-import { useAuthContext } from '../components/hoooks/useAuthContext'
+import Nav from '../../components/Navbar/Navbar'
+import Footer from '../../components/Footer'
+import { useDonationContext } from '../../components/hoooks/useDonationContext'
+import { useAuthContext } from '../../components/hoooks/useAuthContext'
 import { margin } from '@mui/system';
 import { Box } from '@mui/material';
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import GradientButton from 'react-linear-gradient-button/lib/GradientButton'
 
 const navLinkStyles = () => {
@@ -26,9 +26,6 @@ function DateCards() {
     const { donations, dispatch } = useDonationContext()
     const { user } = useAuthContext()
     const [requestData, setRequestData] = useState([]);
-
-    // the Donor mail coming from the URL
-    const { orgEmail } = useParams();
    
     const [dons, setDons] = useState([]);
     const [insDons,setInsDons] = useState([]);

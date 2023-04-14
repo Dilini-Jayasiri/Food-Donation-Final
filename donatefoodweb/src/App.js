@@ -56,6 +56,7 @@ import PopUp from '../src/pages/Requests/TableNewDonor';
 import CalendarNew from '../src/pages/Calendar/Calendar';
 import CalendarForm from '../src/OrgProfile/UpdateCalendar';
 import DateCards from './OrgProfile/DateCards';
+import DonationShedule from '../src/pages/Requests/DonationShedule'
 Modal.setAppElement('#root');
 
 
@@ -194,6 +195,7 @@ const [refresh,setRefresh] = useState(false);
         CalendarNew  
         {/* <Route path="/homeAdmin" element={<HomeAdmin/>}/> */}
         <Route path="/dataCards" element={<DateCards/>}/>  
+        <Route path="/donationShedule" element={<DonationShedule/>}/>  
       </Routes>
       {/* <ProtectedRoute> */}
       {/* <Route exact path='/' element={<ProtectedRoute/>}>
