@@ -254,7 +254,7 @@ labelProps={{ style: { color: 'white' } }}
                                             labelId="demo-select-small"
                                             id="demo-select-small"
                                             value={values.district}
-                                            label="Organization Type"
+                                            label="Organization Name"
                                             onChange={handleChange}
                                             error={errors.district}
                                         >

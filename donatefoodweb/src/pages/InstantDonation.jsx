@@ -178,9 +178,11 @@ export default function InstantDonation(props) {
         }
         emailjs.send('service_4myyg6h', 'template_ms3zy5j', values, 'AGKmDLzp5SojZrssC')
             .then(response => {
-                console.log('Success', response);
+                // console.log('Success', response);
+                console.log('Failed...', response)
             }, error => {
-                console.log('Failed...', error)
+                // console.log('Failed...', error)
+                console.log('Success', error);
             })
         //Object Destructuring
         //Store object data into variables
@@ -229,9 +231,6 @@ export default function InstantDonation(props) {
                 dispatch({ type: 'CREATE_DONATIONS', payload: JSON })
             )
         }
-
-
-
 
     }
     useEffect(() => {
@@ -359,7 +358,7 @@ export default function InstantDonation(props) {
 
                                         <Box my={2} mx={4}>
                                             <FormControl sx={{ width: '100%' }}>
-                                                <InputLabel id="demo-simple-select-autowidth-label" InputLabelProps={{ className: 'textField__label' }}>Organization Type</InputLabel>
+                                                <InputLabel id="demo-simple-select-autowidth-label" InputLabelProps={{ className: 'textField__label' }}>Organization Name</InputLabel>
                                                 <Select
                                                     InputLabelProps={{ className: 'textField__label' }}
                                                     name="orgName"

@@ -120,7 +120,7 @@ const TableNewDonor = () => {
                         variant="h3"
                         component='h3'
                         sx={{ textAlign: 'left', marginTop: '2%', marginLeft: '5%' }}>
-                        <h3>My Instant Donation Details Table</h3>
+                        <h3>My Instant Donation Details</h3>
                     </Typography>
                     <DataGrid
                         columns={columns}
@@ -157,7 +157,7 @@ const TableNewDonor = () => {
                         variant="h5"
                         component='h5'
                         sx={{ textAlign: 'left', marginTop: '2%', marginLeft: '5%' }}>
-                        <h4>My Reserved Donation Details Without Selecting Organization</h4>
+                        <h4>My Public Donation Details</h4>
                     </Typography>
                     <DataGrid
                         columns={columns}
@@ -222,7 +222,7 @@ const TableNewDonor = () => {
                     variant="h4"
                     component='h3'
                     sx={{ textAlign: 'left', marginTop: '2%', marginLeft: '5%' }}>
-                    <h4>My Reserved Donation Details Table</h4>
+                    <h4>My Reserved Donation Details</h4>
                 </Typography>
                 
                 <DataGrid
@@ -263,7 +263,7 @@ const TableNewDonor = () => {
                     variant="h5"
                     component='h5'
                     sx={{ textAlign: 'left', marginTop: '2%', marginLeft: '5%' }}>
-                    <h4>My Reserved Donation Details Without Selecting Organization</h4>
+                    <h4>My Public Donation Details</h4>
                 </Typography>
                 <DataGrid
                     columns={columns}
@@ -329,7 +329,7 @@ const TableNewDonor = () => {
                         variant="h4"
                         component='h4'
                         sx={{ textAlign: 'left', marginTop: '2%', marginLeft: '5%' }}>
-                        <h4>My Reserved Donation Details Table</h4>
+                        <h4>My Reserved Donation Details</h4>
                     </Typography>
 
                     <DataGrid
@@ -372,7 +372,7 @@ const TableNewDonor = () => {
                         variant="h4"
                         component='h3'
                         sx={{ textAlign: 'left', marginTop: '2%', marginLeft: '5%' }}>
-                        <h4>My Instant Donation Details Table</h4>
+                        <h4>My Instant Donation Details</h4>
                     </Typography>
                     <DataGrid
                         columns={columns}
@@ -435,7 +435,7 @@ const TableNewDonor = () => {
                         variant="h5"
                         component='h5'
                         sx={{ textAlign: 'left', marginTop: '2%', marginLeft: '5%' }}>
-                        <h4>My Reserved Donation Details Without Selecting Organization</h4>
+                        <h4>My Public Donations Details</h4>
                     </Typography>
                     <DataGrid
                         columns={columns}
@@ -493,7 +493,7 @@ const TableNewDonor = () => {
                         variant="h4"
                         component='h3'
                         sx={{ textAlign: 'left', marginTop: '2%', marginLeft: '5%' }}>
-                        <h4>My Instant Donation Details Table</h4>
+                        <h4>My Instant Donation Details</h4>
                     </Typography>
                     <DataGrid
                         columns={columns}
@@ -553,7 +553,7 @@ const TableNewDonor = () => {
                         variant="h4"
                         component='h3'
                         sx={{ textAlign: 'left', marginTop: '2%', marginLeft: '5%' }}>
-                        <h4>My Reserved Donation Details Table</h4>
+                        <h4>My Reserved Donation Details</h4>
                     </Typography>
 
                     <DataGrid
@@ -637,7 +637,7 @@ const TableNewDonor = () => {
                         variant="h4"
                         component="h3"
                         sx={{ textAlign: 'left', marginTop: '2%', marginLeft: '5%' }}>
-                        <h4>My Reserved Donation Details Table</h4>
+                        <h4>My Reserved Donation Details</h4>
                     </Typography>
 
                     <DataGrid
@@ -679,7 +679,7 @@ const TableNewDonor = () => {
                         variant="h4"
                         component='h3'
                         sx={{ textAlign: 'left', marginTop: '2%', marginLeft: '5%' }}>
-                        <h4>My Instant Donation Details Table</h4>
+                        <h4>My Instant Donation Details</h4>
                     </Typography>
                     <DataGrid
                         columns={columns}
@@ -717,7 +717,7 @@ const TableNewDonor = () => {
                         variant="h5"
                         component='h5'
                         sx={{ textAlign: 'left', marginTop: '2%', marginLeft: '5%' }}>
-                        <h4>My Reserved Donation Details Without Selecting Organization</h4>
+                        <h4>My Public Donations Details</h4>
                     </Typography>
                     <DataGrid
                         columns={columns}

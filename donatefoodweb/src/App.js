@@ -56,7 +56,9 @@ import PopUp from '../src/pages/Requests/TableNewDonor';
 import CalendarNew from '../src/pages/Calendar/Calendar';
 import CalendarForm from '../src/OrgProfile/UpdateCalendar';
 import DateCards from './OrgProfile/DateCards';
-import DonationShedule from '../src/pages/Requests/DonationShedule'
+import DonationShedule from '../src/pages/Requests/DonationShedule';
+import LoginAdmin from './adminSide/LoginAdmin';
+import RegisterAdmin from './adminSide/RegisterAdmin';
 Modal.setAppElement('#root');
 
 
@@ -66,61 +68,18 @@ function App() {
   const [auth, setauth] = useState(false);
   const [auth1, setauth1] = useState(true);
 
-  // const isLoggedIn = async () => {
-  //   try {
-  //     const res = await fetch('/auth', {
-  //       method: "GET",
-  //       headers: {
-  //         Accept: "application/json",
-  //         "Content-Type": "application/json"
-  //       },
-  //       credentials: "include"
-  //     });
-
-  //     if (res.status === 200) {
-  //       setauth(true)
-  //       setauth1(false)
-  //     }
-  //     if (res.status === 401) {
-  //       setauth(false)
-  //       setauth1(true)
-  //     }
-
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   isLoggedIn();
-  // }, []);
   useEffect(() => {
     fetch('/api/user/login')
        .then(res => res.json())
        .then(data => setRoleType(data.role));
        console.log(data => setRoleType(data.role));
   },[]);
-//   useEffect(() => {
-//     const fetchUser = async () => {
-//         const response = await fetch('/api/user/login')
-//         const json = await response.json()
 
-//         if(response.ok){
-//             setDonation(json)
-//         } 
-//     }
-//     fetchUser()
-// },[])
 const [refresh,setRefresh] = useState(false);
 
-// useEffect(()=>{
-//   setRefresh(!refresh)
-// },[refresh]);
   return (
     <>
-    
-      {/* <NavBar auth={auth1} /> */}
-      {/* <Nav/> */}
+
       <Routes>
       <Route path="/login" element= {!user ? <Login/> : <Navigate to="/home"/>}/>
      <Route path="/register" element={!user ?<Register/> :<Navigate to="/login"/> }/>
@@ -130,18 +89,6 @@ const [refresh,setRefresh] = useState(false);
         <Route path="/about" element={<About/>} />
         <Route path="/services" element={<Services/>} />
         <Route path="/contact" element={<Contact/>} />            
-        { /* <Route element={<ProtectedRoutes/>}>          
-            <Route  path="/donateDash" element={<DonateDash/>} auth={auth}/>
-            <Route  path="/donationForm" element={<DonationForm/>} auth={auth}/>
-            <Route  path="/instantDonation" element={<InstantDonation/>} auth={auth}/>
-            <Route  path="/reservedDonation" element={<ReservedDonation/>} auth={auth}/>
-            <Route path="/donationType" element={<DonationType/>} auth={auth}/>
-            <Route path="/requests" element={<Requests/>} auth={auth}/>
-            <Route path="/requestForm" element={<RequestForm/>} auth={auth}/>
-            <Route path="/donorAccount" element={<DonorAccount/>} auth={auth}/>
-            <Route  path="/logout" element={<Logout/>} auth={auth}/>
-            <Route path="/orgList" element={<OrgList/>} auth={auth}/>
-            </Route>  */}
         <Route path="/donateDash" element={<DonateDash/>}/>
         <Route path="/donationForm" element={<DonationForm/>} />
         <Route path="/instantDonation" element={user ? <InstantDonation/>: <Navigate to="/login"/>}/>
@@ -156,31 +103,22 @@ const [refresh,setRefresh] = useState(false);
         <Route path="/donationSummaryIns" element={<DonationSummaryInstant/>} />
         <Route path="/donationSummaryRes" element={<DonationSummaryReserved/>}/>
         <Route path="/donationSummaryComm" element={<DonationSummaryCommon/>}/>
-        {/* <Route path="/donSum" element={<DonationSummary2/>} /> */}
         <Route path="/inst" element={<Inst/>} />
         <Route path="/acceptPage" element={user ? <AcceptPage/> : <Navigate to="/login"/>} />
         <Route path="/receiverAccount" element={user ? <ReceiverAccount/> : <Navigate to="/login"/>} />
-        {/* <Route path="/instantDonSummary/:id" element={<DonationSummaryInstant />} /> */}
-        {/* <Route path="/calendar" element={user ? <Calendar /> : <Navigate to="/login"/>} /> */}
-        {/* <Route path="/cal" element={user ? <Calendar2/> : <Navigate to="/login"/>} />
-        <Route path="/calForDon" element={user ? <CalendarForDonor/>: <Navigate to="/login"/>}/> */}
         <Route path="/donationReqAcc" element={<DonationRequestAccept/>}/>
-       
-        {/* <Route path="/dash2" element={<Dash2/>}/> */}
         <Route path="/orgAccount" element={<OrgAccount/>}/>
         <Route path="" element={<Home/>}/>
         <Route path="/tableNewDonor" element={<TableNewDonor/>}/>
         <Route path="/donationSummaryDonor" element={user ? <DonationSummaryDonor/> : <Navigate to="/login"/>}/>
         <Route path="/donationHistory" element={user ? <DonationHistory/> : <Navigate to="/login"/>}/>
         <Route path="/dashboard" element={<Dashboard/>} />
-        {/* <Route path="/homeAdmin" element={<HomeAdmin />} /> */}
         <Route path="/requestSummary" element={user ? <RequestSummary/> : <Navigate to="/login"/>} /> 
         <Route path="/pieDonationType" element={<PieDonationType/>}/>
         <Route path="/adminResDon" element={<AdminResDon/>}/>
         <Route path="/adminInsDon" element={<AdminInsDon/>}/>
         <Route path="/orgs" element={<Orgs/>}/>
         <Route path="/dateform" element={<DateForm/>}/>
-        {/* <Route path="/calendar2" element={<Calender/>}/> */}
         <Route path="/popup" element={<PopUp/>}/>
         <Route path="/contribution" element={<Contribution/>}/>
         <Route path="/commDonList" element={<CommonDonationList/>}/>
@@ -193,57 +131,12 @@ const [refresh,setRefresh] = useState(false);
               Type: 2,
             },]} setRefreshCalendar={setRefresh}/>}/>
         CalendarNew  
-        {/* <Route path="/homeAdmin" element={<HomeAdmin/>}/> */}
         <Route path="/dataCards" element={<DateCards/>}/>  
         <Route path="/donationShedule/:orgEmail" element={<DonationShedule/>}/>  
+        <Route path="/loginAdmin" element={<LoginAdmin/>}/> 
+        <Route path="/registerAdmin" element={<RegisterAdmin/>}/> 
       </Routes>
-      {/* <ProtectedRoute> */}
-      {/* <Route exact path='/' element={<ProtectedRoute/>}>
-     <Route  path="/donateDash" element={<DonateDash/>} auth={auth}/>
-     </Route> */}
-      {/* <Route exact path='/' element={<ProtectedRoute/>}> */}
-      {/* <Route  path="/donationForm" element={<DonationForm/>} auth={auth}/>
-     </Route>
-     <Route exact path='/' element={<ProtectedRoute/>}>
-     <Route  path="/instantDonation" element={<InstantDonation/>} auth={auth}/>
-     </Route>
-     <Route exact path='/' element={<ProtectedRoute/>}>
-     <Route  path="/reservedDonation" element={<ReservedDonation/>} auth={auth}/>
-     </Route>
-     <Route exact path='/' element={<ProtectedRoute/>}>
-     <Route path="/donationType" element={<DonationType/>} auth={auth}/>
-     </Route>
-     <Route exact path='/' element={<ProtectedRoute/>}>
-     <Route path="/requests" element={<Requests/>} auth={auth}/>
-     </Route>
-     <Route exact path='/' element={<ProtectedRoute/>}>
-     <Route path="/requestForm" element={<RequestForm/>} auth={auth}/>
-     </Route>
-     <Route exact path='/' element={<ProtectedRoute/>}>
-     <Route path="/donorAccount" element={<DonorAccount/>} auth={auth}/>
-     </Route>
-     <Route exact path='/' element={<ProtectedRoute/>}>
-     <Route  path="/logout" element={<Logout/>} auth={auth}/>
-     </Route>
-     <Route exact path='/' element={<ProtectedRoute/>}>
-     <Route path="/orgList" element={<OrgList/>} auth={auth}/> 
-     </Route> */}
-      {/* <ProtectedRoute  path="/register" element={<Register/>} auth={auth1}/> */}
-      {/* <ProtectedRoute  path="/donateDash" element={<DonateDash/>} auth={auth}/>
-     <ProtectedRoute  path="/donationForm" element={<DonationForm/>} auth={auth}/>
-     <ProtectedRoute  path="/instantDonation" element={<InstantDonation/>} auth={auth}/>
-     <ProtectedRoute  path="/reservedDonation" element={<ReservedDonation/>} auth={auth}/>
-     <ProtectedRoute path="/donationType" element={<DonationType/>} auth={auth}/>
-     <ProtectedRoute path="/requests" element={<Requests/>} auth={auth}/>
-     <ProtectedRoute path="/requestForm" element={<RequestForm/>} auth={auth}/>
-     <ProtectedRoute path="/donorAccount" element={<DonorAccount/>} auth={auth}/>
-     <ProtectedRoute  path="/logout" element={<Logout/>} auth={auth}/>
-     <ProtectedRoute path="/orgList" element={<OrgList/>} auth={auth}/>
-      */}
-      {/* <Home/>
-   <About/> */}
-      {/* </ProtectedRoute> */}
-      {/* <Footer/>  */}
+    
     </>
   );
   

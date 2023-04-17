@@ -26,23 +26,12 @@ if(role ==="Donor"){
     return (
         <>
                <nav className="navbar1 navbar-expand-lg navbar-light shadow">
-            <Link to="/" className="navbar-logo">
+                <Link to="/" className="navbar-logo">
                 FOOD BANK
                 <FaSeedling/>
             </Link>
             <ul className="nav-items">
                 {navItems1.map((item) => {
-                  //  if( item.title === "Account") {
-                  //   return(
-                  //   <li key={item.id} className={item.cName}
-                  //   onMouseEnter={()=> setDropdown(true)}
-                  //   onMouseLeave={()=> setDropdown(false)}>
-                  //       <Link to={item.path}>{item.title}</Link>
-                  //      {dropdown && <Dropdown/>} 
-                  //   </li>
-                    
-                  //   );
-                  //  }
                    return (
                     <li key={item.id} className={item.cName}>
                     <Link to={item.path}>{item.title}</Link>
@@ -57,15 +46,12 @@ if(role ==="Donor"){
              <Box my={3} mx={4}>
              {!user && (<div> <Link to="/login" className="btn1 btn-outline-primary ms-auto px-4 rounded-pill">
                   <i className='fa fa-sign-in me-2'></i> Login</Link>
-                {/* <NavLink to="/register" className="btn btn-outline-primary ms-2 px-4 rounded-pill">
-                  <i className='fa fa-user-plus me-2'></i> Register</NavLink> */}
-              
                   </div>)}
                   </Box>
                   <Box>
                {user && (   <div><Link to="/logout" onClick={handleClick} className="btn1 btn-outline-primary ms-2 px-4 rounded-pill">
-                  <i className='fa fa-sign-out me-2'></i> Log out</Link>
-                  <span>           {   user.email}   </span></div>
+                  <i className='fa fa-sign-out me-2'></i> Log out </Link>
+                  <span>            {    user.email }   </span></div>
                )}
                </Box>
               </>
@@ -85,17 +71,6 @@ if(role ==="Donor"){
           </Link>
           <ul className="nav-items">
               {navItems2.map((item) => {
-                //  if( item.title === "Account") {
-                //   return(
-                //   <li key={item.id} className={item.cName}
-                //   onMouseEnter={()=> setDropdown(true)}
-                //   onMouseLeave={()=> setDropdown(false)}>
-                //       <Link to={item.path}>{item.title}</Link>
-                //      {dropdown && <Dropdown/>} 
-                //   </li>
-                  
-                //   );
-                //  }
                  return (
                   <li key={item.id} className={item.cName}>
                   <Link to={item.path}>{item.title}</Link>
@@ -105,18 +80,14 @@ if(role ==="Donor"){
                   
               })}
           </ul>
-          {/* <Button/> */}
           <>
            
            {!user && (<div> <Link to="/login" className="btn1 btn-outline-primary ms-auto px-4 rounded-pill">
                 <i className='fa fa-sign-in me-2'></i> Login</Link>
-              {/* <NavLink to="/register" className="btn btn-outline-primary ms-2 px-4 rounded-pill">
-                <i className='fa fa-user-plus me-2'></i> Register</NavLink> */}
-            
                 </div>)}
              {user && (   <div><Link to="/logout" onClick={handleClick} className="btn1 btn-outline-primary ms-2 px-4 rounded-pill">
                 <i className='fa fa-sign-out me-2'></i> Log out</Link>
-                <span>           {   user.email}   </span></div>
+                <span>{user.email}</span></div>
              )}
             </>
             
@@ -135,17 +106,6 @@ if(role ==="Donor"){
           </Link>
           <ul className="nav-items">
               {navItems3.map((item) => {
-                //  if( item.title === "Account") {
-                //   return(
-                //   <li key={item.id} className={item.cName}
-                //   onMouseEnter={()=> setDropdown(true)}
-                //   onMouseLeave={()=> setDropdown(false)}>
-                //       <Link to={item.path}>{item.title}</Link>
-                //      {dropdown && <Dropdown/>} 
-                //   </li>
-                  
-                //   );
-                //  }
                  return (
                   <li key={item.id} className={item.cName}>
                   <Link to={item.path}>{item.title}</Link>
@@ -160,9 +120,6 @@ if(role ==="Donor"){
            
            {!user && (<div> <Link to="/login" className="btn1 btn-outline-primary ms-auto px-4 rounded-pill">
                 <i className='fa fa-sign-in me-2'></i> Login</Link>
-              {/* <NavLink to="/register" className="btn btn-outline-primary ms-2 px-4 rounded-pill">
-                <i className='fa fa-user-plus me-2'></i> Register</NavLink> */}
-            
                 </div>)}
              {user && (   <div><Link to="/logout" onClick={handleClick} className="btn1 btn-outline-primary ms-2 px-4 rounded-pill">
                 <i className='fa fa-sign-out me-2'></i> Log out</Link>

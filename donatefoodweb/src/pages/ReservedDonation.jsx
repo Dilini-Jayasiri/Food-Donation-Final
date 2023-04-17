@@ -347,7 +347,7 @@ labelProps={{ style: { color: 'white' } }}
                             </Box>                   
                             <Box my={2} mx={4}>
                                 <FormControl sx={{ width: '100%' }}>
-                                    <InputLabel id="demo-simple-select-autowidth-label">Organization Type</InputLabel>
+                                    <InputLabel id="demo-simple-select-autowidth-label">Organization Name</InputLabel>
                                     <Select
                                         name="orgName"
                                         labelId="demo-select-small"

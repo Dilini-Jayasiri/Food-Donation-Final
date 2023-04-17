@@ -24,8 +24,8 @@ const ReservedDonors = ({setSelectedLink,link}) => {
     }, [])
     const [pageSize,setPageSize] = useState(5);
     const columns = useMemo( () => [
-        {field:'donorName',headerName:'Donor Name',width:150,headAlign:'center',headerClassName: 'super-app-theme--header',editable:true},
-        {field:'donEmail',headerName:'Donor Email',width:150,editable:true},
+        {field:'donorName',headerName:'Donor Name',width:200,headAlign:'center',headerClassName: 'super-app-theme--header',editable:true},
+        {field:'donEmail',headerName:'Donor Email',width:240,editable:true},
         {field:'address',headerName:'Address',sort:true,width:200,editable:true},
         {field:'phone',
         headerName:'Contact Number',

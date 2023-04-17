@@ -30,20 +30,6 @@ const DonationReqAcc = (props) => {
     const [requestData, setRequestData] = useState([]);
     const [dons, setDons] = useState([]);
 
-    // const handleSubmit = async (event) => {
-    //     event.preventDefault();
-    //     emailjs.send('service_4myyg6h', 'template_xge57pr', dons, 'AGKmDLzp5SojZrssC')
-    //         .then(response => {
-    //             console.log('Success', response);
-    //             console.log("Message sent")
-    //         }, error => {
-    //             console.log('Failed...', error)
-    //             console.log("message not sent")
-    //         })
-    // }
-
-
-
     const GetDonnerData = async () => {
         let response = await fetch(`request/Org/${requestData[0].orgEmail}`, {
             headers: {
@@ -165,7 +151,7 @@ const onUpdateHandle = async (id,optionData) => {
 
                                 <div>
 
-                                    {dons.map((don, index) => (
+                                    {dons && dons.map((don, index) => (
                                         <div class="card p-3 m-2">
                                             <div class="card-body text-center">
                                                 <p key={index}><strong>Donor Name : </strong>{don.donorName}</p>

@@ -110,7 +110,7 @@ useEffect(() => {
                         <center>
                         <Box my={5}>
             <NavLink style={navLinkStyles} to="/">
-              <GradientButton style={{ backgroundImage: `linear-gradient(to right, #1abc9c 50%, #16a085 100%)`, }} >Contact Donor</GradientButton>
+              <GradientButton style={{ backgroundImage: `linear-gradient(to right, #1abc9c 50%, #16a085 100%)`, }} >Update Request</GradientButton>
             </NavLink>
           </Box>
           </center>

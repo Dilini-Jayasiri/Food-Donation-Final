@@ -12,6 +12,7 @@ const Users = require('./models/userSchema');
 const Message = require('./models/msgSchema');
 const InstDonSchema = require('./models/instantDonationSchema');
 const ResDonSchema = require('./models/reservedDonationSchema');
+const OtherDonSchema = require('./models/Calendar');
 const CalendarSchema = require('./models/Calendar');
 const ResDonNew = require('./models/reservedDonNew');
 const Request = require('./models/requestSchema');
@@ -607,6 +608,188 @@ function findTopDonors(donorArr) {
 //       }
 
 
+// API endpoint to get count of documents in the Request collection
+app.get('/api/request/count', (req, res) => {
+    Request.countDocuments({}, function(err, count) {
+      if (err) {
+        console.log(err);
+        res.status(500).json({ error: 'Error getting count of documents' });
+      } else {
+        res.json({ count: count });
+      }
+    });
+  });
+
+  app.get('/most-instant-donations', (req, res) => {
+    InstantDonation.aggregate([
+      {
+        $group: {
+          _id: '$donorName',
+          count: { $sum: 1 }
+        }
+      },
+      {
+        $sort: {
+          count: -1
+        }
+      },
+      {
+        $limit: 1
+      }
+    ])
+    .then(results => {
+      if (results.length > 0) {
+        const donorName = results[0]._id;
+        const count = results[0].count;
+        res.send(`${donorName} has made the most instant donations (${count} donations).`);
+      } else {
+        res.send('No instant donations found.');
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).send('Error finding instant donations.');
+    });
+  });
+
+  app.get('/api/reserved-donors/top', async (req, res) => {
+    try {
+      const topDonors = await ReservedDonation.aggregate([
+        {
+          $group: {
+            _id: '$donorName',
+            totalDonations: { $sum: 1 }
+          }
+        },
+        {
+          $sort: { totalDonations: -1 }
+        },
+        {
+          $limit: 5
+        }
+      ]);
+  
+      res.json(topDonors);
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: 'Server Error' });
+    }
+  });
+
+  app.get('/api/instant-donors/top', async (req, res) => {
+    try {
+      const topDonors = await InstantDonation.aggregate([
+        {
+          $group: {
+            _id: '$donorName',
+            totalDonations: { $sum: 1 }
+          }
+        },
+        {
+          $sort: { totalDonations: -1 }
+        },
+        {
+          $limit: 5
+        }
+      ]);
+  
+      res.json(topDonors);
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: 'Server Error' });
+    }
+  });
+  
+// Route to get the number of reserved donations
+app.get('/reserved-donations-count', async (req, res) => {
+    try {
+      // Count the number of documents where the status is "reserved"
+      const count = await InstantDonation.countDocuments({ status: 'Accept' });
+      res.send(`Number of reserved donations: ${count}`);
+    } catch (err) {
+      console.log(err);
+      res.status(500).send('Error fetching reserved donations count');
+    }
+  });
+
+  // Route to get the total count of instant donation documents
+app.get('/total-count-ins', async (req, res) => {
+    try {
+      const count = await InstantDonation.countDocuments();
+      res.json({ count: count });
+    } catch (err) {
+      console.log(err);
+      res.status(500).send('Error fetching total count');
+    }
+  });
+
+    // Route to get the total count of reserved donation documents
+app.get('/total-count-res', async (req, res) => {
+    try {
+      const count = await ReservedDonation.countDocuments();
+      res.json({ count: count });
+    } catch (err) {
+      console.log(err);
+      res.status(500).send('Error fetching total count');
+    }
+  });
+
+  app.get('/donations-by-mealType', async (req, res) => {
+    try {
+      const donationsByMealType = await ReservedDonation.aggregate([
+        { $group: { _id: '$mealType', count: { $sum: 1 } } },
+      ]);
+      res.json(donationsByMealType);
+    } catch (error) {
+      console.log(error.message);
+      res.status(500).send('Internal Server Error');
+    }
+  });
+
+  app.get('/donations-by-district-res', async (req, res) => {
+    try {
+      const donationsByMealType = await ReservedDonation.aggregate([
+        { $group: { _id: '$district', count: { $sum: 1 } } },
+      ]);
+      res.json(donationsByMealType);
+    } catch (error) {
+      console.log(error.message);
+      res.status(500).send('Internal Server Error');
+    }
+  });
+  app.get('/donations-by-district-ins', async (req, res) => {
+    try {
+      const donationsByMealType = await InstantDonation.aggregate([
+        { $group: { _id: '$district', count: { $sum: 1 } } },
+      ]);
+      res.json(donationsByMealType);
+    } catch (error) {
+      console.log(error.message);
+      res.status(500).send('Internal Server Error');
+    }
+  });
+
+  // Route to get number of donations by month
+app.get('/donations-by-month', async (req, res) => {
+    try {
+      const donations = await ReservedDonation.aggregate([
+        { $match: { status: "Accept" } },
+        {
+          $group: {
+            _id: {
+              year: { $year: "$createdAt" },
+              month: { $month: "$createdAt" }
+            },
+            count: { $sum: 1 }
+          }
+        },
+        { $sort: { "_id.year": 1, "_id.month": 1 } }
+      ])
+      res.status(200).json(donations)
+    } catch (error) {
+      res.status(500).json({ error: error.message })
+    }
+  })
 
 // You can get All donar data from here
 app.get('/getDons', async (req, res) => {
@@ -660,6 +843,20 @@ app.get('/findDonorByEmail', async (req, res) => {
         const resDonList = await ResDonSchema.find({ orgName: orgEmail });
         list.push({ "Instant" : instDonList}, { "Reserved" : resDonList});
         console.log(instDonList, resDonList)
+        res.status(200).json(list);
+    } catch (error) {
+        console.log(error)
+        res.status(400).send(error);
+    }
+   
+});
+app.get('/findDonorByEmailOtherDon', async (req, res) => {
+    const orgEmail = req.body.orgEmail;
+    let list = [];
+    try {
+        const otherDonList = await OtherDonSchema.find({ orgName: orgEmail });
+        list.push({ "OtherDons" : otherDonList});
+        console.log(otherDonList)
         res.status(200).json(list);
     } catch (error) {
         console.log(error)

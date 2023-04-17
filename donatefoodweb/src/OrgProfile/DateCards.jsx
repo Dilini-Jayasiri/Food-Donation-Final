@@ -116,15 +116,15 @@ function DateCards() {
           <div className="container py-5 pr-5">
             <div className="row">
               <div className="col-md-6">
-                
-              {dons.map((don, index) => (
+              {dons && dons.length > 0 ? (
+              dons.map((don, index) => (
                 <Card
                   bg="success"
                   text="white"
                   style={{ width: '90%' }}
                   className="m-3"
                 >
-                  <Card.Header>Reserved Donation Schedule</Card.Header>
+                  <Card.Header>Reserved & Instant Donation Schedule</Card.Header>
                   <Card.Body>
                     <Card.Title>Donor Name : {don.donorName}</Card.Title>
                     <Card.Text>
@@ -140,17 +140,32 @@ function DateCards() {
                     </Card.Text>
                   </Card.Body>
                 </Card>
-                ))}
+                ))
+              ) : (
+                  <Card
+                    bg="danger"
+                    text="white"
+                    style={{ width: '90%' }}
+                    className="m-3"
+                  >
+                    <Card.Header>No Donations</Card.Header>
+                    <Card.Body>
+                      <Card.Text>
+                        There are currently no reserved donations scheduled.
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                  )}
               </div>
               <div className="col-md-6">
               {insDons.map(insDon => (
                 <Card
-                  bg="danger"
+                  bg="info"
                   text="white"
                   style={{ width:'90%' }}
                   className="m-3"
                 >
-                  <Card.Header>Instant Donation Shedule</Card.Header>
+                  <Card.Header>Other Donation Shedule</Card.Header>
                   <Card.Body>
                   <Card.Title>Donor Name : {insDon.donorName}</Card.Title>
                     <Card.Text>

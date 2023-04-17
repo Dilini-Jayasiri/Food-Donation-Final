@@ -7,7 +7,7 @@ import { useAuthContext } from '../../components/hoooks/useAuthContext'
 import { margin } from '@mui/system';
 import { Box } from '@mui/material';
 import { NavLink, useParams } from 'react-router-dom';
-import GradientButton from 'react-linear-gradient-button/lib/GradientButton'
+
 
 const navLinkStyles = () => {
   return {
@@ -22,7 +22,7 @@ const navLinkStyles = () => {
   }
 }
 
-function DateCards() {
+function DonationShedule() {
     const { donations, dispatch } = useDonationContext()
     const { user } = useAuthContext()
     const [requestData, setRequestData] = useState([]);
@@ -31,6 +31,9 @@ function DateCards() {
     const [dons, setDons] = useState([]);
     const [insDons,setInsDons] = useState([]);
 
+    const date = new Date(); // assume myDate is a date object
+    const formattedDate = date.toISOString().substring(0, 10);
+    console.log(formattedDate);
     // const GetDonnerData = async () => {
     //     let response = await fetch(`/findDonorByEmail`, {
     //         body: { "orgEmail" : orgEmail },
@@ -77,73 +80,101 @@ function DateCards() {
         <section id="service">
         <div className="container py-3 pr-3">
             <div className="row">     
-       <Box>
-       <NavLink style={navLinkStyles} to="/calendarForm">
-              <GradientButton style={{ backgroundImage: `linear-gradient(to right, #1abc9c 50%, #16a085 100%)`, }} >Add new Donation</GradientButton>
-      </NavLink>
-       </Box>
-       
        </div>
        </div>
           <div className="container py-5 pr-5">
             <div className="row">
-              <h2>{orgEmail}</h2>
+              
               <div className="col-md-6">
                 
-              {dons.Instant && dons.Instant.map((don, index) => (
-                <Card
-                  bg="success"
-                  text="white"
-                  style={{ width: '90%' }}
-                  className="m-3"
-                >
-                  <Card.Header>Instant Donation Schedule</Card.Header>
-                  <Card.Body>
-                    <Card.Title>Donor Name : {don.donorName}</Card.Title>
-                    <Card.Text>
-                      <strong>
-                      Date : {don.date}
-                      </strong>
-                    </Card.Text> 
-                    <Card.Text> 
-                      Meal Type : {don.mealType}
-                    </Card.Text>
-                    <Card.Text>
-                      Contact Number : {don.phone}
-                    </Card.Text>
-                  </Card.Body>
-                </Card>
-                ))}
+              {dons.Instant && dons.Instant.length > 0 ? (
+  dons.Instant.map((don, index) => (
+   
+    <Card
+      bg="warning"
+      text="white"
+      style={{ width: '90%' }}
+      className="m-3"
+    >
+      
+      <Card.Header>Instant Donation Schedule</Card.Header>
+      
+      <Card.Body>
+        <Card.Title>Donor Name : {don.donorName}</Card.Title>
+        <Card.Text>
+          <strong>
+          Date : {don.date}
+          </strong>
+        </Card.Text> 
+        <Card.Text> 
+          Meal Type : {don.mealType}
+        </Card.Text>
+        <Card.Text>
+          Contact Number : {don.phone}
+        </Card.Text>
+      </Card.Body>
+    </Card>
+  ))
+) : (
+  <Card
+    bg="danger"
+    text="white"
+    style={{ width: '90%' }}
+    className="m-3"
+  >
+    <Card.Header>No Instant Donations</Card.Header>
+    <Card.Body>
+      <Card.Text>
+        There are currently no instant donations scheduled.
+      </Card.Text>
+    </Card.Body>
+  </Card>
+)}
+
 
               </div>
               <div className="col-md-6">
-              {dons.Reserved && dons.Reserved.map((don, index) => (
-                <Card
-                  bg="success"
-                  text="white"
-                  style={{ width: '90%' }}
-                  className="m-3"
-                >
-                  <Card.Header>Reserved Donation Schedule</Card.Header>
-                  <Card.Body>
-                    <Card.Title>Donor Name : {don.donorName}</Card.Title>
-                    <Card.Text>
-                      <strong>
-                      Date : {don.date}
-                      </strong>
-                    </Card.Text> 
-                    <Card.Text> 
-                      Meal Type : {don.mealType}
-                    </Card.Text>
-                    <Card.Text>
-                      Contact Number : {don.phone}
-                    </Card.Text>
-                  </Card.Body>
-                </Card>
-                ))}
-              </div>
-             
-              
+              {dons.Reserved && dons.Reserved.length > 0 ? (
+  dons.Reserved.map((don, index) => (
+    <Card
+      bg="info"
+      text="white"
+      style={{ width: '90%' }}
+      className="m-3"
+    >
+      <Card.Header>Reserved Donation Schedule</Card.Header>
+      <Card.Body>
+        <Card.Title>Donor Name : {don.donorName}</Card.Title>
+        <Card.Text>
+          <strong>
+          Date : {don.date}
+          </strong>
+        </Card.Text> 
+        <Card.Text> 
+          Meal Type : {don.mealType}
+        </Card.Text>
+        <Card.Text>
+          Contact Number : {don.phone}
+        </Card.Text>
+      </Card.Body>
+    </Card>
+  ))
+) : (
+  <Card
+    bg="danger"
+    text="white"
+    style={{ width: '90%' }}
+    className="m-3"
+  >
+    <Card.Header>No Reserved Donations</Card.Header>
+    <Card.Body>
+      <Card.Text>
+        There are currently no reserved donations scheduled.
+      </Card.Text>
+    </Card.Body>
+  </Card>
+)}
+              </div> 
             </div>
           </div>
         </section>
@@ -154,4 +185,4 @@ function DateCards() {
   
   
 
-export default DateCards;
+export default DonationShedule;
